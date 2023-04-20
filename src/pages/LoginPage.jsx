@@ -1,12 +1,13 @@
-import LateralMenu from '../components/LateralMenu.jsx'
-import NavBar from '../components/Navbar.jsx'
+import LateralMenu from '../components/LateralMenu.jsx';
+import NavBar from '../components/Navbar.jsx';
 
 const LoginPage = () =>{
-
+const name = 'LoginPage';
     return (
         <>
-        <NavBar />
+        
         <LateralMenu/>
+        <NavBar name={name} />
         
         </>
         

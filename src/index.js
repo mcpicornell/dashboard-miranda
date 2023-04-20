@@ -2,26 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter, Routes, Route, PrivateRoute} from "react-router-dom";
 
-import LoginPage from "./pages/LoginPage";
-import Dashboard from "./pages/Dashboard";
-import BookingsPage from "./pages/BookingsPage";
-import RoomsPage from "./pages/RoomsPage";
-import RoomsAddPage from "./pages/RoomsAddPage";
-
-import ContactPage from "./pages/ContactPage";
-
-import UsersPage from "./pages/UsersPage";
-import UsersAddPage from "./pages/UsersAddPage";
-import UsersEditPage from "./pages/UsersEditPage";
+import App from './App';
 
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    
+    <App />
+  
+    {/* <BrowserRouter>
       <Routes>
               <Route path="/" element={<LoginPage />} />
               <Route path="/dashboard" element={<Dashboard />} />
@@ -38,7 +30,9 @@ root.render(
               <Route path='/users/addUser' element={<UsersAddPage/>} /> 
               <Route path='/users/:id' element={<UsersEditPage/>} /> 
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter> */}
+
+
   </React.StrictMode>
 );
 

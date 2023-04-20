@@ -33,10 +33,10 @@ const LateralMenu = () => {
         navigate("/users");
     }
 
-    const closeOpenMenu = (event) => {
-        event.preventDefault();
-        setOpen(prevState => !prevState);
-    }
+    // const closeOpenMenu = (event) => {
+    //     event.preventDefault();
+    //     setOpen(prevState => !prevState);
+    // }
 
 
     return (
@@ -45,13 +45,13 @@ const LateralMenu = () => {
             
                 <div className='aside__logo'>
                     <img className='logo__img' src={logoCompleto} />
-                    <a className='menuCloseObenButton' onClick={closeOpenMenu}><BsChevronRight className='logo__img-arrow-righ'/></a>
+                    <a className='menuCloseObenButton' onClick={() => setOpen(prevState => !prevState)}><BsChevronLeft className='logo__img-arrow-righ'/></a>
                 </div>
 
                 <div className='aside__list'>
                     <div className='list__container-element'>
                         <MdOutlineDashboard/>
-                        <a className='navBubuttonNavigateLateralMenutton' onClick={navToDashboard}><span className='container-element__name-list-element'>Dashboard</span></a>
+                        <a className='buttonNavigateLateralMenu' onClick={navToDashboard}><span className='container-element__name-list-element'>Dashboard</span></a>
                     </div>
                 </div>
 
@@ -76,9 +76,6 @@ const LateralMenu = () => {
                     </div>
                 </div>
 
-                
-
-
                 <div className='aside__card'>
                     <img className='card__img-aside-card' src={fakeMale}/>
                     <h4 className='card__user-name'>Antonio López Parés</h4>
@@ -86,25 +83,28 @@ const LateralMenu = () => {
                     <a className='card__edit-button'><span className='edit__button-span-card'>Edit</span></a>
                 </div>
                 
-                <span className='aside__bottom-title'>Travl Hotel Admin Dashboard</span>
-                <span className='aside__bottom-subtitle'>© 2020 All Rights Reserved</span>
-            
+                <div className='aside__bottom'>
+                    <span className='bottom-title'>Travl Hotel Admin Dashboard</span>
+                    <span className='bottom-subtitle'>© 2020 All Rights Reserved</span>
+                </div>
         </Aside>
     )
 };
 
 const Aside = styled.aside`
+        
         display: inline-block;
         margin: 0px;
         padding-top: 32px;
         padding-left: 56px;
         width: 285px;
-        display:block;
-        /* flex-direction: column; */
         background: #ffffff 0% 0% no-repeat padding-box;
         background: #FFFFFF 0% 0% no-repeat padding-box;
         box-shadow: 13px 3px 40px #00000005;
         opacity: 1;
+        /* ${props => !props.open && css`
+        display: none;
+        `} */
     
 
     .aside__logo{
@@ -122,8 +122,8 @@ const Aside = styled.aside`
         width: 220px;
     }
 
-    .menuCloseObenButton{
-
+    .menuCloseObenButton:hover{
+        cursor: pointer;
     }
 
     .logo__img-arrow-righ{
@@ -217,17 +217,19 @@ const Aside = styled.aside`
        
     }
     
+    .aside__bottom{
+        display: flex;
+        flex-direction: column;
+    }
 
-
-
-   .aside__bottom-title{
+   .bottom-title{
     font: normal normal 600 16px/25px Poppins;
     letter-spacing: 0px;
     color: #212121;
     opacity: 1;
     margin-bottom: 5px;
    }
-   .aside__bottom-subtitle{
+   .bottom-subtitle{
     font: normal normal 300 14px/21px Poppins;
     letter-spacing: 0px;
     color: #799283;
