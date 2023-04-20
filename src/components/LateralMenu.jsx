@@ -7,18 +7,28 @@ import {VscKey } from 'react-icons/vsc';
 import {BiUser } from 'react-icons/bi';
 import {BsChevronRight} from 'react-icons/bs';
 import {BsChevronLeft} from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {css} from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 
 
 const LateralMenu = () => {
 
     const [ open, setOpen ] = useState(true);
     const navigate = useNavigate();
+
+    const closeOpenMenu = (event) => {
+        setOpen(prevState => !prevState);
+    }
+
+    useEffect( () => {
+        console.log(open)
+    }, [open]);
+    
     
     const navToDashboard= () => {
-        navigate("/dashboard");
+        navigate("/");
     }
 
     const navToBookings= () => {
@@ -33,25 +43,23 @@ const LateralMenu = () => {
         navigate("/users");
     }
 
-    // const closeOpenMenu = (event) => {
-    //     event.preventDefault();
-    //     setOpen(prevState => !prevState);
-    // }
-
-
     return (
-        
-        <Aside >
+        <Aside open={open}>
             
                 <div className='aside__logo'>
+                    
                     <img className='logo__img' src={logoCompleto} />
-                    <a className='menuCloseObenButton' onClick={() => setOpen(prevState => !prevState)}><BsChevronLeft className='logo__img-arrow-righ'/></a>
+                    <a className='menuCloseObenButton' onClick={closeOpenMenu}><BsChevronLeft className='logo__img-arrow-righ'/></a>
                 </div>
 
                 <div className='aside__list'>
                     <div className='list__container-element'>
-                        <MdOutlineDashboard/>
-                        <a className='buttonNavigateLateralMenu' onClick={navToDashboard}><span className='container-element__name-list-element'>Dashboard</span></a>
+                    
+                    <MdOutlineDashboard/>
+                    <a className='buttonNavigateLateralMenu' onClick={navToDashboard}><span className='container-element__name-list-element'>Dashboard</span></a>
+
+                           
+                        
                     </div>
                 </div>
 
@@ -91,20 +99,22 @@ const LateralMenu = () => {
     )
 };
 
+
+
 const Aside = styled.aside`
-        
         display: inline-block;
         margin: 0px;
         padding-top: 32px;
         padding-left: 56px;
         width: 285px;
         background: #ffffff 0% 0% no-repeat padding-box;
-        background: #FFFFFF 0% 0% no-repeat padding-box;
         box-shadow: 13px 3px 40px #00000005;
         opacity: 1;
-        /* ${props => !props.open && css`
-        display: none;
-        `} */
+        z-index: 2;
+        ${props  => !props.open && css`
+        position: absolute;
+        left:-310px;
+        `} 
     
 
     .aside__logo{
@@ -118,7 +128,6 @@ const Aside = styled.aside`
     }
 
     .logo__img{
-       
         width: 220px;
     }
 
@@ -131,7 +140,6 @@ const Aside = styled.aside`
         opacity: 1;
         border-radius: 8px;
         padding-right: 8px;
-        
     }
 
     .logo__content{
@@ -247,8 +255,6 @@ const Aside = styled.aside`
         padding-right: 50px;
         padding-bottom: 8px;
         padding-left: 50px;
-
-        /* padding: 14px 42px 13px 38px;         */
     }
 
    .edit__button-span-card{
@@ -264,7 +270,7 @@ const Aside = styled.aside`
    .buttonNavigateLateralMenu{
     cursor: pointer;
    }
-`
+`;
 
 
 

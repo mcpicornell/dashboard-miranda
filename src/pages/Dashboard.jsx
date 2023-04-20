@@ -1,10 +1,13 @@
+import LateralMenu from "../components/LateralMenu";
+import NavBar from "../components/Navbar";
 
 const Dashboard = () =>{
-
+const name = 'Dashboard';
     return (
-        <h1>Dashboard</h1>
+        <>
+           <NavBar name={name}/>
+        </>
     )
-
 };
 
 export default Dashboard;

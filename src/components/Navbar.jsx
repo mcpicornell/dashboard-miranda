@@ -7,6 +7,8 @@ import {MdLogout } from 'react-icons/md';
 
 import {GrTextAlignFull } from 'react-icons/gr';
 
+import {BsChevronRight} from 'react-icons/bs';
+import {BsChevronLeft} from 'react-icons/bs';
 
 const NavBar = (props) =>{
     
@@ -14,8 +16,7 @@ const NavBar = (props) =>{
         <Nav>
             <section className='nav-section'>
                 <div className='nav-section__options'>
-                    
-                    <GrTextAlignFull className='options__elements-nav' />
+                    <a ><GrTextAlignFull className='options__elements-nav'/></a>
                     {/* <h1 className='options-name-nav'>{props}</h1> */}
                     <h1  className='options__title-h1'>{props.name}</h1>
                 </div>
@@ -28,7 +29,6 @@ const NavBar = (props) =>{
 
             </section>
         </Nav>
-
     )
 }
 
