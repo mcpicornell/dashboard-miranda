@@ -9,42 +9,42 @@ const Dashboard = () =>{
     return (
         <>
 
-        <Title>
-            <h1 className="title">Dashboard</h1>
-        </Title>
-        
+            <Title>
+                <h1 className="title">Dashboard</h1>
+            </Title>
+            
             <Header>
-                <HeaderElements>
-                    <BiBed className='bed' />
-                    <ElementsInformation>
-                        <span>8461</span>
-                        <h4 className="h4">New Booking</h4>
-                    </ElementsInformation>
-                </HeaderElements>
+                    <HeaderElements>
+                        <BiBed className='bed' />
+                        <ElementsInformation>
+                            <span>8461</span>
+                            <h4 className="h4">New Booking</h4>
+                        </ElementsInformation>
+                    </HeaderElements>
 
-                <HeaderElements>
-                    <RiCalendarCheckLine className='bed' />
-                    <ElementsInformation>
-                        <span>963</span>
-                        <h4 className="h4">Scheduled Room</h4>
-                    </ElementsInformation>
-                </HeaderElements>
+                    <HeaderElements>
+                        <RiCalendarCheckLine className='bed' />
+                        <ElementsInformation>
+                            <span>963</span>
+                            <h4 className="h4">Scheduled Room</h4>
+                        </ElementsInformation>
+                    </HeaderElements>
 
-                <HeaderElements>
-                    <IoLogInOutline className='bed' />
-                    <ElementsInformation>
-                        <span>753</span>
-                        <h4 className="h4">Check In</h4>
-                    </ElementsInformation>
-                </HeaderElements>
+                    <HeaderElements>
+                        <IoLogInOutline className='bed' />
+                        <ElementsInformation>
+                            <span>753</span>
+                            <h4 className="h4">Check In</h4>
+                        </ElementsInformation>
+                    </HeaderElements>
 
-                <HeaderElements>
-                    <IoLogOutOutline className='bed' />
-                    <ElementsInformation>
-                        <span>516</span>
-                        <h4 className="h4">Check Out</h4>
-                    </ElementsInformation>
-                </HeaderElements>
+                    <HeaderElements>
+                        <IoLogOutOutline className='bed' />
+                        <ElementsInformation>
+                            <span>516</span>
+                            <h4 className="h4">Check Out</h4>
+                        </ElementsInformation>
+                    </HeaderElements>
             </Header>
         </>
     )
@@ -53,9 +53,10 @@ const Dashboard = () =>{
 export default Dashboard;
 
 const Title = styled.div`
+        display: flex;
         z-index: 0;
         position: relative;
-        top: 0px;
+        top: 5px;
         left: 100px;
         height: 10px;
         
@@ -73,12 +74,12 @@ const Header = styled.header`
     margin-top: 150px;
     margin-left: -100px;
     display: flex;
-
+    width: 100%;
     
 
     .bed{
         width: 28px;
-        height: 20px;
+        height: 28px;
         margin-right: 22px;
         padding: 20px;
         background: #FFEDEC 0% 0% no-repeat padding-box;
@@ -95,6 +96,7 @@ const HeaderElements = styled.div`
     border-radius: 12px;
     opacity: 1;
     height: 125px;
+    justify-content: center;
     align-items: center;
     margin-right: 38px;
     padding-right: 100px;

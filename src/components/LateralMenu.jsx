@@ -54,12 +54,8 @@ const LateralMenu = () => {
 
                 <div className='aside__list'>
                     <div className='list__container-element'>
-                    
                     <MdOutlineDashboard/>
                     <a className='buttonNavigateLateralMenu' onClick={navToDashboard}><span className='container-element__name-list-element'>Dashboard</span></a>
-
-                           
-                        
                     </div>
                 </div>
 
@@ -221,8 +217,6 @@ const Aside = styled.aside`
         letter-spacing: 0px;
         color: #B2B2B2;
         opacity: 1;
-        
-       
     }
     
     .aside__bottom{
