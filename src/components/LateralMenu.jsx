@@ -7,7 +7,7 @@ import {VscKey } from 'react-icons/vsc';
 import {BiUser } from 'react-icons/bi';
 import {BsChevronRight} from 'react-icons/bs';
 import {BsChevronLeft} from 'react-icons/bs';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {css} from 'styled-components';
 import { useState, useEffect } from 'react';
 
@@ -16,7 +16,7 @@ import { useState, useEffect } from 'react';
 const LateralMenu = () => {
 
     const [ open, setOpen ] = useState(true);
-    const navigate = useNavigate();
+    
 
     const closeOpenMenu = (event) => {
         setOpen(prevState => !prevState);
@@ -25,82 +25,50 @@ const LateralMenu = () => {
     useEffect( () => {
         console.log(open)
     }, [open]);
-    
-    
-    const navToDashboard= () => {
-        navigate("/");
-    }
-
-    const navToBookings= () => {
-        navigate("/bookings");
-    }
-
-    const navToRooms= () => {
-        navigate("/rooms");
-    }
-
-    const navToUsers= () => {
-        navigate("/users");
-    }
 
     return (
         <Aside open={open}>
             
                 <div className='aside__logo'>
-                    
                     <img className='logo__img' src={logoCompleto} />
                     <a className='menuCloseObenButton' onClick={closeOpenMenu}><BsChevronLeft className='logo__img-arrow-righ'/></a>
                 </div>
 
                 <div className='aside__list'>
                      
-
                     <div className='list__container-element'>
-                    <LinkList to='/' >
-                        <MdOutlineDashboard className='container-element__svg' />
-                        {/* <a className='buttonNavigateLateralMenu' onClick={navToDashboard}> */}
-                            <span className='container-element__name-list-element'>Dashboard</span>
-                            {/* </a> */}
-                    
-                     </LinkList>
-                      </div>
+                        <LinkList to='/' >
+                            <MdOutlineDashboard className='container-element__svg' />
+                                <span className='container-element__name-list-element'>Dashboard</span>
+                        </LinkList>
+                    </div>
                 </div>
 
                 <div className='aside__list'>
                     <div className='list__container-element'>
                         <LinkList to='/bookings'>
                             <RiCalendarEventLine className='container-element__svg' />
-                            {/* <a className='buttonNavigateLateralMenu' onClick={navToBookings}> */}
                             <span className='container-element__name-list-element'>Bookings</span>
-                                {/* </a> */}
-                    
                         </LinkList>
-                          </div>
+                    </div>
+                </div>
+
+                <div className='aside__list'>
+                    <div className='list__container-element'>
+                        <LinkList to='/rooms'>
+                            <VscKey className='container-element__svg'/>
+                                <span className='container-element__name-list-element'>Rooms</span>
+                        </LinkList>
+                    </div>
                 </div>
 
                 <div className='aside__list'>
                     <div className='list__container-element'>
 
-                    <LinkList to='/rooms'>
-                        <VscKey className='container-element__svg'/>
-                        {/* <a className='buttonNavigateLateralMenu' onClick={navToRooms}> */}
-                            <span className='container-element__name-list-element'>Rooms</span>
-                            {/* </a>
-                   */}
-                    </LinkList>
-
-                          </div>
-                </div>
-
-                <div className='aside__list'>
-                    <div className='list__container-element'>
-
-                    <LinkList to='users'>
-                        <BiUser className='container-element__svg' />
-                        {/* <a className='buttonNavigateLateralMenu' onClick={navToUsers}> */}
-                            <span className='container-element__name-list-element'>Users</span>
-                        {/* </a> */}
-                    </LinkList>
+                        <LinkList to='users'>
+                            <BiUser className='container-element__svg' />
+                                <span className='container-element__name-list-element'>Users</span>
+                        </LinkList>
 
                         </div>
                 </div>
@@ -123,10 +91,6 @@ const LateralMenu = () => {
 const LinkList = styled(NavLink)`
     text-decoration: none;
     color: #5D5449;
-
-    .container-element__svg{
-        
-    }
 
     .container-element__name-list-element{
         color: #5D5449;
