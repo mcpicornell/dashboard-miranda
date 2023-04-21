@@ -1,11 +1,8 @@
 
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = (props) =>{
 
-const [username, setUsername] = useState("admin@admin.com");
-const [password, setPassword] = useState("admin");
 
     const nav = useNavigate();
 
