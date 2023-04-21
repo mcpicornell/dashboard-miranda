@@ -1,30 +1,29 @@
 import styled from 'styled-components';
 import {FiMail } from 'react-icons/fi';
-
 import {HiOutlineBell} from 'react-icons/hi';
-
 import {MdLogout } from 'react-icons/md';
-
 import {GrTextAlignFull } from 'react-icons/gr';
 
-import {BsChevronRight} from 'react-icons/bs';
-import {BsChevronLeft} from 'react-icons/bs';
 
 const NavBar = (props) =>{
+
+    const logOutClickHandler = (event) => {
+        props.setAuthenticated(false);
+    }
     
     return(
         <Nav>
             <section className='nav-section'>
                 <div className='nav-section__options'>
                     <a ><GrTextAlignFull className='options__elements-nav'/></a>
-                    {/* <h1 className='options-name-nav'>{props}</h1> */}
+                    
                     <h1  className='options__title-h1'>{props.name}</h1>
                 </div>
 
                 <div className='nav-section__options'>
                     <FiMail  className='options__elements-nav' />
                     <HiOutlineBell  className='options__elements-nav' />
-                    <MdLogout  className='options__elements-nav' />
+                    <MdLogout  className='options__elements-nav' onClick={logOutClickHandler}/>
                 </div>
 
             </section>

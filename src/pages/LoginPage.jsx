@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginPage = (props) =>{
 
-const [username, setUsername] = useState("");
-const [password, setPassword] = useState("");
+const [username, setUsername] = useState("admin@admin.com");
+const [password, setPassword] = useState("admin");
 
     const nav = useNavigate();
 
-    const logInSubmitHandler = (event) => {
+    const loginSubmitHandler = (event) => {
         event.preventDefault();
         props.setAuthenticated(true);
         nav("/");
@@ -17,7 +17,7 @@ const [password, setPassword] = useState("");
 
     return (
         <>
-        <form onSubmit={logInSubmitHandler}>
+        <form onSubmit={loginSubmitHandler}>
             <label>Introduce tu email</label>
             <input placeholder='email' request type='email'/>
             <label>Introduce contraseña</label>

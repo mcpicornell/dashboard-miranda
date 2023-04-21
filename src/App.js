@@ -39,7 +39,7 @@ function App() {
         <Route element={<PrivateRoute auth={authenticated}/>}> 
           <Route element={<Layout setAuthenticated={setAuthenticated}/>}>
 
-              <Route path="/" element={<Dashboard />} />
+              <Route exact path="/" element={<Dashboard />} />
 
               <Route exact path="/bookings" element={<BookingsPage />} />
               <Route path="/bookings/:id" element={<BookingsPage/>} />
@@ -47,7 +47,7 @@ function App() {
               <Route exact path="/rooms" element={<RoomsPage />}/>
               <Route path='/rooms/addRoom' element={<RoomsAddPage />} />
 
-              <Route path='/contact' element={<ContactPage />} />
+              <Route exact path='/contact' element={<ContactPage />} />
 
               <Route exact path='/users' element={<UsersPage/>} /> 
               <Route path='/users/addUser' element={<UsersAddPage/>} /> 
