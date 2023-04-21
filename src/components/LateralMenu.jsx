@@ -53,31 +53,56 @@ const LateralMenu = () => {
                 </div>
 
                 <div className='aside__list'>
+                     
+
                     <div className='list__container-element'>
-                    <MdOutlineDashboard/>
-                    <a className='buttonNavigateLateralMenu' onClick={navToDashboard}><span className='container-element__name-list-element'>Dashboard</span></a>
-                    </div>
+                    <LinkList to='/' >
+                        <MdOutlineDashboard className='container-element__svg' />
+                        {/* <a className='buttonNavigateLateralMenu' onClick={navToDashboard}> */}
+                            <span className='container-element__name-list-element'>Dashboard</span>
+                            {/* </a> */}
+                    
+                     </LinkList>
+                      </div>
                 </div>
 
                 <div className='aside__list'>
                     <div className='list__container-element'>
-                        <RiCalendarEventLine/>
-                        <a className='buttonNavigateLateralMenu' onClick={navToBookings}><span className='container-element__name-list-element'>Bookings</span></a>
-                    </div>
+                        <LinkList to='/bookings'>
+                            <RiCalendarEventLine className='container-element__svg' />
+                            {/* <a className='buttonNavigateLateralMenu' onClick={navToBookings}> */}
+                            <span className='container-element__name-list-element'>Bookings</span>
+                                {/* </a> */}
+                    
+                        </LinkList>
+                          </div>
                 </div>
 
                 <div className='aside__list'>
                     <div className='list__container-element'>
-                        <VscKey/>
-                        <a className='buttonNavigateLateralMenu' onClick={navToRooms}><span className='container-element__name-list-element'>Rooms</span></a>
-                    </div>
+
+                    <LinkList to='/rooms'>
+                        <VscKey className='container-element__svg'/>
+                        {/* <a className='buttonNavigateLateralMenu' onClick={navToRooms}> */}
+                            <span className='container-element__name-list-element'>Rooms</span>
+                            {/* </a>
+                   */}
+                    </LinkList>
+
+                          </div>
                 </div>
 
                 <div className='aside__list'>
                     <div className='list__container-element'>
-                        <BiUser/>
-                        <a className='buttonNavigateLateralMenu' onClick={navToUsers}><span className='container-element__name-list-element'>Users</span></a>
-                    </div>
+
+                    <LinkList to='users'>
+                        <BiUser className='container-element__svg' />
+                        {/* <a className='buttonNavigateLateralMenu' onClick={navToUsers}> */}
+                            <span className='container-element__name-list-element'>Users</span>
+                        {/* </a> */}
+                    </LinkList>
+
+                        </div>
                 </div>
 
                 <div className='aside__card'>
@@ -95,6 +120,32 @@ const LateralMenu = () => {
     )
 };
 
+const LinkList = styled(NavLink)`
+    text-decoration: none;
+    color: #5D5449;
+
+    .container-element__svg{
+        
+    }
+
+    .container-element__name-list-element{
+        color: #5D5449;
+    }
+    
+    &.active{
+        color: red !important;
+    }
+
+    &.active span {
+        color: red !important;
+    }
+
+    &.container-element__svg{
+        color: red !important;
+    }
+
+
+`
 
 
 const Aside = styled.aside`
@@ -259,10 +310,6 @@ const Aside = styled.aside`
     opacity: 1;
     margin-bottom: 5px;
     
-   }
-
-   .buttonNavigateLateralMenu{
-    cursor: pointer;
    }
 `;
 
