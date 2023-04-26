@@ -22,9 +22,8 @@ const LateralMenu = () => {
         setOpen(prevState => !prevState);
     }
 
-    useEffect( () => {
-        console.log(open)
-    }, [open]);
+    // useEffect( () => {
+    // }, [open]);
 
     return (
         <Aside open={open}>
@@ -97,15 +96,15 @@ const LinkList = styled(NavLink)`
     }
     
     &.active{
-        color: red !important;
+        color: red;
     }
 
     &.active span {
-        color: red !important;
+        color: red;
     }
 
     &.container-element__svg{
-        color: red !important;
+        color: red;
     }
 
 
@@ -192,7 +191,10 @@ const Aside = styled.aside`
 
     .container-element__name-list-element{
         margin-left: 26px;
-        font: normal normal normal 18px/27px Poppins;
+        font-size: 18px;
+        line-height: 27px;
+        font-family: 'Poppins';
+
         letter-spacing: 0px;
         color: hsla(144, 10%, 52%, 1);
         opacity: 1;
@@ -221,14 +223,14 @@ const Aside = styled.aside`
     }
     .card__user-name{
         color: #393939;
-        font: normal normal medium 16px/25px Poppins;
+        font: normal normal medium 16px/25px 'Poppins';
         letter-spacing: 0px;
         color: #393939;
         opacity: 1;
     }
     .card__user-email{
         text-align: center;
-        font: normal normal 300 12px/18px Poppins;
+        font: normal normal 300 12px/18px 'Poppins';
         letter-spacing: 0px;
         color: #B2B2B2;
         opacity: 1;
@@ -240,14 +242,14 @@ const Aside = styled.aside`
     }
 
    .bottom-title{
-    font: normal normal 600 16px/25px Poppins;
+    font: normal normal 600 16px/25px 'Poppins';
     letter-spacing: 0px;
     color: #212121;
     opacity: 1;
     margin-bottom: 5px;
    }
    .bottom-subtitle{
-    font: normal normal 300 14px/21px Poppins;
+    font: normal normal 300 14px/21px 'Poppins';
     letter-spacing: 0px;
     color: #799283;
     opacity: 1;
@@ -268,7 +270,7 @@ const Aside = styled.aside`
 
    .edit__button-span-card{
     
-    font: normal normal 600 14px/21px Poppins;
+    font: normal normal 600 14px/21px 'Poppins';
     letter-spacing: 0px;
     color: #135846;
     opacity: 1;

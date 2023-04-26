@@ -1,0 +1,29 @@
+[
+    {
+        "roomType": "Single Bed",
+        "description": "description single bed room",
+        "amenities": "shower single",
+        "photos": "https://images.unsplash.com/photo-1605346434674-a440ca4dc4c0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+    },
+    {
+        "roomType": "Double Bed",
+        "description": "description Double bed room",
+        "amenities": "shower double",
+        "photos": "https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=327&q=80"
+    },
+    {
+        "roomType": "Double Superior",
+        "description": "description Double Superior room",
+        "amenities": "shower superior",
+        "photos": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+    },
+    
+    {
+        "roomType": "Suite",
+        "description": "description Suite room",
+        "amenities": "suite bath",
+        "photos": "https://plus.unsplash.com/premium_photo-1661956080119-71234af803b3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=812&q=80"
+    }
+    
+]
+

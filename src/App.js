@@ -1,25 +1,29 @@
-import logo from './logo.svg';
+
 import './App.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/Dashboard";
-import BookingsPage from "./pages/BookingsPage";
-import RoomsPage from "./pages/RoomsPage";
-import RoomsAddPage from "./pages/RoomsAddPage";
-
+import BookingsPage from "./pages/bookings/BookingsPage";
+import BookingsInfoPage from './pages/bookings/BookingsInfoPage';
+import RoomsPage from "./pages/rooms/RoomsPage";
+import RoomsAddPage from "./pages/rooms/RoomsAddPage";
 import ContactPage from "./pages/ContactPage";
 
-import UsersPage from "./pages/UsersPage";
-import UsersAddPage from "./pages/UsersAddPage";
-import UsersEditPage from "./pages/UsersEditPage";
+import UsersPage from "./pages/users/UsersPage";
+import UsersAddPage from "./pages/users/UsersAddPage";
+import UsersEditPage from "./pages/users/UsersEditPage";
 import { PrivateRoute } from './components/PrivateRoute';
 import { Layout } from './components/Layout';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { Provider } from 'react-redux';
+import {store} from './app/store'
+// import { useLocation } from 'react-router-dom';
 
 function App() {
 
+  // const location = useLocation();
   const [authenticated, setAuthenticated] = useState(localStorage.getItem("auth"));
 
   useEffect(() => {
@@ -30,32 +34,53 @@ function App() {
     }
   }, [authenticated]);
 
+  // const getTitle = (pathname) => {
+  //   switch (pathname) {
+  //     case "/":
+  //       return "Dashboard";
+  //     case "/rooms":
+  //       return "Rooms";
+  //     case "/bookings":
+  //       return "Bookings";
+  //     case "/guest":
+  //       return "Guest";
+  //     case "/contact":
+  //       return "Contact";
+  //     default:
+  //       return "Dashboard";
+  //   }
+  // };
+
   return (
+    <Provider store={store}>
+
+    
     <BrowserRouter>
 
-      <Routes>
-        <Route path="/login" element={<LoginPage setAuthenticated={setAuthenticated}/>} />
+        <Routes>
+          <Route path="/login" element={<LoginPage setAuthenticated={setAuthenticated}/>} />
 
-        <Route element={<PrivateRoute auth={authenticated}/>}> 
-          <Route element={<Layout setAuthenticated={setAuthenticated}/>}>
+          <Route element={<PrivateRoute auth={authenticated}/>}> 
+            <Route element={<Layout />}>
 
-              <Route exact path="/" element={<Dashboard />} />
+                <Route exact path="/" element={<Dashboard />} />
 
-              <Route exact path="/bookings" element={<BookingsPage />} />
-              <Route path="/bookings/:id" element={<BookingsPage/>} />
+                <Route exact path="/bookings" element={<BookingsPage />} />
+                <Route path="/bookings/:id" element={<BookingsInfoPage/>} />
 
-              <Route exact path="/rooms" element={<RoomsPage />}/>
-              <Route path='/rooms/addRoom' element={<RoomsAddPage />} />
+                <Route exact path="/rooms" element={<RoomsPage />}/>
+                <Route path='/rooms/addRoom' element={<RoomsAddPage />} />
 
-              <Route exact path='/contact' element={<ContactPage />} />
+                <Route exact path='/contact' element={<ContactPage />} />
 
-              <Route exact path='/users' element={<UsersPage/>} /> 
-              <Route path='/users/addUser' element={<UsersAddPage/>} /> 
-              <Route path='/users/:id' element={<UsersEditPage/>} />
+                <Route exact path='/users' element={<UsersPage/>} /> 
+                <Route path='/users/addUser' element={<UsersAddPage/>} /> 
+                <Route path='/users/:id' element={<UsersEditPage/>} />
+            </Route>
           </Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 }
 

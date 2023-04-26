@@ -6,10 +6,6 @@ import NavBar from '../components/Navbar.jsx';
 
 export const Layout = (props) => {
 
-    
-
-    
-
 
     return (
         <>
@@ -19,11 +15,9 @@ export const Layout = (props) => {
                 <NavBar props ={props} />
             </div>
             
-            <Outlet  style={{backgroundColor: 'grey'}} />
+            <Outlet />
         </div>
-            
         </>
-        
     );
 };
 

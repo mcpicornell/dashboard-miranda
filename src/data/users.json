@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "Finnley Kaufman",
+        "photo": "https://randomuser.me/api/portraits/men/59.jpg",
+        "email": "finnley@gmail.com",
+        "startDate": "2021-01-01",
+        "descriptionJob": "recepcionist",
+        "contact": "611111111",
+        "status": "Active"
+    },
+    {
+        "id": 2,
+        "name": "Leyton Grimes",
+        "photo": "https://randomuser.me/api/portraits/men/43.jpg",
+        "email": "leyton@gmail.com",
+        "startDate": "2022-01-01",
+        "descriptionJob": "cooker",
+        "contact": "622222222",
+        "status": "Active"
+    },
+    {
+        "id": 3,
+        "name": "Bushra Cox",
+        "photo": "https://randomuser.me/api/portraits/women/9.jpg",
+        "email": "bushra@gmail.com",
+        "startDate": "2023-01-01",
+        "descriptionJob": "waitress",
+        "contact": "633333333",
+        "status": "Inactive"
+    }
+]

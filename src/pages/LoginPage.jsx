@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginPage = (props) =>{
 
-
     const nav = useNavigate();
 
     const loginSubmitHandler = (event) => {
@@ -21,12 +20,8 @@ const LoginPage = (props) =>{
             <input placeholder='contraseña' request type='password'/>
             <button type='submit'>Submit</button>
         </form>
-        
         </>
-        
     )
-
 };
 
 export default LoginPage;
-

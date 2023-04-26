@@ -1,0 +1,30 @@
+[
+    {
+        "guest": "Jim Stevenson",
+        "orderDate": "2021-04-01",
+        "checkIn": "2021-05-01",
+        "checkOut": "2021-06-01",
+        "specialRequest": "Request from Jim",
+        "roomType": "Single Bed",
+        "status": "Check Out"
+    },
+    {
+        "guest": "Euan Anderson",
+        "orderDate": "2022-04-01",
+        "checkIn": "2022-05-01",
+        "checkOut": "2022-06-01",
+        "specialRequest": "Request from Euan",
+        "roomType": "Double Bed",
+        "status": "Check In"
+    },
+    {
+        "guest": "Drew Stanton",
+        "orderDate": "2023-04-01",
+        "checkIn": "2023-05-01",
+        "checkOut": "2023-06-01",
+        "specialRequest": "Request from Drew",
+        "roomType": "Double Superior",
+        "status": "Check In"
+    }
+    
+]

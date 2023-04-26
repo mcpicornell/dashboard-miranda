@@ -16,7 +16,6 @@ const NavBar = (props) =>{
             <section className='nav-section'>
                 <div className='nav-section__options'>
                     <GrTextAlignFull className='options__elements-nav' style={{color: 'rgb(57, 57, 57)'}} />
-                    
                     <h1  className='options__title-h1'>{props.name}</h1>
                 </div>
 
@@ -29,8 +28,7 @@ const NavBar = (props) =>{
             </section>
         </Nav>
     )
-}
-
+};
 
 export default NavBar;
 
@@ -39,7 +37,7 @@ const Nav = styled.nav`
     padding-left: 20px;
     display: inline-block;
     position: absolute;
-    width: 1575px;
+    width: 100%;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 10px #00000005;
     opacity: 1;
@@ -69,7 +67,7 @@ const Nav = styled.nav`
 
 
     .options__title-h1{
-        font: normal normal 600 28px/42px Poppins;
+        font: normal normal 600 28px/42px 'Poppins';
         letter-spacing: 0px;
         color: #262626;
         opacity: 1;
