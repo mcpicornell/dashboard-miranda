@@ -1,7 +1,6 @@
 
 import './App.css';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
-
 import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/Dashboard";
 import BookingsPage from "./pages/bookings/BookingsPage";
@@ -15,52 +14,51 @@ import UsersAddPage from "./pages/users/UsersAddPage";
 import UsersEditPage from "./pages/users/UsersEditPage";
 import { PrivateRoute } from './components/PrivateRoute';
 import { Layout } from './components/Layout';
-import { useState } from 'react';
+import { useContext, useReducer, useState } from 'react';
 import { useEffect } from 'react';
-import { Provider } from 'react-redux';
-import {store} from './app/store'
-// import { useLocation } from 'react-router-dom';
+import { UserContext } from './UserContext';
+
+
+
+
+const initialState = false;
+const reducer = (state, action) => {
+if(action.type === "auth"){
+  state = true;
+  return state;
+} 
+else if (action.type === "logOut"){
+  state = false;
+  return state;
+  }
+
+else{
+  state = false;
+  return state;
+  }
+}
+
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  // const location = useLocation();
-  const [authenticated, setAuthenticated] = useState(localStorage.getItem("auth"));
-
-  useEffect(() => {
-    if (authenticated) {
-      localStorage.setItem("auth", "true");
-    } else {
-      localStorage.removeItem("auth");
-    }
-  }, [authenticated]);
-
-  // const getTitle = (pathname) => {
-  //   switch (pathname) {
-  //     case "/":
-  //       return "Dashboard";
-  //     case "/rooms":
-  //       return "Rooms";
-  //     case "/bookings":
-  //       return "Bookings";
-  //     case "/guest":
-  //       return "Guest";
-  //     case "/contact":
-  //       return "Contact";
-  //     default:
-  //       return "Dashboard";
+  // useEffect(() => {
+  //   if (state == true) {
+  //     localStorage.setItem("auth", "true");
+  //   } else {
+  //     localStorage.removeItem("auth");
   //   }
-  // };
-
+  // });
+  
   return (
-    <Provider store={store}>
+    <UserContext.Provider value={{state, dispatch}}>
 
-    
     <BrowserRouter>
 
         <Routes>
-          <Route path="/login" element={<LoginPage setAuthenticated={setAuthenticated}/>} />
+          <Route path="/login" element={<LoginPage auth={state} />} />
 
-          <Route element={<PrivateRoute auth={authenticated}/>}> 
+          <Route element={<PrivateRoute auth={state}/>}> 
             <Route element={<Layout />}>
 
                 <Route exact path="/" element={<Dashboard />} />
@@ -80,7 +78,8 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </Provider>
+      </UserContext.Provider>
+   
   );
 }
 

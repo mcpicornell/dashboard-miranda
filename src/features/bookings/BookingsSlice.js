@@ -26,7 +26,7 @@ export const BookingsSlice = createSlice({
             state.error = action.payload;
           })
         .addCase(fetchBookings.pending, (state, action) => {
-            state.status = "loading";
+            state.status = "pending";
           })
 
         .addCase(addBooking.fulfilled, (state, action) => {
@@ -37,25 +37,23 @@ export const BookingsSlice = createSlice({
             state.error = action.payload;
           })
         .addCase(addBooking.pending, (state, action) => {
-            //GESTIONAR
-          })
+            state.status = "pending";          })
 
         .addCase(deleteBooking.fulfilled, (state, action) => {
-          state.data = state.data.filter((user) => user.id !==  action.payload.id);
+            state.data = state.data.filter((user) => user.id !==  action.payload.id);
 
           })
         .addCase(deleteBooking.rejected, (state, action) => {
             state.error = action.payload;
           })
         .addCase(deleteBooking.pending, (state, action) => {
-            //GESTIONAR
-
+            state.status = "pending";
           })
-      },
+      }
 
 });
 
-export const {setBooking} = UsersSlice.actions;
+export const {setBooking} = BookingsSlice.actions;
 
 export const getBookingsStatus = (state) => state.bookings.status;
 export const getBookingsData = (state) => state.bookings.data;

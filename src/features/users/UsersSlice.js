@@ -1,5 +1,5 @@
 import { createSlice} from "@reduxjs/toolkit"
-import { fetchUsers, addUser, deleteUser } from "../asyncThunk";
+import { fetchUsers, addUser, deleteUser, editUser } from "../asyncThunk";
 
 export const UsersSlice = createSlice({
     name: "users",
@@ -26,7 +26,7 @@ export const UsersSlice = createSlice({
             state.error = action.payload;
           })
         .addCase(fetchUsers.pending, (state, action) => {
-            state.status = "loading";
+            state.status = "pending";
           })
 
         .addCase(addUser.fulfilled, (state, action) => {
@@ -37,8 +37,8 @@ export const UsersSlice = createSlice({
             state.error = action.payload;
           })
         .addCase(addUser.pending, (state, action) => {
-            //GESTIONAR
-          })
+          state.status = "pending";
+        })
 
         .addCase(deleteUser.fulfilled, (state, action) => {
           state.data = state.data.filter((user) => user.id !==  action.payload.id);
@@ -48,8 +48,18 @@ export const UsersSlice = createSlice({
             state.error = action.payload;
           })
         .addCase(deleteUser.pending, (state, action) => {
-            //GESTIONAR
+          state.status = "pending";
+          })
 
+        .addCase(editUser.fulfilled, (state, action) => {
+          state.data = state.data.filter((user) => user.id !==  action.payload.id);
+          state.data.push(action.payload);
+          })
+        .addCase(editUser.rejected, (state, action) => {
+          state.error = action.payload;
+          })
+        .addCase(editUser.pending, (state, action) => {
+          state.status = "pending";
           })
       },
 

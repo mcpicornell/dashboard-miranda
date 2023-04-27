@@ -9,34 +9,36 @@ export function delay(data, time = 200) {
 }
 
 //ROOMS
-
-export const fetchRooms = createAsyncThunk('rooms/fetchRooms', async (roomsJSON) => {
-    return await delay(roomsJSON);
+export const fetchRooms = createAsyncThunk('rooms/fetchRooms', async (data) => {
+    return await delay(data);
 });
 
 //USERS
-
-export const fetchUsers= createAsyncThunk('users/fetchUsers', async (usersJSON) => {
-    return await delay(usersJSON);
+export const fetchUsers= createAsyncThunk('users/fetchUsers', async (data) => {
+    return await delay(data);
 });
 
-export const addUser= createAsyncThunk('users/addUser', async (user) => {
-    return await delay(user);
+export const addUser= createAsyncThunk('users/addUser', async (userObj) => {
+    return await delay(userObj);
 });
 
-export const deleteUser= createAsyncThunk('users/deleteUser', async (user) => {
-    return await delay(user);
+export const deleteUser= createAsyncThunk('users/deleteUser', async (userObj) => {
+    return await delay(userObj);
+});
+
+export const editUser= createAsyncThunk('users/editUser', async (userObj) => {
+    return await delay(userObj);
 });
 
 //BOOKINGS
-export const fetchBookings = createAsyncThunk('bookings/fetchBookings', async (bookingsJSON) => {
-    return await delay(bookingsJSON);
+export const fetchBookings = createAsyncThunk('bookings/fetchBookings', async (data) => {
+    return await delay(data);
 });
 
-export const addBooking= createAsyncThunk('bookings/addBooking', async (booking) => {
-    return await delay(booking);
+export const addBooking= createAsyncThunk('bookings/addBooking', async (bookingObj) => {
+    return await delay(bookingObj);
 });
 
-export const deleteBooking= createAsyncThunk('bookings/deleteBooking', async (booking) => {
-    return await delay(booking);
+export const deleteBooking= createAsyncThunk('bookings/deleteBooking', async (bookingObj) => {
+    return await delay(bookingObj);
 });

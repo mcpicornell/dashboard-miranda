@@ -3,12 +3,17 @@ import {FiMail } from 'react-icons/fi';
 import {HiOutlineBell} from 'react-icons/hi';
 import {MdLogout } from 'react-icons/md';
 import {GrTextAlignFull } from 'react-icons/gr';
-
+import { useContext } from 'react';
+import { UserContext } from '../UserContext';
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = (props) =>{
-
+    const nav = useNavigate();
+    const {state, dispatch} = useContext(UserContext);
     const logOutClickHandler = (event) => {
-        props.setAuthenticated(false);
+        event.preventDefault();
+        dispatch({type: "logOut"});
+        
     }
     
     return(
