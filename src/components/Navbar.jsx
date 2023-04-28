@@ -12,7 +12,7 @@ const NavBar = (props) =>{
     const {state, dispatch} = useContext(UserContext);
     const logOutClickHandler = (event) => {
         event.preventDefault();
-        dispatch({type: "logOut"});
+        dispatch({  type: "logOut" });
         
     }
     

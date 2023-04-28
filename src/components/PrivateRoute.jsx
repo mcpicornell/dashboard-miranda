@@ -6,10 +6,10 @@ export const PrivateRoute = () => {
 
     const {state, dispatch} = useContext(UserContext);
 
-    if (state === true) {
+    if (state.auth === true) {
         return <Outlet/>;
-        
     }
+
     return <Navigate to="/login" />
     
 }

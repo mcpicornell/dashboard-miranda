@@ -5,6 +5,9 @@ import { fetchUsers, addUser, deleteUser } from "../../features/asyncThunk";
 import usersJSON from "../../data/users.json";
 import styled from "styled-components";
 
+import { Table } from "../../components/Table";
+import { Button } from "../../components/Button";
+
 const UsersPage = () =>{
 
 
@@ -13,6 +16,17 @@ const UsersPage = () =>{
      const usersStatus = useSelector(getUsersStatus);
      const usersData = useSelector(getUsersData);
      const usersError = useSelector(getUsersError);
+
+     const tableTitles = [
+        "Name",
+        "Start Date",
+        "Description",
+        "Phone",
+        "Email",
+        "Status",
+        "Details",
+        "Delete",
+      ];
 
     useEffect(() => {
         if (usersStatus == "idle") {
@@ -39,15 +53,12 @@ const UsersPage = () =>{
       
     return (
         <>
-        <h1>UsersPage</h1>
-
-            <Button onClick={addUserClick}>
-                UPLOAD
-            </Button>
-
-            <Button onClick={deleteUserClick}>
-                DELETE
-            </Button>
+        {/* <TableActions>
+        <Button onClick={addUserClick}>Add Room</Button>
+        <Button onClick={deleteUserClick}>Edit User</Button>
+        </TableActions> */}
+        <Table tableTitles={tableTitles} data={usersData} />
+        
         </>
         
     )
@@ -55,7 +66,8 @@ const UsersPage = () =>{
 
 export default UsersPage;
 
-const Button = styled.button`
-
-
+const TableActions = styled.div`
+width: auto;
 `
+
+

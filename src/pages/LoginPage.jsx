@@ -9,12 +9,13 @@ import { useState } from 'react';
 const LoginPage = (props) =>{
 
     const user = {
-        user: "admin",
+        userName: "admin",
         email: "admin@admin.com",
         password: "admin"
       };
 
     const {state, dispatch} = useContext(UserContext);
+
     const nav = useNavigate();
 
     const [emailValue, setEmail] = useState("");
@@ -22,22 +23,19 @@ const LoginPage = (props) =>{
 
     const loginSubmitHandler = (e) => {
         e.preventDefault();
-        
+
         if (emailValue === user.email && 
             passwordValue === user.password ){
-            dispatch({type: "auth"});
+            dispatch({type: "auth", value: {userName: user.userName, email: emailValue}})
             nav("/")
-
         }
         else if(emailValue !== user.email && 
             passwordValue !== user.password){
             console.log("El email y la contraseña son incorrectos")
-             
         }
         else if(emailValue === user.email && 
             passwordValue !== user.password){
             console.log("La contraseña es incorrecta")
-             
         }
         else{
             console.log("El email el incorrecto")

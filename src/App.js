@@ -21,19 +21,23 @@ import { UserContext } from './UserContext';
 
 
 
-const initialState = false;
+const initialState = {
+  auth: false,
+  email: "",
+  userName: ""
+};
 const reducer = (state, action) => {
 if(action.type === "auth"){
-  state = true;
+  state = {...state, auth: true, userName: action.value.userName, email: action.value.email};
   return state;
 } 
 else if (action.type === "logOut"){
-  state = false;
+  state = {...state, auth: false};
   return state;
   }
 
 else{
-  state = false;
+  state = {...state, auth: false};
   return state;
   }
 }

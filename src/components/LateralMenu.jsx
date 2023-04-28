@@ -10,20 +10,18 @@ import {BsChevronLeft} from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
 import {css} from 'styled-components';
 import { useState, useEffect } from 'react';
-
+import { useContext } from 'react';
+import { UserContext } from '../UserContext';
 
 
 const LateralMenu = () => {
 
     const [ open, setOpen ] = useState(true);
-    
+    const {state, dispatch} = useContext(UserContext);
 
     const closeOpenMenu = (event) => {
         setOpen(prevState => !prevState);
     }
-
-    // useEffect( () => {
-    // }, [open]);
 
     return (
         <Aside open={open}>
@@ -74,8 +72,8 @@ const LateralMenu = () => {
 
                 <div className='aside__card'>
                     <img className='card__img-aside-card' src={fakeMale}/>
-                    <h4 className='card__user-name'>Antonio López Parés</h4>
-                    <h5 className='card__user-email'>toni.lopez.pares@gmail.com</h5>
+                    <h4 className='card__user-name'>{state.userName}</h4>
+                    <h5 className='card__user-email'>{state.email}</h5>
                     <a className='card__edit-button'><span className='edit__button-span-card'>Edit</span></a>
                 </div>
                 
