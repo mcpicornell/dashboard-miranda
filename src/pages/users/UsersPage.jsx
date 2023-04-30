@@ -72,7 +72,7 @@ width: auto;
 `
 
 const StyledTable = styled(Table)`
-  margin-top: 800px;
+  
   display: flex;
   flex-direction: column;
 `
