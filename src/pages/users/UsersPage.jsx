@@ -28,28 +28,29 @@ const UsersPage = () =>{
         "Delete",
       ];
 
+    const user = {
+      id: 4,
+      name: "user"
+    }
+
+    const addUserClick = () => {
+      dispatch(addUser(user))
+    }
+  
+
+    const deleteUserClick = () => {
+        dispatch(deleteUser(user))
+    }
+
     useEffect(() => {
         if (usersStatus == "idle") {
           dispatch(fetchUsers(usersJSON))
         }
       }, [usersStatus], dispatch);
 
-      const user = {
-        id: 4,
-        name: "user"
-      }
+      
 
-      const addUserClick = () => {
-        dispatch(addUser(user))
-        console.log("Se añade usuario")
-        console.log(usersData)
-    }
 
-    const deleteUserClick = () => {
-        dispatch(deleteUser(user))
-        console.log("Se elimina usuario")
-        console.log(usersData)
-    }
       
     return (
         <>
@@ -57,7 +58,7 @@ const UsersPage = () =>{
         <Button onClick={addUserClick}>Add Room</Button>
         <Button onClick={deleteUserClick}>Edit User</Button>
         </TableActions> */}
-        <Table tableTitles={tableTitles} data={usersData} />
+        <StyledTable tableTitles={tableTitles} data={usersData} />
         
         </>
         
@@ -68,6 +69,12 @@ export default UsersPage;
 
 const TableActions = styled.div`
 width: auto;
+`
+
+const StyledTable = styled(Table)`
+  margin-top: 800px;
+  display: flex;
+  flex-direction: column;
 `
 
 

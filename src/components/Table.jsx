@@ -18,6 +18,14 @@ export const Table = (props) => {
   switch(location.pathname){
     case "/users":
 
+    const titleRow = {
+      name: "Name",
+      startDate: "Start Date",
+      description: "Description",
+      contact: "Contact",
+      status: "Status"
+    }
+
     dataArr.forEach((data) => { 
       const savedData = 
       {
@@ -41,6 +49,8 @@ export const Table = (props) => {
 
       return(
         <>
+        <TitleRow />
+
           <Row>
             {content}
           </Row>
@@ -52,7 +62,11 @@ export const Table = (props) => {
   
 };
 
+
 const Row = styled.div`
-width: auto
+margin-top: 150px;
+width: 100%;
 `
+
+
 

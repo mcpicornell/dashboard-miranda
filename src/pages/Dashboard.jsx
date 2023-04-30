@@ -8,9 +8,6 @@ import {IoLogInOutline} from "react-icons/io5"
 const Dashboard = () =>{
     return (
         <>
-            <Title>
-                <h1 className="title">Dashboard</h1>
-            </Title>
             
             <Header>
                     <HeaderElements>
@@ -51,26 +48,9 @@ const Dashboard = () =>{
 
 export default Dashboard;
 
-const Title = styled.div`
-        display: flex;
-        z-index: 0;
-        position: relative;
-        top: 5px;
-        left: 100px;
-        height: 10px;
-        
-        .title{
-            width: 159px;
-            height: 10px;
-            font: normal normal 600 28px/42px 'Poppins';
-            letter-spacing: 0px;
-            color: #262626;
-        }
-`
-
 const Header = styled.header`
     margin-top: 150px;
-    margin-left: -100px;
+    margin-left: 50px;
     display: flex;
     width: 100%;
     

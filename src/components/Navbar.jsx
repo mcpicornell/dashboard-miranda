@@ -13,7 +13,6 @@ const NavBar = (props) =>{
     const logOutClickHandler = (event) => {
         event.preventDefault();
         dispatch({  type: "logOut" });
-        
     }
     
     return(
@@ -21,7 +20,7 @@ const NavBar = (props) =>{
             <section className='nav-section'>
                 <div className='nav-section__options'>
                     <GrTextAlignFull className='options__elements-nav' style={{color: 'rgb(57, 57, 57)'}} />
-                    <h1  className='options__title-h1'>{props.name}</h1>
+                    <h1  className='options__title-h1'>{props.title}</h1>
                 </div>
 
                 <div className='nav-section__options'>

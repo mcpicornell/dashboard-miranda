@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import  logoCompleto  from '../img/logoCompleto.PNG';
 import fakeMale from '../img/fakeMale.jpg'
-import {MdOutlineDashboard } from 'react-icons/md';
+import {MdOutlineDashboard, MdOutlinePermContactCalendar } from 'react-icons/md';
 import {RiCalendarEventLine} from 'react-icons/ri';
 import {VscKey } from 'react-icons/vsc';
 import {BiUser } from 'react-icons/bi';
+
 import {BsChevronRight} from 'react-icons/bs';
 import {BsChevronLeft} from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
@@ -62,7 +63,18 @@ const LateralMenu = () => {
                 <div className='aside__list'>
                     <div className='list__container-element'>
 
-                        <LinkList to='users'>
+                        <LinkList to='/contact'>
+                            <MdOutlinePermContactCalendar className='container-element__svg' />
+                                <span className='container-element__name-list-element'>Contact</span>
+                        </LinkList>
+
+                        </div>
+                </div>
+
+                <div className='aside__list'>
+                    <div className='list__container-element'>
+
+                        <LinkList to='/users'>
                             <BiUser className='container-element__svg' />
                                 <span className='container-element__name-list-element'>Users</span>
                         </LinkList>
