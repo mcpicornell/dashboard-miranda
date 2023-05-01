@@ -17,30 +17,14 @@ const UsersPage = () =>{
      const usersData = useSelector(getUsersData);
      const usersError = useSelector(getUsersError);
 
-     const tableTitles = [
-        "Name",
-        "Start Date",
-        "Description",
-        "Phone",
-        "Email",
-        "Status",
-        "Details",
-        "Delete",
-      ];
-
-    const user = {
-      id: 4,
-      name: "user"
+     const titleRowUsers = {
+      name: "Name",
+      description: "Description",
+      contact: "Contact",
+      status: "Status"
     }
 
-    const addUserClick = () => {
-      dispatch(addUser(user))
-    }
-  
-
-    const deleteUserClick = () => {
-        dispatch(deleteUser(user))
-    }
+    
 
     useEffect(() => {
         if (usersStatus == "idle") {
@@ -54,11 +38,8 @@ const UsersPage = () =>{
       
     return (
         <>
-        {/* <TableActions>
-        <Button onClick={addUserClick}>Add Room</Button>
-        <Button onClick={deleteUserClick}>Edit User</Button>
-        </TableActions> */}
-        <StyledTable tableTitles={tableTitles} data={usersData} />
+        
+        <Table titleRowUsers={titleRowUsers} data={usersData} />
         
         </>
         
@@ -67,14 +48,7 @@ const UsersPage = () =>{
 
 export default UsersPage;
 
-const TableActions = styled.div`
-width: auto;
-`
 
-const StyledTable = styled(Table)`
-  
-  display: flex;
-  flex-direction: column;
-`
+
 
 

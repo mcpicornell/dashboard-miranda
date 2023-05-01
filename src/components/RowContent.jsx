@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {BsTelephoneFill} from "react-icons/bs"
+import {HiPhone} from "react-icons/hi"
 import {BsThreeDotsVertical} from "react-icons/bs"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
@@ -39,18 +39,21 @@ export const RowContent = (props) => {
             </Description>
 
             <Contact>
-                    <BsTelephoneFill className="rowContent__telephoneIcon"/>
+                    <HiPhone className="rowContent__telephoneIcon"/>
                     <ElementGrey>{props.info.contact}</ElementGrey>
             </Contact>
 
             <Status >
                 <StatusSpan status={props.info.status}>{props.info.status}</StatusSpan>
-                <DeleteButton onClick={showDeleteOption}>
-                    <BsThreeDotsVertical />
+                <DeleteButtonsContainer>
+                    <DeleteButton onClick={showDeleteOption}>
+                        <BsThreeDotsVertical />
+                    </DeleteButton>
                     <DeleteOption active={deleteOption} onClick={deleteUserClick}>
-                        <span>Delete</span>
+                            <span>Delete</span>
                     </DeleteOption>
-                </DeleteButton>
+                </DeleteButtonsContainer>
+                
             </Status>
         </Container>
         </>
@@ -58,7 +61,7 @@ export const RowContent = (props) => {
 }
 
 const Container = styled.section`
-padding: 30px;
+padding: 10px 30px 10px 30px;
 display: grid;
 grid-template-columns: 2fr 1fr 1fr 1fr;
 width: auto;
@@ -67,6 +70,13 @@ border-radius: 0px 0px 10px 10px;
 opacity: 1;
 align-items: center;
 margin-top: 1px;
+    :hover{
+        transition: all 0.3s;
+        transform: scale(1.015);
+    }
+    :not(:hover) {
+    transition: all 0.3s;
+  } 
 `
 const NameInfo = styled.div`
 display: flex;
@@ -75,24 +85,28 @@ align-items: center;
 `
 
 const ImgContainer = styled.div`
-width: auto;
+    display: flex;
+    align-items: center;
+    width: 20%;
     img{
+        width: 70px;
         border-radius: 10px;
     }
-
 `
 
 const ElementGrey = styled.span`
     margin-top: 0px;
-    font: normal normal normal 14px "Poppins";
+    font: normal normal normal 12px "Poppins";
     letter-spacing: 0px;
     color: #393939;
     opacity: 1; 
+    display: flex;
+    align-items: center;
 `
 
 const ElementGreyName = styled.span`
-    margin-top: 5px;
-    font-size: 14px;
+    margin-top: 2px;
+    font-size: 11px;
     letter-spacing: 0px;
     color: #393939;
     opacity: 1; 
@@ -104,8 +118,8 @@ flex-direction: column;
 margin-left: 20px;
     h5{
         margin: 0px;
-        padding-bottom: 10px;
-        font-size: 16px;
+        padding-bottom: 0px;
+        font-size: 14px;
         letter-spacing: 0px;
         color: #212121;
         opacity: 1;
@@ -142,11 +156,16 @@ const StatusSpan = styled.span`
 margin-left: 20px;
 text-transform: uppercase;
 font: normal normal 600 14px/21px 'Poppins';
-color: ${props => props.status==="Active" ? "#5AD07A" : "#E23428" }
+color: ${props => props.status==="Active" ? "#5AD07A" : "#E23428" };
+`
+
+const DeleteButtonsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
 `
 
 const DeleteButton = styled.a`
-    margin-top: 30px;
+    margin-top: 35px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -157,15 +176,18 @@ const DeleteButton = styled.a`
 `
 
 const DeleteOption = styled.a`
+    margin-top: 5px;
     color: #E23428;
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 1;
     background-color: #F8F8F8;
     padding: 5px 10px 5px 10px;
     border-radius: 10px;
     visibility: ${props => props.active === true ? "visible" : "hidden"};
     font-size: 16px;
-    .span{
-        font-size: 16px;
-        font-weight: 400;
-        opacity: 1;
+    :hover{
+        cursor: pointer;
     }
 `
+

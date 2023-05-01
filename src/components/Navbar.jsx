@@ -6,6 +6,10 @@ import {GrTextAlignFull } from 'react-icons/gr';
 import { useContext } from 'react';
 import { UserContext } from '../UserContext';
 import { useNavigate } from 'react-router-dom';
+import LateralMenu from './LateralMenu';
+import { useState } from 'react';
+import {BsChevronRight} from 'react-icons/bs';
+import {BsChevronLeft} from 'react-icons/bs';
 
 const NavBar = (props) =>{
     const nav = useNavigate();
@@ -14,12 +18,25 @@ const NavBar = (props) =>{
         event.preventDefault();
         dispatch({  type: "logOut" });
     }
+    const [ open, setOpen ] = useState(true);
+    
+
+    const closeOpenMenu = (event) => {
+        setOpen(prevState => !prevState);
+    }
     
     return(
-        <Nav>
+        <>
+        
+        <LateralMenu open={open}/>
+
+        <Nav open={open}>
             <section className='nav-section'>
                 <div className='nav-section__options'>
-                    <GrTextAlignFull className='options__elements-nav' style={{color: 'rgb(57, 57, 57)'}} />
+                    <OpenLateralMenuArrowContainer open={open}>
+                        <BsChevronLeft className='arrow-left' style={{color: 'rgb(57, 57, 57)'}} onClick={closeOpenMenu}/>
+                        <BsChevronRight  className='arrow-right' style={{color: 'rgb(57, 57, 57)'}} onClick={closeOpenMenu}/>
+                    </OpenLateralMenuArrowContainer>
                     <h1  className='options__title-h1'>{props.title}</h1>
                 </div>
 
@@ -31,13 +48,15 @@ const NavBar = (props) =>{
 
             </section>
         </Nav>
+        
+        </>
     )
 };
 
 export default NavBar;
 
 const Nav = styled.nav`
-    height: 120px;
+    height: 100px;
     padding-left: 20px;
     display: inline-block;
     position: absolute;
@@ -48,7 +67,7 @@ const Nav = styled.nav`
     
 
     .nav-section{
-        margin-top: 15px;
+        margin-top: 5px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -58,8 +77,8 @@ const Nav = styled.nav`
         align-items: center;
         margin-right: 20px;
         color: #799283;
+        margin-left: ${props => props.open === false ? "250px" : "0px"};
     }
-
     .options__elements-nav{
         margin-right: 20px;
         width: 27px;
@@ -70,14 +89,41 @@ const Nav = styled.nav`
     }
 
 
+
+
     .options__title-h1{
+        margin-left: 30px;
         font: normal normal 600 28px/42px 'Poppins';
+        font-size: 25px;
         letter-spacing: 0px;
         color: #262626;
         opacity: 1;
     }
 `
 
+
+const OpenLateralMenuArrowContainer = styled.div`
+    position: relative;
+    width: 100%;
+    :hover{
+        cursor: pointer;
+    }
+    .arrow-left{
+        position: absolute;
+        color: #799283;
+        opacity: 1;
+        top: -7px;
+        visibility: ${props => props.open === false ? "visible" : "hidden"};
+    }
+    .arrow-right{
+        position: absolute;
+        top: -7px;
+        color: #799283;
+        opacity: 1;
+        visibility: ${props => props.open === true ? "visible" : "hidden"};
+        
+    }
+`
 
 
 

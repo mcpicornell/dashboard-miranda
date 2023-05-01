@@ -13,11 +13,11 @@ export const fetchRooms = createAsyncThunk('rooms/fetchRooms', async (data) => {
     return await delay(data);
 });
 
-export const addRoom= createAsyncThunk('users/addUser', async (roomObj) => {
+export const addRoom= createAsyncThunk('rooms/addRoom', async (roomObj) => {
     return await delay(roomObj);
 });
 
-export const deleteRoom= createAsyncThunk('users/deleteUser', async (roomObj) => {
+export const deleteRoom= createAsyncThunk('rooms/deleteRoom', async (roomObj) => {
     return await delay(roomObj);
 });
 
@@ -52,11 +52,11 @@ export const deleteBooking= createAsyncThunk('bookings/deleteBooking', async (bo
 });
 
 //CONTACT
-export const fetchContact = createAsyncThunk('bookings/fetchContact', async (data) => {
+export const fetchContact = createAsyncThunk('contact/fetchContact', async (data) => {
     return await delay(data);
 });
 
-export const addContact= createAsyncThunk('bookings/addContact', async (contactObj) => {
+export const addContact= createAsyncThunk('contact/addContact', async (contactObj) => {
     return await delay(contactObj);
 });
 

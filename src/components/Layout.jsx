@@ -23,6 +23,9 @@ export const Layout = (props) => {
 
             case "/users":
                 return "Users";
+
+            case "/users/addUser":
+                return "Create User";
         }
     }
     
@@ -31,10 +34,10 @@ export const Layout = (props) => {
     return (
         <>
         <div style={{display: 'flex'}}>
-            <div style={{display: 'inline-block'}}>
-                <LateralMenu />
-                <NavBar title ={getTitleSections()} />
-            </div>
+            
+                
+        <NavBar title ={getTitleSections()} />
+            
             
             <Outlet />
         </div>

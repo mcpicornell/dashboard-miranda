@@ -15,21 +15,15 @@ import { useContext } from 'react';
 import { UserContext } from '../UserContext';
 
 
-const LateralMenu = () => {
-
-    const [ open, setOpen ] = useState(true);
+const LateralMenu = (props) => {
+    
     const {state, dispatch} = useContext(UserContext);
 
-    const closeOpenMenu = (event) => {
-        setOpen(prevState => !prevState);
-    }
-
     return (
-        <Aside open={open}>
+        <Aside open={props.open}>
             
                 <div className='aside__logo'>
                     <img className='logo__img' src={logoCompleto} />
-                    <a className='menuCloseObenButton' onClick={closeOpenMenu}><BsChevronLeft className='logo__img-arrow-righ'/></a>
                 </div>
 
                 <div className='aside__list'>
@@ -76,7 +70,7 @@ const LateralMenu = () => {
 
                         <LinkList to='/users'>
                             <BiUser className='container-element__svg' />
-                                <span className='container-element__name-list-element'>Users</span>
+                            <span className='container-element__name-list-element'>Users</span>
                         </LinkList>
 
                         </div>
@@ -100,6 +94,9 @@ const LateralMenu = () => {
 const LinkList = styled(NavLink)`
     text-decoration: none;
     color: #5D5449;
+    display: flex;
+    align-items: center;
+    
 
     .container-element__name-list-element{
         color: #5D5449;
@@ -107,6 +104,7 @@ const LinkList = styled(NavLink)`
     
     &.active{
         color: red;
+        
     }
 
     &.active span {
@@ -120,22 +118,20 @@ const LinkList = styled(NavLink)`
 
 `
 
-
 const Aside = styled.aside`
         display: inline-block;
+        border-radius: 10px;
         margin: 0px;
         padding-top: 32px;
-        padding-left: 56px;
-        width: 285px;
+        padding-left: 30px;
+        width: 250px;
         background: #ffffff 0% 0% no-repeat padding-box;
         box-shadow: 13px 3px 40px #00000005;
         opacity: 1;
         z-index: 2;
-        ${props  => !props.open && css`
-        position: absolute;
-        left:-310px;
-        `} 
-    
+        height: 100%;
+        position: ${props => props.open=== true ? "absolute" : "relative"};
+        left: ${props => props.open=== true ? "-300px" : "0px"};
 
     .aside__logo{
        
@@ -149,6 +145,7 @@ const Aside = styled.aside`
 
     .logo__img{
         width: 220px;
+        margin-right: 5px;
     }
 
     .menuCloseObenButton:hover{
@@ -160,6 +157,7 @@ const Aside = styled.aside`
         opacity: 1;
         border-radius: 8px;
         padding-right: 8px;
+        
     }
 
     .logo__content{
@@ -168,31 +166,11 @@ const Aside = styled.aside`
         justify-content: center;
     }
 
-    .content__title-logo{
-        padding: 0px;
-        margin:0px 0px 0px 0px;
-        font-family: 'Poppins';
-        font-size: 28px;
-        opacity: 1;
-        color: black;
-    }
-
-    .content__subtitle-logo{
-        margin:0px 0px 0px 0px;
-        font-size: 12px;
-        line-height: 18px;
-        font-family: 'Poppins';
-        font-weight: 300;
-        letter-spacing: 0px;
-        color: #5D5449;
-        opacity: 1;
-    }
-
     .aside__list{
         display: flex;
         flex-direction: row;
         align-items: center;
-        margin-bottom: 57px;
+        margin-bottom: 30px;
         background: #ffffff 0% 0% no-repeat padding-box;
         background: hsla(0, 0%, 100%, 1) 0% 0% no-repeat padding-box;
         opacity: 1;
@@ -201,21 +179,25 @@ const Aside = styled.aside`
 
     .container-element__name-list-element{
         margin-left: 26px;
-        font-size: 18px;
+        font-size: 14px;
         line-height: 27px;
         font-family: 'Poppins';
-
         letter-spacing: 0px;
         color: hsla(144, 10%, 52%, 1);
         opacity: 1;
     }
 
     .aside__card{
-        width: 233px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        margin-left: -5px;
+        margin-right: 0px;
+        width: 90%;
         margin-top: 5px;
         margin-bottom: 62px;
-        padding-bottom: 24px; 
-        
+        padding-bottom: 0px; 
         background: #ffffff 0% 0% no-repeat padding-box;
         box-shadow: 0px 20px 30px #00000014;
         border-radius: 18px;
@@ -237,8 +219,10 @@ const Aside = styled.aside`
         letter-spacing: 0px;
         color: #393939;
         opacity: 1;
+        margin: 10px 0px 8px 0px;
     }
     .card__user-email{
+        margin: 0px 0px 10px 0px;
         text-align: center;
         font: normal normal 300 12px/18px 'Poppins';
         letter-spacing: 0px;
@@ -253,6 +237,7 @@ const Aside = styled.aside`
 
    .bottom-title{
     font: normal normal 600 16px/25px 'Poppins';
+    font-size: 14px;
     letter-spacing: 0px;
     color: #212121;
     opacity: 1;
@@ -260,6 +245,7 @@ const Aside = styled.aside`
    }
    .bottom-subtitle{
     font: normal normal 300 14px/21px 'Poppins';
+    font-size: 12px;
     letter-spacing: 0px;
     color: #799283;
     opacity: 1;
@@ -279,12 +265,14 @@ const Aside = styled.aside`
     }
 
    .edit__button-span-card{
-    
     font: normal normal 600 14px/21px 'Poppins';
     letter-spacing: 0px;
     color: #135846;
     opacity: 1;
     margin-bottom: 5px;
+    :hover{
+        cursor: pointer;
+    }
     
    }
 `;

@@ -10,7 +10,7 @@ const LoginPage = (props) =>{
 
     const user = {
         userName: "admin",
-        email: "admin@admin.com",
+        email: "admin",
         password: "admin"
       };
 
@@ -47,7 +47,7 @@ const LoginPage = (props) =>{
         <LoginForm onSubmit={loginSubmitHandler}>
             <FormOptions>
                 <label>Introduce tu email</label>
-                <input name='emailValue' placeholder='email' request type='email' onChange={e => setEmail(e.target.value)}/>
+                <input name='emailValue' placeholder='email' request  onChange={e => setEmail(e.target.value)}/>
             </FormOptions>
             <FormOptions>
                 <label>Introduce contraseña</label>
