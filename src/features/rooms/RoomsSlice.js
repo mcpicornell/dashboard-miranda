@@ -20,7 +20,7 @@ export const RoomsSlice = createSlice({
         builder.addCase(fetchRooms.fulfilled, (state, action) => {
             state.status = "fulfilled";
             state.data = (action.payload);
-            console.log(state.data)
+            
           })
         .addCase(fetchRooms.rejected, (state, action) => {
             state.status = "failed";

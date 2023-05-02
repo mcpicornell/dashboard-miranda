@@ -18,7 +18,7 @@ const NavBar = (props) =>{
         event.preventDefault();
         dispatch({  type: "logOut" });
     }
-    const [ open, setOpen ] = useState(true);
+    const [ open, setOpen ] = useState(false);
     
 
     const closeOpenMenu = (event) => {
@@ -92,12 +92,14 @@ const Nav = styled.nav`
 
 
     .options__title-h1{
-        margin-left: 30px;
+        position: relative;
+        margin-left: -90px;
         font: normal normal 600 28px/42px 'Poppins';
-        font-size: 25px;
+        font-size: 24px;
         letter-spacing: 0px;
         color: #262626;
         opacity: 1;
+        width: 300px;
     }
 `
 

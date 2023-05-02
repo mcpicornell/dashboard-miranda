@@ -3,62 +3,179 @@ import {HiPhone} from "react-icons/hi"
 import {BsThreeDotsVertical} from "react-icons/bs"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { deleteUser } from "../features/asyncThunk"
+import { deleteUser, deleteRoom, deleteBooking } from "../features/asyncThunk"
+import { useLocation } from "react-router-dom"
 
 export const RowContent = (props) => {
     const dispatch = useDispatch();
     const [deleteOption, setdeleteOption] = useState(false);
+    const location = useLocation();
 
     const showDeleteOption = (event) => {
         setdeleteOption(prevState => !prevState);
     }
 
+    const deleteBookingOnClick = () =>{
+        dispatch(deleteBooking(props.info))
+        setdeleteOption(prevState => !prevState);
+    }
+
     const deleteUserClick = () => {
+        setdeleteOption(prevState => !prevState);
         dispatch(deleteUser(props.info))
+        
+    }
+
+    const deleteroomsClick = () => {
+        dispatch(deleteRoom(props.info))
+        setdeleteOption(prevState => !prevState);
+    }
+
+    const arrayWithoutEmptyStrings = (array) =>{
+        const result = array.filter(element => element !== undefined).join(", ")
+        return result;
+    }
+    console.log(props.info)
+    
+    switch(location.pathname){
+        case "/bookings":
+            return(
+                <ContainerBookings>
+                    <NameInfo>
+                        
+                        <NameProperties>
+                            <ElementGreyName>#{props.info.id}</ElementGreyName>
+                            <h5>{props.info.guest}</h5>
+                        </NameProperties>
+                        
+                    </NameInfo>
+
+                    <Description>
+                            <ElementGrey>{props.info.orderDate}</ElementGrey>
+                    </Description>
+
+                    <Contact>
+                            <ElementGrey>{props.info.checkIn}</ElementGrey>
+                    </Contact>
+
+                    
+                    <Contact>
+                            <ElementGrey>{props.info.checkOut}</ElementGrey>
+                    </Contact>
+
+                    <Contact>
+                            <ElementGrey>{props.info.specialRequest}</ElementGrey>
+                    </Contact>
+
+                    <Contact>
+                            <ElementGrey>{props.info.roomType}</ElementGrey>
+                    </Contact>
+
+                    <Status >
+                        <StatusSpanRooms status={props.info.status}>{props.info.status}</StatusSpanRooms>
+                        <DeleteButtonsContainer>
+                            <DeleteButton onClick={showDeleteOption}>
+                                <BsThreeDotsVertical />
+                            </DeleteButton>
+                            <DeleteOption active={deleteOption} onClick={deleteBookingOnClick}>
+                                    <span>Delete</span>
+                            </DeleteOption>
+                        </DeleteButtonsContainer>
+                    </Status>
+
+                </ContainerBookings>
+            );
+           
+
+        case "/rooms":
+                
+               
+        return(
+            <ContainerRooms info={props.info}>
+                <NameInfo>
+                        <ImgContainer>
+                            <img src={props.info.photos.photo1}/>
+                        </ImgContainer>
+                        <NameProperties>
+                            <ElementGreyName>#{props.info.id}</ElementGreyName>
+                            <h5>{props.info.roomName}</h5>
+                        </NameProperties>
+                        
+                </NameInfo>
+
+                <Description>
+                        <ElementGrey>{props.info.roomType}</ElementGrey>
+                </Description>
+
+                <Contact>
+                        <ElementGrey>{arrayWithoutEmptyStrings(props.info.amenities)}</ElementGrey>
+                </Contact>
+
+                <Price>
+                    ${props.info.price}<span>/Night</span>
+                </Price>
+
+                <OfferPrice>
+                    ${props.info.offerPrice}<span>/Night</span>
+                </OfferPrice>
+
+                <Status >
+                    <StatusSpanRooms status={props.info.status}>{props.info.status}</StatusSpanRooms>
+                    <DeleteButtonsContainer>
+                        <DeleteButton onClick={showDeleteOption}>
+                            <BsThreeDotsVertical />
+                        </DeleteButton>
+                        <DeleteOption active={deleteOption} onClick={deleteroomsClick}>
+                                <span>Delete</span>
+                        </DeleteOption>
+                    </DeleteButtonsContainer>
+                </Status>
+            </ContainerRooms>
+          );
+
+        case "/users":
+        return(
+            <Container >
+                <NameInfo>
+                        <ImgContainer>
+                            <img src={props.info.photo}/>
+                        </ImgContainer>
+                        <NameProperties>
+                            <h5>{props.info.name}</h5>
+                            <ElementGreyName>#{props.info.id}</ElementGreyName>
+                            <ElementGreyName>{props.info.email}</ElementGreyName>
+                            <ElementGreyName>{props.info.startDate}</ElementGreyName>
+                        </NameProperties>
+                        
+                </NameInfo>
+
+                <Description>
+                        <ElementGrey>{props.info.descriptionJob}</ElementGrey>
+                </Description>
+
+                <Contact>
+                        <HiPhone className="rowContent__telephoneIcon"/>
+                        <ElementGrey>{props.info.contact}</ElementGrey>
+                </Contact>
+
+                <Status >
+                    <StatusSpan status={props.info.status}>{props.info.status}</StatusSpan>
+                    <DeleteButtonsContainer>
+                        <DeleteButton onClick={showDeleteOption}>
+                            <BsThreeDotsVertical />
+                        </DeleteButton>
+                        <DeleteOption active={deleteOption} onClick={deleteUserClick}>
+                                <span>Delete</span>
+                        </DeleteOption>
+                    </DeleteButtonsContainer>
+                    
+                </Status>
+            </Container>
+        );
+
     }
     
-
-    return (
-        <>
-        <Container >
-            <NameInfo>
-                    <ImgContainer>
-                        <img src={props.info.photo}/>
-                    </ImgContainer>
-                    <NameProperties>
-                        <h5>{props.info.name}</h5>
-                        <ElementGreyName>#{props.info.id}</ElementGreyName>
-                        <ElementGreyName>{props.info.email}</ElementGreyName>
-                        <ElementGreyName>{props.info.startDate}</ElementGreyName>
-                    </NameProperties>
-                    
-            </NameInfo>
-
-            <Description>
-                    <ElementGrey>{props.info.descriptionJob}</ElementGrey>
-            </Description>
-
-            <Contact>
-                    <HiPhone className="rowContent__telephoneIcon"/>
-                    <ElementGrey>{props.info.contact}</ElementGrey>
-            </Contact>
-
-            <Status >
-                <StatusSpan status={props.info.status}>{props.info.status}</StatusSpan>
-                <DeleteButtonsContainer>
-                    <DeleteButton onClick={showDeleteOption}>
-                        <BsThreeDotsVertical />
-                    </DeleteButton>
-                    <DeleteOption active={deleteOption} onClick={deleteUserClick}>
-                            <span>Delete</span>
-                    </DeleteOption>
-                </DeleteButtonsContainer>
-                
-            </Status>
-        </Container>
-        </>
-    )
-}
+};
 
 const Container = styled.section`
 padding: 10px 30px 10px 30px;
@@ -78,6 +195,17 @@ margin-top: 1px;
     transition: all 0.3s;
   } 
 `
+
+const ContainerRooms = styled(Container)`
+display: grid;
+grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr;
+`
+const ContainerBookings = styled(Container)`
+display: grid;
+grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+`
+
+
 const NameInfo = styled.div`
 display: flex;
 width: auto;
@@ -88,9 +216,13 @@ const ImgContainer = styled.div`
     display: flex;
     align-items: center;
     width: 20%;
+    margin-right: 10px;
+    padding-right: 10px;
+    
     img{
         width: 70px;
         border-radius: 10px;
+        height: 70px;
     }
 `
 
@@ -159,6 +291,16 @@ font: normal normal 600 14px/21px 'Poppins';
 color: ${props => props.status==="Active" ? "#5AD07A" : "#E23428" };
 `
 
+const StatusSpanRooms = styled.span`
+text-align: center;
+font: normal normal 600 14px/21px 'Poppins';
+color: #FFFFFF;
+background-color: ${props => props.status === "Avaliable" ?"#5AD07A" : "#E23428"};
+border-radius: 15px;
+width: 70px;
+padding: 10px 20px 10px 20px;
+`
+
 const DeleteButtonsContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -189,5 +331,13 @@ const DeleteOption = styled.a`
     :hover{
         cursor: pointer;
     }
+`
+
+const Price = styled.span`
+width: auto;
+`
+
+const OfferPrice = styled.span`
+width: auto;
 `
 

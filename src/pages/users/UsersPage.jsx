@@ -32,17 +32,10 @@ const UsersPage = () =>{
         }
       }, [usersStatus], dispatch);
 
-      
-
-
-      
     return (
         <>
-        
-        <Table titleRowUsers={titleRowUsers} data={usersData} />
-        
+        <Table titleRowUsers={titleRowUsers} usersData={usersData} />
         </>
-        
     )
 };
 

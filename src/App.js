@@ -8,7 +8,7 @@ import BookingsInfoPage from './pages/bookings/BookingsInfoPage';
 import RoomsPage from "./pages/rooms/RoomsPage";
 import RoomsAddPage from "./pages/rooms/RoomsAddPage";
 import ContactPage from "./pages/ContactPage";
-
+import { BookingAddPage } from './pages/bookings/BookingAddPage';
 import UsersPage from "./pages/users/UsersPage";
 import UsersAddPage from "./pages/users/UsersAddPage";
 import UsersEditPage from "./pages/users/UsersEditPage";
@@ -69,6 +69,7 @@ function App() {
 
                 <Route exact path="/bookings" element={<BookingsPage />} />
                 <Route path="/bookings/:id" element={<BookingsInfoPage/>} />
+                <Route path="/bookings/addBooking" element={<BookingAddPage/>} />
 
                 <Route exact path="/rooms" element={<RoomsPage />}/>
                 <Route path='/rooms/addRoom' element={<RoomsAddPage />} />

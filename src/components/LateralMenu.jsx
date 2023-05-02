@@ -5,12 +5,7 @@ import {MdOutlineDashboard, MdOutlinePermContactCalendar } from 'react-icons/md'
 import {RiCalendarEventLine} from 'react-icons/ri';
 import {VscKey } from 'react-icons/vsc';
 import {BiUser } from 'react-icons/bi';
-
-import {BsChevronRight} from 'react-icons/bs';
-import {BsChevronLeft} from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
-import {css} from 'styled-components';
-import { useState, useEffect } from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../UserContext';
 
@@ -94,6 +89,7 @@ const LateralMenu = (props) => {
 const LinkList = styled(NavLink)`
     text-decoration: none;
     color: #5D5449;
+    font-weight: 600;
     display: flex;
     align-items: center;
     
@@ -123,8 +119,9 @@ const Aside = styled.aside`
         border-radius: 10px;
         margin: 0px;
         padding-top: 32px;
+        padding-right: 5px;
         padding-left: 30px;
-        width: 250px;
+        width: 220px;
         background: #ffffff 0% 0% no-repeat padding-box;
         box-shadow: 13px 3px 40px #00000005;
         opacity: 1;

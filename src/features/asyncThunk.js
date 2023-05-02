@@ -60,6 +60,6 @@ export const addContact= createAsyncThunk('contact/addContact', async (contactOb
     return await delay(contactObj);
 });
 
-export const deleteContact= createAsyncThunk('bookings/deleteContact', async (contactObj) => {
+export const deleteContact= createAsyncThunk('contact/deleteContact', async (contactObj) => {
     return await delay(contactObj);
 });

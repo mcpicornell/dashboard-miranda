@@ -15,8 +15,14 @@ export const Layout = (props) => {
             case "/bookings":
                 return "Bookings";
 
+            case "/bookings/addBooking":
+                return "New Booking"
+
             case "/rooms":
                 return "Rooms";
+
+            case "/rooms/addRoom":
+                return "New Room";
 
             case "/contact":
                 return "Contact";
@@ -25,7 +31,7 @@ export const Layout = (props) => {
                 return "Users";
 
             case "/users/addUser":
-                return "Create User";
+                return "New User";
         }
     }
     

@@ -22,15 +22,14 @@ const RoomsPage = () =>{
      const roomTitles = {
         roomName: "Room Name",
         roomType: "Room Type",
-        amenities: "Ameneties",
+        amenities: "Amenities",
         price: "Price",
         offerPrice: "Offer Price",
         status: "Status"
      }
      
     return (
-        
-        <Table data={roomsData} roomTitles={roomTitles}/>
+        <Table roomsData={roomsData} roomTitles={roomTitles}/>
     )
 
 };

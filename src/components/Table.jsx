@@ -11,12 +11,16 @@ export const Table = (props) => {
   const [allEmployeeActivate, setAllEmployeeActivate] = useState(false);
   const [activeEmployeeActivate, setActiveEmployeeActivate] = useState(false);
   const [inactiveEmployeeActivate, setInactiveEmployeeActivate] = useState(false);
+  const [inProgressActive, setInProgressActive] = useState(false);
   const [searcher, setSearcher] = useState("");
   const location = useLocation();
   const dataArr = props.data;
+  const bookingsData = props.bookingsData;
+  const roomsData = props.roomsData;
+  const usersData = props.usersData;
   const content = [];
   
-
+  
   const allEmployeeActivateOnClick = (event) => {
     setAllEmployeeActivate(prevState => !prevState);
     if(activeEmployeeActivate === true){
@@ -24,6 +28,9 @@ export const Table = (props) => {
     }
     else if(inactiveEmployeeActivate === true){
       setInactiveEmployeeActivate(false)
+    }
+    else if(inProgressActive === true){
+      setInProgressActive(false);
     }
   };
 
@@ -35,6 +42,9 @@ export const Table = (props) => {
     else if(inactiveEmployeeActivate === true){
       setInactiveEmployeeActivate(false)
     }
+    else if(inProgressActive === true){
+      setInProgressActive(false);
+    }
   };
 
   const inactiveEmployeeActivateOnClick = (event) => {
@@ -45,20 +55,111 @@ export const Table = (props) => {
     else if(activeEmployeeActivate === true){
       setActiveEmployeeActivate(false)
     }
+    else if(inProgressActive === true){
+      setInProgressActive(false);
+    }
   };
+
+  const inProgressActiveOnClick = (event) =>{
+    setInProgressActive(prevState => !prevState);
+    if(allEmployeeActivate === true){
+      setAllEmployeeActivate(false)
+    }
+    else if(activeEmployeeActivate === true){
+      setActiveEmployeeActivate(false)
+    }
+    
+    else if(inactiveEmployeeActivate === true){
+      setInactiveEmployeeActivate(false)
+    }
+    else if(allEmployeeActivate === true){
+      setAllEmployeeActivate(false)
+    }
+
+  }
 
 
   switch(location.pathname){
-    case "/rooms":
-
-    dataArr.forEach((data) => { 
+    case "/bookings":
+      console.log(bookingsData)
+    bookingsData.forEach((data) => { 
       const info = 
       {
-        photo: data.photo,
+        guest: data.guest,
+        orderDate: data.orderDate,
+        checkIn: data.checkIn,
+        id: data.id,
+        checkOut: data.checkOut,
+        specialRequest: data.specialRequest,
+        roomType: data.roomType,
+        status: data.status
+      }
+
+      content.push(
+          <>
+            <RowContent info={info}/>
+          </>
+        );
+        
+      });
+      
+      return(
+        <>
+        <TableStyled>
+            <TopOptions>
+                <OptionsFilter>
+                  <FilterEmployee filterActive={allEmployeeActivate} onClick={allEmployeeActivateOnClick}>
+                    <span>All Bookings</span>
+                  </FilterEmployee>
+                  <FilterEmployee filterActive={activeEmployeeActivate} onClick={activeEmployeeActivateOnClick}>
+                    <span>Checking In</span>
+                  </FilterEmployee>
+                  <FilterEmployee filterActive={inactiveEmployeeActivate} onClick={inactiveEmployeeActivateOnClick}>
+                    <span>Checking Out</span>
+                  </FilterEmployee>
+
+                  <FilterEmployee filterActive={inProgressActive} onClick={inProgressActiveOnClick}>
+                    <span>In Progress</span>
+                  </FilterEmployee>
+
+                  <FilterSearcher placeholder="Search by Guest name" onChange={e => setSearcher(e.target.value)}/>
+
+                </OptionsFilter>
+                <OptionsCreate>
+                    <ButtonCreateEmployee to={'/bookings/addBooking'}>
+                      <span>+ New Booking</span>
+                    </ButtonCreateEmployee>
+                </OptionsCreate>
+            </TopOptions>
+            <TitleRowBookings>
+              <TitleRowElement className="titleRowElementName"><span>{props.bookingsTitles.guestName}</span></TitleRowElement>
+              <TitleRowElement>{props.bookingsTitles.orderDate}</TitleRowElement>
+              <TitleRowElement>{props.bookingsTitles.checkIn}</TitleRowElement>
+              <TitleRowElement>{props.bookingsTitles.checkOut}</TitleRowElement>
+              <TitleRowElement>{props.bookingsTitles.specialRequest}</TitleRowElement>
+              <TitleRowElement>{props.bookingsTitles.roomType}</TitleRowElement>
+              <TitleRowElement>{props.bookingsTitles.status}</TitleRowElement>
+            </TitleRowBookings>
+
+            <Rows>
+            {content}
+            </Rows> 
+          </TableStyled>
+        </>
+      );
+
+    case "/rooms":
+      
+
+    roomsData.forEach((data) => { 
+      const info = 
+      {
+        photos: data.photos,
+        roomName: data.roomName,
         roomNumber: data.roomNumber,
         roomType: data.roomType,
         id: data.id,
-        ameneties: data.ameneties,
+        amenities: data.amenities,
         price: data.price,
         offerPrice: data.offerPrice,
         status: data.status
@@ -74,7 +175,6 @@ export const Table = (props) => {
       });
       return(
         <>
-
           <TableStyled>
             <TopOptions>
                 <OptionsFilter>
@@ -82,27 +182,27 @@ export const Table = (props) => {
                     <span>All Rooms</span>
                   </FilterEmployee>
                   <FilterEmployee filterActive={activeEmployeeActivate} onClick={activeEmployeeActivateOnClick}>
-                    <span>Active Employee</span>
+                    <span>Avaliable Rooms</span>
                   </FilterEmployee>
                   <FilterEmployee filterActive={inactiveEmployeeActivate} onClick={inactiveEmployeeActivateOnClick}>
-                    <span>Inactive Employee</span>
+                    <span>Booked Rooms</span>
                   </FilterEmployee>
 
                 </OptionsFilter>
                 <OptionsCreate>
-                    <ButtonCreateEmployee to={'/users/addUser'}>
+                    <ButtonCreateEmployee to={'/rooms/addRoom'}>
                       <span>+ New Room</span>
                     </ButtonCreateEmployee>
                 </OptionsCreate>
             </TopOptions>
-            <TitleRow>
+            <TitleRowRooms>
               <TitleRowElement className="titleRowElementName"><span>{props.roomTitles.roomName}</span></TitleRowElement>
               <TitleRowElement>{props.roomTitles.roomType}</TitleRowElement>
               <TitleRowElement>{props.roomTitles.amenities}</TitleRowElement>
               <TitleRowElement>{props.roomTitles.price}</TitleRowElement>
               <TitleRowElement>{props.roomTitles.offerPrice}</TitleRowElement>
               <TitleRowElement>{props.roomTitles.status}</TitleRowElement>
-            </TitleRow>
+            </TitleRowRooms>
 
             <Rows>
             {content}
@@ -111,12 +211,9 @@ export const Table = (props) => {
 
         </>
       );
-    case "/bookings":
-      return(
-        <></>
-      );
+    
     case "/users":
-    dataArr.forEach((data) => { 
+      usersData.forEach((data) => { 
       const info = 
       {
         contact: data.contact,
@@ -211,14 +308,14 @@ const OptionsFilter = styled.div`
 `
 
 const FilterEmployee = styled.a`
-  padding-right: 30px;
+  padding: 0px 20px 15px 20px;
+  
   font-weight: 600;
   font: normal normal medium 16px/25px "Poppins";
   letter-spacing: 0px;
   opacity: 1;
   color: ${props => props.filterActive === true ? "#135846" : "#6E6E6E"};
-  text-decoration: ${props => props.filterActive === true ? " underline 1px solid #135846" : "underline 0.5px solid #6E6E6E"};
-  text-underline-offset: 20px;
+  border-bottom: ${props => props.filterActive === true ? "  2px solid #135846" : "1px solid #6E6E6E"};
   
   :hover{
     cursor: pointer;
@@ -258,6 +355,16 @@ font: normal normal 600 18px/27px 'Poppins';
 padding-top: 20px;
 padding-bottom: 10px;
 border-radius: 10px 10px 0px 0px;
+`
+
+const TitleRowRooms = styled(TitleRow)`
+display: grid;
+grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr;
+`
+
+const TitleRowBookings = styled(TitleRow)`
+display: grid;
+grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 `
 
 const TitleRowElement = styled.span`
