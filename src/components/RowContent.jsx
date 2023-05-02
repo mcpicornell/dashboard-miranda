@@ -72,7 +72,7 @@ export const RowContent = (props) => {
                     </Contact>
 
                     <Status >
-                        <StatusSpanRooms status={props.info.status}>{props.info.status}</StatusSpanRooms>
+                        <StatusSpanBookings status={props.info.status}>{props.info.status}</StatusSpanBookings>
                         <DeleteButtonsContainer>
                             <DeleteButton onClick={showDeleteOption}>
                                 <BsThreeDotsVertical />
@@ -82,14 +82,10 @@ export const RowContent = (props) => {
                             </DeleteOption>
                         </DeleteButtonsContainer>
                     </Status>
-
                 </ContainerBookings>
             );
-           
 
         case "/rooms":
-                
-               
         return(
             <ContainerRooms info={props.info}>
                 <NameInfo>
@@ -291,11 +287,23 @@ font: normal normal 600 14px/21px 'Poppins';
 color: ${props => props.status==="Active" ? "#5AD07A" : "#E23428" };
 `
 
+const StatusSpanBookings = styled.span`
+margin-left: 0px;
+width: 68px;
+padding: 5px 12px 5px 12px;
+font: normal normal 600 14px/21px 'Poppins';
+font-size: 12px;
+border-radius: 15px;
+text-align: center;
+color: ${props => props.status === "Check In" ? "#5AD07A" : props.status === "Check Out" ? "#E23428" :  "#F7DE3A"};
+background-color: ${props => props.status === "Check In" ? "#E8FFEE" : props.status === "Check Out" ? "#FFEDEC" :  "#f8f8ed"};;
+`
+
 const StatusSpanRooms = styled.span`
 text-align: center;
 font: normal normal 600 14px/21px 'Poppins';
 color: #FFFFFF;
-background-color: ${props => props.status === "Avaliable" ?"#5AD07A" : "#E23428"};
+background-color: ${props => props.status === "Avaliable" ? "#5AD07A" : "#E23428"};
 border-radius: 15px;
 width: 70px;
 padding: 10px 20px 10px 20px;

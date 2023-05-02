@@ -8,7 +8,7 @@ import BookingsInfoPage from './pages/bookings/BookingsInfoPage';
 import RoomsPage from "./pages/rooms/RoomsPage";
 import RoomsAddPage from "./pages/rooms/RoomsAddPage";
 import ContactPage from "./pages/ContactPage";
-import { BookingAddPage } from './pages/bookings/BookingAddPage';
+import BookingAddPage from './pages/bookings/BookingAddPage';
 import UsersPage from "./pages/users/UsersPage";
 import UsersAddPage from "./pages/users/UsersAddPage";
 import UsersEditPage from "./pages/users/UsersEditPage";

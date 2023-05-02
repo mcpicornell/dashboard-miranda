@@ -20,68 +20,39 @@ export const Table = (props) => {
   const usersData = props.usersData;
   const content = [];
   
-  
   const allEmployeeActivateOnClick = (event) => {
-    setAllEmployeeActivate(prevState => !prevState);
-    if(activeEmployeeActivate === true){
-      setActiveEmployeeActivate(false)
-    }
-    else if(inactiveEmployeeActivate === true){
-      setInactiveEmployeeActivate(false)
-    }
-    else if(inProgressActive === true){
-      setInProgressActive(false);
-    }
+    setAllEmployeeActivate(true);
+    setInactiveEmployeeActivate(false)
+    setActiveEmployeeActivate(false)
+    setInProgressActive(false);
   };
 
   const activeEmployeeActivateOnClick = (event) => {
-    setActiveEmployeeActivate(prevState => !prevState);
-    if(allEmployeeActivate === true){
-      setAllEmployeeActivate(false)
-    }
-    else if(inactiveEmployeeActivate === true){
-      setInactiveEmployeeActivate(false)
-    }
-    else if(inProgressActive === true){
-      setInProgressActive(false);
-    }
+    setActiveEmployeeActivate(true);
+    setAllEmployeeActivate(false)
+    setInactiveEmployeeActivate(false)
+    setInProgressActive(false);
   };
 
   const inactiveEmployeeActivateOnClick = (event) => {
-    setInactiveEmployeeActivate(prevState => !prevState);
-    if(allEmployeeActivate === true){
-      setAllEmployeeActivate(false)
+    setInactiveEmployeeActivate(true);
+    setAllEmployeeActivate(false)
+    setActiveEmployeeActivate(false)
+    setInProgressActive(false);
     }
-    else if(activeEmployeeActivate === true){
-      setActiveEmployeeActivate(false)
-    }
-    else if(inProgressActive === true){
-      setInProgressActive(false);
-    }
-  };
+  
 
   const inProgressActiveOnClick = (event) =>{
-    setInProgressActive(prevState => !prevState);
-    if(allEmployeeActivate === true){
-      setAllEmployeeActivate(false)
-    }
-    else if(activeEmployeeActivate === true){
-      setActiveEmployeeActivate(false)
-    }
-    
-    else if(inactiveEmployeeActivate === true){
-      setInactiveEmployeeActivate(false)
-    }
-    else if(allEmployeeActivate === true){
-      setAllEmployeeActivate(false)
-    }
-
+    setInProgressActive(true);
+    setAllEmployeeActivate(false)
+    setActiveEmployeeActivate(false)
+    setInactiveEmployeeActivate(false)
+    setAllEmployeeActivate(false)
   }
 
 
   switch(location.pathname){
     case "/bookings":
-      console.log(bookingsData)
     bookingsData.forEach((data) => { 
       const info = 
       {
@@ -323,8 +294,13 @@ const FilterEmployee = styled.a`
 `
 
 const FilterSearcher = styled.input`
-  border-radius: 10px;
-  padding: 5px 10px 5px 10px;
+  
+  border-radius: 15px;
+  margin-left: 20px;
+  background-color: #F8F8F8;
+  width: 100px;
+  
+  
 `
 
 const OptionsCreate = styled.div`
