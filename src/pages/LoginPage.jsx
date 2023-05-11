@@ -47,11 +47,11 @@ const LoginPage = (props) =>{
         <LoginForm onSubmit={loginSubmitHandler}>
             <FormOptions>
                 <label>Introduce tu email</label>
-                <input name='emailValue' placeholder='email' request  onChange={e => setEmail(e.target.value)}/>
+                <input name='email' placeholder='email' request  onChange={e => setEmail(e.target.value)}/>
             </FormOptions>
             <FormOptions>
                 <label>Introduce contraseña</label>
-                <input name='passwordValue' placeholder='password' request type='password' onChange={e => setPassword(e.target.value)} />
+                <input name='password' placeholder='password' request type='password' onChange={e => setPassword(e.target.value)} />
             </FormOptions>
             <button type='submit'>Submit</button>
         </LoginForm>
