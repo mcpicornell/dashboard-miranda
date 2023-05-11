@@ -45,14 +45,6 @@ else{
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  // useEffect(() => {
-  //   if (state == true) {
-  //     localStorage.setItem("auth", "true");
-  //   } else {
-  //     localStorage.removeItem("auth");
-  //   }
-  // });
   
   return (
     <UserContext.Provider value={{state, dispatch}}>
