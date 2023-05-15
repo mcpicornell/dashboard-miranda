@@ -155,7 +155,7 @@ margin-bottom: 10px;
 const SelectUserOption = styled.select`
 margin-bottom: 10px;
 `
-const AddUser = styled.button`
+export const AddUser = styled.button`
     margin-right: 0;
     
     margin-top: 20px;
