@@ -1,6 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export function delay(data, time = 200) {
+interface IRooms{
+    rooms: [],
+    roomObj: {}
+}
+
+interface IUsers {}
+
+interface IBooking {}
+
+interface IContact {}
+
+export function delay(data: any, time = 200) {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(data);

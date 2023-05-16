@@ -7,9 +7,15 @@ import { useState } from 'react';
 import {AddUser} from './users/UsersAddPage'
 
 
-const LoginPage = (props) =>{
+const LoginPage = () =>{
 
-    const user = {
+    interface IUser {
+        userName: string,
+        email: string,
+        password: string
+    }
+
+    const user: IUser = {
         userName: "admin",
         email: "admin",
         password: "admin"
@@ -22,7 +28,7 @@ const LoginPage = (props) =>{
     const [emailValue, setEmail] = useState("");
     const [passwordValue, setPassword] = useState("");
 
-    const loginSubmitHandler = (e) => {
+    const loginSubmitHandler = (e:any) => {
         e.preventDefault();
 
         if (emailValue === user.email && 
@@ -48,11 +54,11 @@ const LoginPage = (props) =>{
         <LoginForm onSubmit={loginSubmitHandler}>
             <FormOptions>
                 <label className='label-login'>Introduce your email user</label>
-                <input className='input-login' name='email' placeholder='email' request  onChange={e => setEmail(e.target.value)}/>
+                <input className='input-login' name='email' placeholder='email'  onChange={e => setEmail(e.target.value)}/>
             </FormOptions>
             <FormOptions>
                 <label className='label-login'>Introduce your password</label>
-                <input className='input-login' name='password' placeholder='password' request type='password' onChange={e => setPassword(e.target.value)} />
+                <input className='input-login' name='password' placeholder='password' type='password' onChange={e => setPassword(e.target.value)} />
             </FormOptions>
             <ButtonLogin  type='submit'>Log In</ButtonLogin>
         </LoginForm>
@@ -65,7 +71,7 @@ export default LoginPage;
 const LoginForm = styled.form`
     display: flex;
     flex-direction: column;
-    width: 17%;
+    width: 25%;
     align-items: center;
     justify-content: center;
     margin: 0 auto;

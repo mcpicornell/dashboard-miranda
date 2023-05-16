@@ -1,10 +1,10 @@
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import LateralMenu from '../components/LateralMenu.jsx';
-import NavBar from '../components/Navbar.jsx';
+import LateralMenu from './LateralMenu';
+import NavBar from './Navbar';
 
-export const Layout = (props) => {
+export const Layout = () => {
     const location = useLocation();
 
     const getTitleSections = () => {
@@ -32,6 +32,8 @@ export const Layout = (props) => {
 
             case "/users/addUser":
                 return "New User";
+            default:
+                return "";
         }
     }
     

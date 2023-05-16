@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import  logoCompleto  from '../img/logoCompleto.PNG';
-import fakeMale from '../img/fakeMale.jpg'
 import {MdOutlineDashboard, MdOutlinePermContactCalendar } from 'react-icons/md';
 import {RiCalendarEventLine} from 'react-icons/ri';
 import {VscKey } from 'react-icons/vsc';
@@ -9,19 +7,25 @@ import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../UserContext';
 
+const logo =  require("../img/logoCompleto.PNG");
+const fakeMale = require('../img/fakeMale.jpg');
 
-const LateralMenu = (props) => {
+
+
+const LateralMenu = (props: any) => {
     
     const {state, dispatch} = useContext(UserContext);
+
+    
 
     return (
         <Aside open={props.open}>
             
-                <div className='aside__logo'>
-                    <img className='logo__img' src={logoCompleto} />
-                </div>
+                <AsideLogo >
+                    <img className='logo__img' src={logo} />
+                </AsideLogo>
 
-                <div className='aside__list'>
+                <AsideList className='aside__list'>
                      
                     <div className='list__container-element'>
                         <LinkList to='/' >
@@ -29,27 +33,27 @@ const LateralMenu = (props) => {
                                 <span className='container-element__name-list-element'>Dashboard</span>
                         </LinkList>
                     </div>
-                </div>
+                </AsideList>
 
-                <div className='aside__list'>
+                <AsideList className='aside__list'>
                     <div className='list__container-element'>
                         <LinkList to='/bookings'>
                             <RiCalendarEventLine className='container-element__svg' />
                             <span className='container-element__name-list-element'>Bookings</span>
                         </LinkList>
                     </div>
-                </div>
+                </AsideList>
 
-                <div className='aside__list'>
+                <AsideList className='aside__list'>
                     <div className='list__container-element'>
                         <LinkList to='/rooms'>
                             <VscKey className='container-element__svg'/>
                                 <span className='container-element__name-list-element'>Rooms</span>
                         </LinkList>
                     </div>
-                </div>
+                </AsideList>
 
-                <div className='aside__list'>
+                <AsideList className='aside__list'>
                     <div className='list__container-element'>
 
                         <LinkList to='/contact'>
@@ -58,9 +62,9 @@ const LateralMenu = (props) => {
                         </LinkList>
 
                         </div>
-                </div>
+                </AsideList>
 
-                <div className='aside__list'>
+                <AsideList className='aside__list'>
                     <div className='list__container-element'>
 
                         <LinkList to='/users'>
@@ -69,14 +73,14 @@ const LateralMenu = (props) => {
                         </LinkList>
 
                         </div>
-                </div>
+                </AsideList>
 
-                <div className='aside__card'>
+                <AsideCard className='aside__card'>
                     <img className='card__img-aside-card' src={fakeMale}/>
                     <h4 className='card__user-name'>{state.userName}</h4>
                     <h5 className='card__user-email'>{state.email}</h5>
                     <a className='card__edit-button'><span className='edit__button-span-card'>Edit</span></a>
-                </div>
+                </AsideCard>
                 
                 <div className='aside__bottom'>
                     <span className='bottom-title'>Travl Hotel Admin Dashboard</span>
@@ -85,6 +89,8 @@ const LateralMenu = (props) => {
         </Aside>
     )
 };
+
+
 
 const LinkList = styled(NavLink)`
     text-decoration: none;
@@ -114,56 +120,20 @@ const LinkList = styled(NavLink)`
 
 `
 
-const Aside = styled.aside`
-        display: inline-block;
-        border-radius: 10px;
-        margin: 0px;
-        padding-top: 32px;
-        padding-right: 5px;
-        padding-left: 30px;
-        width: 220px;
-        background: #ffffff 0% 0% no-repeat padding-box;
-        box-shadow: 13px 3px 40px #00000005;
-        opacity: 1;
-        z-index: 2;
-        height: 100%;
-        position: ${props => props.open=== true ? "absolute" : "relative"};
-        left: ${props => props.open=== true ? "-300px" : "0px"};
-
-    .aside__logo{
-       
+const AsideLogo = styled.div`
         display: flex;
         flex-direction: row;
         align-items: center;
         margin-bottom: 62px;
         width: 100%;
         justify-content: space-between;
-    }
 
-    .logo__img{
-        width: 220px;
-        margin-right: 5px;
-    }
+        .logo__img{
+            width: 220px;
+            margin-right: 5px;
+        } `
 
-    .menuCloseObenButton:hover{
-        cursor: pointer;
-    }
-
-    .logo__img-arrow-righ{
-        color: hsla(144, 10%, 52%, 1);
-        opacity: 1;
-        border-radius: 8px;
-        padding-right: 8px;
-        
-    }
-
-    .logo__content{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .aside__list{
+const AsideList = styled.div`
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -172,19 +142,9 @@ const Aside = styled.aside`
         background: hsla(0, 0%, 100%, 1) 0% 0% no-repeat padding-box;
         opacity: 1;
         color: hsla(144, 10%, 52%, 1);
-    }
+`
 
-    .container-element__name-list-element{
-        margin-left: 26px;
-        font-size: 14px;
-        line-height: 27px;
-        font-family: 'Poppins';
-        letter-spacing: 0px;
-        color: hsla(144, 10%, 52%, 1);
-        opacity: 1;
-    }
-
-    .aside__card{
+const AsideCard = styled.div`
         display: flex;
         justify-content: center;
         flex-direction: column;
@@ -200,8 +160,6 @@ const Aside = styled.aside`
         border-radius: 18px;
         opacity: 1;
         text-align: center;
-
-    }
 
     .card__img-aside-card{
         width: 70px;
@@ -226,7 +184,71 @@ const Aside = styled.aside`
         color: #B2B2B2;
         opacity: 1;
     }
+    .card__edit-button{
+        background: #EBF1EF 0% 0% no-repeat padding-box;
+        border-radius: 8px;
+        opacity: 1;
+        margin-bottom: 24px;
+        padding-top: 3px;
+        padding-right: 50px;
+        padding-bottom: 8px;
+        padding-left: 50px;
+    }
+    .edit__button-span-card{
+    font: normal normal 600 14px/21px 'Poppins';
+    letter-spacing: 0px;
+    color: #135846;
+    opacity: 1;
+    margin-bottom: 5px;
+    :hover{
+        cursor: pointer;
+    }
     
+   }
+    `
+interface IOpen {
+    open?: boolean
+}
+const Aside = styled.aside<IOpen>`
+        display: inline-block;
+        border-radius: 10px;
+        margin: 0px;
+        padding-top: 32px;
+        padding-right: 5px;
+        padding-left: 30px;
+        width: 220px;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        box-shadow: 13px 3px 40px #00000005;
+        opacity: 1;
+        z-index: 2;
+        height: 100%;
+        position: ${props => props.open=== true ? "absolute" : "relative"};
+        left: ${props => props.open=== true ? "-300px" : "0px"};
+
+    /* .logo__img-arrow-righ{
+        color: hsla(144, 10%, 52%, 1);
+        opacity: 1;
+        border-radius: 8px;
+        padding-right: 8px;
+        
+    } */
+
+    .logo__content{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .container-element__name-list-element{
+        margin-left: 26px;
+        font-size: 14px;
+        line-height: 27px;
+        font-family: 'Poppins';
+        letter-spacing: 0px;
+        color: hsla(144, 10%, 52%, 1);
+        opacity: 1;
+    }
+
     .aside__bottom{
         display: flex;
         flex-direction: column;
@@ -247,30 +269,6 @@ const Aside = styled.aside`
     color: #799283;
     opacity: 1;
     margin-bottom: 24px;
-   
-   }
-
-   .card__edit-button{
-        background: #EBF1EF 0% 0% no-repeat padding-box;
-        border-radius: 8px;
-        opacity: 1;
-        margin-bottom: 24px;
-        padding-top: 3px;
-        padding-right: 50px;
-        padding-bottom: 8px;
-        padding-left: 50px;
-    }
-
-   .edit__button-span-card{
-    font: normal normal 600 14px/21px 'Poppins';
-    letter-spacing: 0px;
-    color: #135846;
-    opacity: 1;
-    margin-bottom: 5px;
-    :hover{
-        cursor: pointer;
-    }
-    
    }
 `;
 

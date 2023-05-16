@@ -14,21 +14,40 @@ import UsersAddPage from "./pages/users/UsersAddPage";
 import UsersEditPage from "./pages/users/UsersEditPage";
 import { PrivateRoute } from './components/PrivateRoute';
 import { Layout } from './components/Layout';
-import { useContext, useReducer, useState } from 'react';
-import { useEffect } from 'react';
+import { useReducer } from 'react';
 import { UserContext } from './UserContext';
 
 
+export interface State {
+  auth: boolean,
+  email: string,
+  userName: string
+}
 
+export interface Action {
+  type: string,
+  payload?: any,
+  value?: {
+    userName: string,
+    email: string
+  }
+  
+}
 
-const initialState = {
+export const initialState: State = {
   auth: false,
   email: "",
   userName: ""
 };
-const reducer = (state, action) => {
+
+// interface IProvider {
+//   children: JSX.Element | JSX.Element[]
+// }
+
+
+export const reducer = (state: typeof initialState, action: Action) => {
 if(action.type === "auth"){
-  state = {...state, auth: true, userName: action.value.userName, email: action.value.email};
+  state = {...state, auth: true, userName: action.value!.userName, email: action.value!.email};
   return state;
 } 
 else if (action.type === "logOut"){
@@ -45,30 +64,29 @@ else{
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  
   return (
-    <UserContext.Provider value={{state, dispatch}}>
+    <UserContext.Provider value ={{state, dispatch}}>
 
     <BrowserRouter>
 
         <Routes>
-          <Route path="/login" element={<LoginPage auth={state} />} />
+          <Route path="/login" element={<LoginPage />} />
 
-          <Route element={<PrivateRoute auth={state}/>}> 
+          <Route element={<PrivateRoute />}> 
             <Route element={<Layout />}>
 
-                <Route exact path="/" element={<Dashboard />} />
+                <Route path="/" element={<Dashboard />} />
 
-                <Route exact path="/bookings" element={<BookingsPage />} />
+                <Route path="/bookings" element={<BookingsPage />} />
                 <Route path="/bookings/:id" element={<BookingsInfoPage/>} />
                 <Route path="/bookings/addBooking" element={<BookingAddPage/>} />
 
-                <Route exact path="/rooms" element={<RoomsPage />}/>
+                <Route path="/rooms" element={<RoomsPage />}/>
                 <Route path='/rooms/addRoom' element={<RoomsAddPage />} />
 
-                <Route exact path='/contact' element={<ContactPage />} />
+                <Route path='/contact' element={<ContactPage />} />
 
-                <Route exact path='/users' element={<UsersPage/>} /> 
+                <Route path='/users' element={<UsersPage/>} /> 
                 <Route path='/users/addUser' element={<UsersAddPage/>} /> 
                 <Route path='/users/:id' element={<UsersEditPage/>} />
             </Route>
