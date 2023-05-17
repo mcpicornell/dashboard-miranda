@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../UserContext';
 import styled from 'styled-components';
-import { useReducer } from 'react';
 import { useState } from 'react';
 import {AddUser} from './users/UsersAddPage'
 
@@ -21,15 +20,15 @@ const LoginPage = () =>{
         password: "admin"
       };
 
-    const {state, dispatch} = useContext(UserContext);
+    const {dispatch} = useContext(UserContext);
 
     const nav = useNavigate();
 
     const [emailValue, setEmail] = useState("");
     const [passwordValue, setPassword] = useState("");
 
-    const loginSubmitHandler = (e:any) => {
-        e.preventDefault();
+    const loginSubmitHandler = (event: React.SyntheticEvent) => {
+        event.preventDefault();
 
         if (emailValue === user.email && 
             passwordValue === user.password ){

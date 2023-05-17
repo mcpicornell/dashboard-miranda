@@ -1,40 +1,54 @@
-import { StatusButton, NotesButton } from "../components/Button";
-import { AiOutlineInfoCircle } from "react-icons/ai";
-import { VscTrash } from "react-icons/vsc";
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
-import styled from "styled-components";
-import {RowContent}  from "../components/RowContent"
-import { NavLink } from "react-router-dom";
 
-export const Table = (props) => {
+import  {  useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import {RowContent}  from "./RowContent"
+import { NavLink } from "react-router-dom";
+import { IBookings, IContacts, IRooms, IUsers, IBookingsTitles, IUsersTitles, IRoomsTitles } from "../features/interfaces";
+
+interface PropsTable {
+  roomsTitles?: IRoomsTitles,
+  roomsData?: IRooms[],
+  usersTitles?: IUsersTitles,
+  usersData?: IUsers[],
+  bookingsTitles?: IBookingsTitles,
+  bookingsData?: IBookings[],
+  contactsData?: IContacts[]
+}
+
+interface PropsActive {
+  filterActive: boolean;
+}
+
+export const Table = (props: PropsTable): React.ReactElement | null => {
   const [allEmployeeActivate, setAllEmployeeActivate] = useState(false);
   const [activeEmployeeActivate, setActiveEmployeeActivate] = useState(false);
   const [inactiveEmployeeActivate, setInactiveEmployeeActivate] = useState(false);
   const [inProgressActive, setInProgressActive] = useState(false);
   const [searcher, setSearcher] = useState("");
   const location = useLocation();
-  const dataArr = props.data;
   const bookingsData = props.bookingsData;
   const roomsData = props.roomsData;
   const usersData = props.usersData;
-  const content = [];
+  let content: JSX.Element[] = [];
   
-  const allEmployeeActivateOnClick = (event) => {
+  const nav = useNavigate()
+
+  const allEmployeeActivateOnClick = () => {
     setAllEmployeeActivate(true);
     setInactiveEmployeeActivate(false)
     setActiveEmployeeActivate(false)
     setInProgressActive(false);
   };
 
-  const activeEmployeeActivateOnClick = (event) => {
+  const activeEmployeeActivateOnClick = () => {
     setActiveEmployeeActivate(true);
     setAllEmployeeActivate(false)
     setInactiveEmployeeActivate(false)
     setInProgressActive(false);
   };
 
-  const inactiveEmployeeActivateOnClick = (event) => {
+  const inactiveEmployeeActivateOnClick = () => {
     setInactiveEmployeeActivate(true);
     setAllEmployeeActivate(false)
     setActiveEmployeeActivate(false)
@@ -42,7 +56,7 @@ export const Table = (props) => {
     }
   
 
-  const inProgressActiveOnClick = (event) =>{
+  const inProgressActiveOnClick = () =>{
     setInProgressActive(true);
     setAllEmployeeActivate(false)
     setActiveEmployeeActivate(false)
@@ -53,8 +67,8 @@ export const Table = (props) => {
 
   switch(location.pathname){
     case "/bookings":
-    bookingsData.forEach((data) => { 
-      const info = 
+    bookingsData?.forEach((data) => { 
+      const bookingObj = 
       {
         guest: data.guest,
         orderDate: data.orderDate,
@@ -68,7 +82,7 @@ export const Table = (props) => {
 
       content.push(
           <>
-            <RowContent info={info}/>
+            <RowContent bookingObj={bookingObj}/>
           </>
         );
         
@@ -103,13 +117,13 @@ export const Table = (props) => {
                 </OptionsCreate>
             </TopOptions>
             <TitleRowBookings>
-              <TitleRowElement className="titleRowElementName"><span>{props.bookingsTitles.guestName}</span></TitleRowElement>
-              <TitleRowElement>{props.bookingsTitles.orderDate}</TitleRowElement>
-              <TitleRowElement>{props.bookingsTitles.checkIn}</TitleRowElement>
-              <TitleRowElement>{props.bookingsTitles.checkOut}</TitleRowElement>
-              <TitleRowElement>{props.bookingsTitles.specialRequest}</TitleRowElement>
-              <TitleRowElement>{props.bookingsTitles.roomType}</TitleRowElement>
-              <TitleRowElement>{props.bookingsTitles.status}</TitleRowElement>
+              <TitleRowElement className="titleRowElementName"><span>{props.bookingsTitles?.guestName}</span></TitleRowElement>
+              <TitleRowElement>{props.bookingsTitles?.orderDate}</TitleRowElement>
+              <TitleRowElement>{props.bookingsTitles?.checkIn}</TitleRowElement>
+              <TitleRowElement>{props.bookingsTitles?.checkOut}</TitleRowElement>
+              <TitleRowElement>{props.bookingsTitles?.specialRequest}</TitleRowElement>
+              <TitleRowElement>{props.bookingsTitles?.roomType}</TitleRowElement>
+              <TitleRowElement>{props.bookingsTitles?.status}</TitleRowElement>
             </TitleRowBookings>
 
             <Rows>
@@ -122,8 +136,8 @@ export const Table = (props) => {
     case "/rooms":
       
 
-    roomsData.forEach((data) => { 
-      const info = 
+    roomsData?.forEach((data) => { 
+      const roomObj = 
       {
         photos: data.photos,
         roomName: data.roomName,
@@ -135,11 +149,11 @@ export const Table = (props) => {
         offerPrice: data.offerPrice,
         status: data.status
       }
-      console.log(info)
+      
 
       content.push(
           <>
-            <RowContent info={info}/>
+            <RowContent roomObj={roomObj}/>
           </>
         );
         
@@ -167,12 +181,12 @@ export const Table = (props) => {
                 </OptionsCreate>
             </TopOptions>
             <TitleRowRooms>
-              <TitleRowElement className="titleRowElementName"><span>{props.roomTitles.roomName}</span></TitleRowElement>
-              <TitleRowElement>{props.roomTitles.roomType}</TitleRowElement>
-              <TitleRowElement>{props.roomTitles.amenities}</TitleRowElement>
-              <TitleRowElement>{props.roomTitles.price}</TitleRowElement>
-              <TitleRowElement>{props.roomTitles.offerPrice}</TitleRowElement>
-              <TitleRowElement>{props.roomTitles.status}</TitleRowElement>
+              <TitleRowElement className="titleRowElementName"><span>{props.roomsTitles?.roomName}</span></TitleRowElement>
+              <TitleRowElement>{props.roomsTitles?.roomType}</TitleRowElement>
+              <TitleRowElement>{props.roomsTitles?.amenities}</TitleRowElement>
+              <TitleRowElement>{props.roomsTitles?.price}</TitleRowElement>
+              <TitleRowElement>{props.roomsTitles?.offerPrice}</TitleRowElement>
+              <TitleRowElement>{props.roomsTitles?.status}</TitleRowElement>
             </TitleRowRooms>
 
             <Rows>
@@ -184,8 +198,8 @@ export const Table = (props) => {
       );
     
     case "/users":
-      usersData.forEach((data) => { 
-      const info = 
+      usersData?.forEach((data) => { 
+      const userObj = 
       {
         contact: data.contact,
         descriptionJob: data.descriptionJob,
@@ -199,7 +213,7 @@ export const Table = (props) => {
 
       content.push(
           <>
-            <RowContent info={info}/>
+            <RowContent userObj={userObj}/>
           </>
         );
         
@@ -232,10 +246,10 @@ export const Table = (props) => {
                 </OptionsCreate>
             </TopOptions>
             <TitleRow>
-              <TitleRowElement className="titleRowElementName"><span>{props.titleRowUsers.name}</span></TitleRowElement>
-              <TitleRowElement>{props.titleRowUsers.description}</TitleRowElement>
-              <TitleRowElement>{props.titleRowUsers.contact}</TitleRowElement>
-              <TitleRowElement>{props.titleRowUsers.status}</TitleRowElement>
+              <TitleRowElement className="titleRowElementName"><span>{props.usersTitles?.name}</span></TitleRowElement>
+              <TitleRowElement>{props.usersTitles?.description}</TitleRowElement>
+              <TitleRowElement>{props.usersTitles?.contact}</TitleRowElement>
+              <TitleRowElement>{props.usersTitles?.status}</TitleRowElement>
             </TitleRow>
 
             <Rows>
@@ -246,7 +260,8 @@ export const Table = (props) => {
         
         </>
       )
-
+      default: 
+      return null;
   }
   
 };
@@ -278,7 +293,7 @@ const OptionsFilter = styled.div`
 
 `
 
-const FilterEmployee = styled.a`
+const FilterEmployee = styled.a<PropsActive>`
   padding: 0px 20px 15px 20px;
   
   font-weight: 600;

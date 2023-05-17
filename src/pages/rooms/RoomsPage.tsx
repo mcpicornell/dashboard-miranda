@@ -2,24 +2,24 @@ import { useEffect } from "react";
 import { fetchRooms } from "../../features/asyncThunk";
 import {getRoomsStatus, getRoomsData, getRoomsError} from "../../features/rooms/RoomsSlice"
 import roomsJSON from'../../data/rooms.json';
-import { useDispatch, useSelector } from "react-redux";
 import { Table } from "../../components/Table";
-
+import { useAppDispatch, useAppSelector } from "../../app/store";
+import { IRoomsTitles } from "../../features/interfaces";
 
 const RoomsPage = () =>{
-    const dispatch  = useDispatch();
-    const roomsStatus = useSelector(getRoomsStatus);
-    const roomsData = useSelector(getRoomsData);
-    const roomsError = useSelector(getRoomsError);
+    const dispatch  = useAppDispatch();
+    const roomsStatus = useAppSelector(getRoomsStatus);
+    const roomsData = useAppSelector(getRoomsData);
+    const roomsError = useAppSelector(getRoomsError);
     
     useEffect(() => {
         if (roomsStatus == "idle") {
          dispatch(fetchRooms(roomsJSON));
         
         }
-     }, [roomsStatus], dispatch);
+     }, [roomsStatus]);
 
-     const roomTitles = {
+     const roomsTitles: IRoomsTitles = {
         roomName: "Room Name",
         roomType: "Room Type",
         amenities: "Amenities",
@@ -27,11 +27,14 @@ const RoomsPage = () =>{
         offerPrice: "Offer Price",
         status: "Status"
      }
-     
-    return (
-        <Table roomsData={roomsData} roomTitles={roomTitles}/>
-    )
 
+     
+        return (
+            <>
+            <Table roomsData={roomsData} roomsTitles={roomsTitles} />
+
+            </>
+        )
 };
 
 export default RoomsPage;

@@ -9,14 +9,18 @@ import { useState } from 'react';
 import {BsChevronRight} from 'react-icons/bs';
 import {BsChevronLeft} from 'react-icons/bs';
 
-interface IOpen{
+interface PropsNavbar{
+    title: string;
+}
+
+interface PropsOpen{
     open: boolean;
 }
 
-const NavBar = (props: any) =>{
+const NavBar = (props: PropsNavbar) =>{
 
-    const {state, dispatch} = useContext(UserContext);
-    const logOutClickHandler = (event: any) => {
+    const {dispatch} = useContext(UserContext);
+    const logOutClickHandler = (event: React.MouseEvent<SVGElement>) => {
         event.preventDefault();
         dispatch({  type: "logOut" });
     }
@@ -87,7 +91,7 @@ const NavSection = styled.section`
         align-items: center;
 `
 
-const OptionsDiv = styled.div<{open: boolean}>`
+const OptionsDiv = styled.div<PropsOpen>`
     display: flex;
         align-items: center;
         margin-right: 20px;
@@ -106,7 +110,7 @@ const Title = styled.h1`
 `
 
 
-const OpenLateralMenuArrowContainer = styled.div<{open: boolean}>`
+const OpenLateralMenuArrowContainer = styled.div<PropsOpen>`
     position: relative;
     width: 100%;
     :hover{

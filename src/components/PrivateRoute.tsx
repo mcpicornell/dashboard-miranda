@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { UserContext } from "../UserContext";
 
 export const PrivateRoute = () => {
-    const {state, dispatch} = useContext(UserContext);
+    const {state} = useContext(UserContext);
     if (state.auth === true) {
         return <Outlet/>;
     }

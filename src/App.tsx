@@ -24,14 +24,13 @@ export interface State {
   userName: string
 }
 
-export interface Action {
+export interface ReducerAction {
   type: string,
   payload?: any,
   value?: {
     userName: string,
     email: string
   }
-  
 }
 
 export const initialState: State = {
@@ -40,12 +39,8 @@ export const initialState: State = {
   userName: ""
 };
 
-// interface IProvider {
-//   children: JSX.Element | JSX.Element[]
-// }
 
-
-export const reducer = (state: typeof initialState, action: Action) => {
+export const reducer = (state: typeof initialState, action: ReducerAction) => {
 if(action.type === "auth"){
   state = {...state, auth: true, userName: action.value!.userName, email: action.value!.email};
   return state;

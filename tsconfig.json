@@ -18,7 +18,7 @@
       "dom.iterable",
       "esnext"
     ],                                        /* Specify a set of bundled library declaration files that describe the target runtime environment. */
-     "jsx": "preserve",                                /* Specify what JSX code is generated. */
+     "jsx": "react-jsx",                                /* Specify what JSX code is generated. */
     // "experimentalDecorators": true,                   /* Enable experimental support for TC39 stage 2 draft decorators. */
     // "emitDecoratorMetadata": true,                    /* Emit design-type metadata for decorated declarations in source files. */
     // "jsxFactory": "",                                 /* Specify the JSX factory function used when targeting React JSX emit, e.g. 'React.createElement' or 'h' */
@@ -115,6 +115,14 @@
     "isolatedModules": true,
     "noEmit": true,
     // "jsx": "react-jsx"                                 /* Skip type checking all .d.ts files. */
+    "paths": {
+      "react": [ "./node_modules/@types/react" ]
+    }
+  },
+  "resolutions": {
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "17.0.2",
+    "graphql": "^16.5.0"
   },
   "include": [
     "src"

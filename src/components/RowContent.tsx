@@ -4,75 +4,98 @@ import {BsThreeDotsVertical} from "react-icons/bs"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { deleteUser, deleteRoom, deleteBooking } from "../features/asyncThunk"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
+import { IBookings, IRooms, IUsers } from "../features/interfaces"
+import { useAppDispatch } from "../app/store"
 
-export const RowContent = (props) => {
-    const dispatch = useDispatch();
+interface PropsRowContent {
+    bookingObj?: IBookings,
+    roomObj?: IRooms | undefined,
+    userObj?: IUsers
+}
+
+interface PropsStatus{
+    status: string | undefined;
+}
+
+interface PropsActive{
+    active: boolean;
+}
+
+export const RowContent = (props: PropsRowContent): React.ReactElement | null => {
+    const dispatch = useAppDispatch();
     const [deleteOption, setdeleteOption] = useState(false);
     const location = useLocation();
-
-    const showDeleteOption = (event) => {
+    const showDeleteOption = () => {
         setdeleteOption(prevState => !prevState);
     }
 
+    interface PropsStatus{
+        status: string;
+    }
+
     const deleteBookingOnClick = () =>{
-        dispatch(deleteBooking(props.info))
+        dispatch(deleteBooking(props.bookingObj))
         setdeleteOption(prevState => !prevState);
     }
 
     const deleteUserClick = () => {
         setdeleteOption(prevState => !prevState);
-        dispatch(deleteUser(props.info))
+        dispatch(deleteUser(props.userObj))
         
     }
 
     const deleteroomsClick = () => {
-        dispatch(deleteRoom(props.info))
+        dispatch(deleteRoom(props.roomObj))
         setdeleteOption(prevState => !prevState);
     }
 
-    const arrayWithoutEmptyStrings = (array) =>{
-        const result = array.filter(element => element !== undefined).join(", ")
-        return result;
+    const arrayWithoutEmptyStrings = (array?: string[]) =>{
+        if (array !== undefined){
+            const result = array.filter(element => element !== undefined).join(", ")
+            return result;
+        }
+        else{
+            return null;
+        }
     }
-    console.log(props.info)
     
     switch(location.pathname){
         case "/bookings":
             return(
-                <ContainerBookings>
+                <ContainerBookings >
                     <NameInfo>
                         
                         <NameProperties>
-                            <ElementGreyName>#{props.info.id}</ElementGreyName>
-                            <h5>{props.info.guest}</h5>
+                            <ElementGreyName>#{props.bookingObj?.id}</ElementGreyName>
+                            <h5>{props.bookingObj?.guest}</h5>
                         </NameProperties>
                         
                     </NameInfo>
 
                     <Description>
-                            <ElementGrey>{props.info.orderDate}</ElementGrey>
+                            <ElementGrey>{props.bookingObj?.orderDate}</ElementGrey>
                     </Description>
 
                     <Contact>
-                            <ElementGrey>{props.info.checkIn}</ElementGrey>
+                            <ElementGrey>{props.bookingObj?.checkIn}</ElementGrey>
                     </Contact>
 
                     
                     <Contact>
-                            <ElementGrey>{props.info.checkOut}</ElementGrey>
+                            <ElementGrey>{props.bookingObj?.checkOut}</ElementGrey>
                     </Contact>
 
                     <Contact>
-                            <ElementGrey>{props.info.specialRequest}</ElementGrey>
+                            <ElementGrey>{props.bookingObj?.specialRequest}</ElementGrey>
                     </Contact>
 
                     <Contact>
-                            <ElementGrey>{props.info.roomType}</ElementGrey>
+                            <ElementGrey>{props.bookingObj?.roomType}</ElementGrey>
                     </Contact>
 
                     <Status >
-                        <StatusSpanBookings status={props.info.status}>{props.info.status}</StatusSpanBookings>
+                        <StatusSpanBookings status={props.bookingObj?.status}> {props.bookingObj?.status} </StatusSpanBookings>
                         <DeleteButtonsContainer>
                             <DeleteButton onClick={showDeleteOption}>
                                 <BsThreeDotsVertical />
@@ -86,37 +109,38 @@ export const RowContent = (props) => {
             );
 
         case "/rooms":
+            console.log(props.roomObj?.photos[0])
         return(
-            <ContainerRooms info={props.info}>
+            <ContainerRooms >
                 <NameInfo>
                         <ImgContainer>
-                            <img src={props.info.photos.photo1}/>
+                            <img src={props.roomObj?.photos[0]}/>
                         </ImgContainer>
                         <NameProperties>
-                            <ElementGreyName>#{props.info.id}</ElementGreyName>
-                            <h5>{props.info.roomName}</h5>
+                            <ElementGreyName>#{props.roomObj?.id}</ElementGreyName>
+                            <h5>{props.roomObj?.roomName}</h5>
                         </NameProperties>
                         
                 </NameInfo>
 
                 <Description>
-                        <ElementGrey>{props.info.roomType}</ElementGrey>
+                        <ElementGrey>{props.roomObj?.roomType}</ElementGrey>
                 </Description>
 
                 <Contact>
-                        <ElementGrey>{arrayWithoutEmptyStrings(props.info.amenities)}</ElementGrey>
+                        <ElementGrey>{arrayWithoutEmptyStrings(props.roomObj?.amenities)}</ElementGrey>
                 </Contact>
 
                 <Price>
-                    ${props.info.price}<span>/Night</span>
+                    ${props.roomObj?.price}<span>/Night</span>
                 </Price>
 
                 <OfferPrice>
-                    ${props.info.offerPrice}<span>/Night</span>
+                    ${props.roomObj?.offerPrice}<span>/Night</span>
                 </OfferPrice>
 
                 <Status >
-                    <StatusSpanRooms status={props.info.status}>{props.info.status}</StatusSpanRooms>
+                    <StatusSpanRooms status={props.roomObj?.status}>{props.roomObj?.status}</StatusSpanRooms>
                     <DeleteButtonsContainer>
                         <DeleteButton onClick={showDeleteOption}>
                             <BsThreeDotsVertical />
@@ -134,28 +158,28 @@ export const RowContent = (props) => {
             <Container >
                 <NameInfo>
                         <ImgContainer>
-                            <img src={props.info.photo}/>
+                            <img src={props.userObj?.photo}/>
                         </ImgContainer>
                         <NameProperties>
-                            <h5>{props.info.name}</h5>
-                            <ElementGreyName>#{props.info.id}</ElementGreyName>
-                            <ElementGreyName>{props.info.email}</ElementGreyName>
-                            <ElementGreyName>{props.info.startDate}</ElementGreyName>
+                            <h5>{props.userObj?.name}</h5>
+                            <ElementGreyName>#{props.userObj?.id}</ElementGreyName>
+                            <ElementGreyName>{props.userObj?.email}</ElementGreyName>
+                            <ElementGreyName>{props.userObj?.startDate}</ElementGreyName>
                         </NameProperties>
                         
                 </NameInfo>
 
                 <Description>
-                        <ElementGrey>{props.info.descriptionJob}</ElementGrey>
+                        <ElementGrey>{props.userObj?.descriptionJob}</ElementGrey>
                 </Description>
 
                 <Contact>
                         <HiPhone className="rowContent__telephoneIcon"/>
-                        <ElementGrey>{props.info.contact}</ElementGrey>
+                        <ElementGrey>{props.userObj?.contact}</ElementGrey>
                 </Contact>
 
                 <Status >
-                    <StatusSpan status={props.info.status}>{props.info.status}</StatusSpan>
+                    <StatusSpan status={props.userObj?.status}> {props.userObj?.status} </StatusSpan>
                     <DeleteButtonsContainer>
                         <DeleteButton onClick={showDeleteOption}>
                             <BsThreeDotsVertical />
@@ -168,6 +192,8 @@ export const RowContent = (props) => {
                 </Status>
             </Container>
         );
+        default:
+        return null;
 
     }
     
@@ -280,14 +306,14 @@ justify-content: space-between;
 align-items: center;
 `
 
-const StatusSpan = styled.span`
+const StatusSpan = styled.span<PropsStatus>`
 margin-left: 20px;
 text-transform: uppercase;
 font: normal normal 600 14px/21px 'Poppins';
 color: ${props => props.status==="Active" ? "#5AD07A" : "#E23428" };
 `
 
-const StatusSpanBookings = styled.span`
+const StatusSpanBookings = styled.span<PropsStatus>`
 margin-left: 0px;
 width: 68px;
 padding: 5px 12px 5px 12px;
@@ -299,7 +325,7 @@ color: ${props => props.status === "Check In" ? "#5AD07A" : props.status === "Ch
 background-color: ${props => props.status === "Check In" ? "#E8FFEE" : props.status === "Check Out" ? "#FFEDEC" :  "#f8f8ed"};;
 `
 
-const StatusSpanRooms = styled.span`
+const StatusSpanRooms = styled.span<PropsStatus>`
 text-align: center;
 font: normal normal 600 14px/21px 'Poppins';
 color: #FFFFFF;
@@ -325,7 +351,7 @@ const DeleteButton = styled.a`
     
 `
 
-const DeleteOption = styled.a`
+const DeleteOption = styled.a<PropsActive>`
     margin-top: 5px;
     color: #E23428;
     font-size: 14px;

@@ -1,24 +1,25 @@
-import { useEffect } from "react";
+import { JSXElementConstructor, ReactComponentElement, useEffect } from "react";
 import { fetchBookings } from "../../features/asyncThunk";
 import { getBookingsData, getBookingsError, getBookingsStatus } from "../../features/bookings/BookingsSlice";
 import bookingsJSON from'../../data/bookings.json';
-import { useDispatch, useSelector } from "react-redux";
 import { Table } from "../../components/Table";
+import { useAppSelector, useAppDispatch } from "../../app/store";
+import { IBookingsTitles } from "../../features/interfaces";
+
 
 const BookingsPage = () =>{
-    const dispatch  = useDispatch();
-    const bookingsStatus = useSelector(getBookingsStatus);
-    const bookingsData = useSelector(getBookingsData);
-    const bookingsError = useSelector(getBookingsError);
+    const dispatch  = useAppDispatch();
+    const bookingsStatus = useAppSelector(getBookingsStatus);
+    const bookingsData = useAppSelector(getBookingsData);
+    const bookingsError = useAppSelector(getBookingsError);
 
     useEffect(() => {
         if (bookingsStatus == "idle") {
          dispatch(fetchBookings(bookingsJSON));
-        
         }
-     }, [bookingsStatus], dispatch);
+     }, [bookingsStatus]);
 
-     const bookingsTitles = {
+     const bookingsTitles: IBookingsTitles = {
         guestName: "Guest",
         orderDate: "Order Date",
         checkIn: "Check In",
@@ -30,7 +31,7 @@ const BookingsPage = () =>{
 
     return (
         <>
-        <Table  bookingsData={bookingsData} bookingsTitles={bookingsTitles} />
+            <Table  bookingsData={bookingsData} bookingsTitles={bookingsTitles} />
         </>
     )
 };

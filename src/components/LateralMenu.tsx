@@ -10,9 +10,9 @@ import { UserContext } from '../UserContext';
 const logo =  require("../img/logoCompleto.PNG");
 const fakeMale = require('../img/fakeMale.jpg');
 
+interface PropsLateralMenu { open: boolean }
 
-
-const LateralMenu = (props: any) => {
+const LateralMenu = (props: PropsLateralMenu) => {
     
     const {state, dispatch} = useContext(UserContext);
 
@@ -206,10 +206,8 @@ const AsideCard = styled.div`
     
    }
     `
-interface IOpen {
-    open?: boolean
-}
-const Aside = styled.aside<IOpen>`
+
+const Aside = styled.aside<PropsLateralMenu>`
         display: inline-block;
         border-radius: 10px;
         margin: 0px;
@@ -224,14 +222,6 @@ const Aside = styled.aside<IOpen>`
         height: 100%;
         position: ${props => props.open=== true ? "absolute" : "relative"};
         left: ${props => props.open=== true ? "-300px" : "0px"};
-
-    /* .logo__img-arrow-righ{
-        color: hsla(144, 10%, 52%, 1);
-        opacity: 1;
-        border-radius: 8px;
-        padding-right: 8px;
-        
-    } */
 
     .logo__content{
         display: flex;

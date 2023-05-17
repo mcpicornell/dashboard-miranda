@@ -6,43 +6,40 @@ import {IoLogInOutline} from "react-icons/io5"
 
 
 const Dashboard = () =>{
-    return (
-        <>
-            
+    return (  
             <Header>
                     <HeaderElements>
                         <BiBed className='bed' />
                         <ElementsInformation>
-                            <span>8461</span>
-                            <h4 className="h4">New Booking</h4>
+                            <ElementsInformationSpan>8461</ElementsInformationSpan>
+                            <ElementsInformationh4>New Booking</ElementsInformationh4>
                         </ElementsInformation>
                     </HeaderElements>
 
                     <HeaderElements>
                         <RiCalendarCheckLine className='bed' />
                         <ElementsInformation>
-                            <span>963</span>
-                            <h4 className="h4">Scheduled Room</h4>
+                            <ElementsInformationSpan>963</ElementsInformationSpan>
+                            <ElementsInformationh4>Scheduled Room</ElementsInformationh4>
                         </ElementsInformation>
                     </HeaderElements>
 
                     <HeaderElements>
                         <IoLogInOutline className='bed' />
                         <ElementsInformation>
-                            <span>753</span>
-                            <h4 className="h4">Check In</h4>
+                            <ElementsInformationSpan>753</ElementsInformationSpan>
+                            <ElementsInformationh4>Check In</ElementsInformationh4>
                         </ElementsInformation>
                     </HeaderElements>
 
                     <HeaderElements>
                         <IoLogOutOutline className='bed' />
                         <ElementsInformation>
-                            <span>516</span>
-                            <h4 className="h4">Check Out</h4>
+                            <ElementsInformationSpan>516</ElementsInformationSpan>
+                            <ElementsInformationh4>Check Out</ElementsInformationh4>
                         </ElementsInformation>
                     </HeaderElements>
             </Header>
-        </>
     )
 };
 
@@ -87,21 +84,21 @@ const ElementsInformation = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+`;
 
-    .h4{
+const ElementsInformationSpan = styled.span`
+    text-align: left;
+    font: normal normal 600 30px/46px 'Poppins';
+    letter-spacing: 0px;
+    color: #393939;
+    opacity: 1;
+`
+
+const ElementsInformationh4 = styled.h4`
     margin: 0px;
     font: normal normal 300 14px/21px 'Poppins';
     letter-spacing: 0px;
     color: #787878;
     opacity: 1;
     width: 100px;
-    }
-
-    span{
-        text-align: left;
-        font: normal normal 600 30px/46px 'Poppins';
-        letter-spacing: 0px;
-        color: #393939;
-        opacity: 1;
-    }
-`;
+`

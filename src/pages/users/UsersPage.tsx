@@ -4,37 +4,35 @@ import {getUsersStatus, getUsersData, getUsersError} from '../../features/users/
 import { fetchUsers, addUser, deleteUser } from "../../features/asyncThunk";
 import usersJSON from "../../data/users.json";
 import styled from "styled-components";
-
+import { useAppSelector, useAppDispatch } from "../../app/store";
 import { Table } from "../../components/Table";
 import { Button } from "../../components/Button";
 
 const UsersPage = () =>{
 
 
-     const dispatch = useDispatch();
+     const dispatch = useAppDispatch();
      
-     const usersStatus = useSelector(getUsersStatus);
-     const usersData = useSelector(getUsersData);
-     const usersError = useSelector(getUsersError);
+     const usersStatus = useAppSelector(getUsersStatus);
+     const usersData = useAppSelector(getUsersData);
+     const usersError = useAppSelector(getUsersError);
 
-     const titleRowUsers = {
+     const usersTitles = {
       name: "Name",
       description: "Description",
       contact: "Contact",
       status: "Status"
     }
 
-    
-
     useEffect(() => {
         if (usersStatus == "idle") {
           dispatch(fetchUsers(usersJSON))
         }
-      }, [usersStatus], dispatch);
+      }, [usersStatus]);
 
     return (
         <>
-        <Table titleRowUsers={titleRowUsers} usersData={usersData} />
+        <Table usersTitles={usersTitles} usersData={usersData} />
         </>
     )
 };
