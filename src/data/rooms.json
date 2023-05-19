@@ -7,7 +7,7 @@
         "price": 145,
         "roomNumber": 101,
         "roomType": "Single Bed",
-        "amenities": ["suite bath", "suite bath"],
+        "amenities": ["suite bath", "suite bath", "suite bath", "suite bath"],
         "photos": ["https://images.unspla.com/photo-1605346434674-a440ca4dc4c0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"]
     },
     {
@@ -18,7 +18,7 @@
         "price": 145,
         "roomNumber": 102,
         "roomType": "Double Bed",
-        "amenities": ["suite bath", "suite bath"],
+        "amenities": ["suite bath", "suite bath", "suite bath", "suite bath"],
         "photos": ["https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=327&q=80"]
         
     },
@@ -30,7 +30,7 @@
         "price": 145,
         "roomNumber": 102,
         "roomType": "Double Superior",
-        "amenities": ["suite bath", "suite bath"],
+        "amenities": ["suite bath", "suite bath", "suite bath", "suite bath"],
         "photos": ["https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"]
         
     },
@@ -43,7 +43,7 @@
         "price": 145,
         "roomNumber": 102,
         "roomType": "Suite",
-        "amenities": ["suite bath", "suite bath"],
+        "amenities": ["suite bath", "suite bath", "suite bath", "suite bath"],
         "photos": ["https://plus.unsplash.com/premium_photo-1661956080119-71234af803b3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=812&q=80"]
         
     }

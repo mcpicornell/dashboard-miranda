@@ -2,7 +2,6 @@ import styled from "styled-components"
 import {HiPhone} from "react-icons/hi"
 import {BsThreeDotsVertical} from "react-icons/bs"
 import { useState } from "react"
-import { useDispatch } from "react-redux"
 import { deleteUser, deleteRoom, deleteBooking } from "../features/asyncThunk"
 import { useLocation, useNavigate } from "react-router-dom"
 import { IBookings, IRooms, IUsers } from "../features/interfaces"
@@ -10,7 +9,7 @@ import { useAppDispatch } from "../app/store"
 
 interface PropsRowContent {
     bookingObj?: IBookings,
-    roomObj?: IRooms | undefined,
+    roomObj?: IRooms,
     userObj?: IUsers
 }
 
@@ -23,31 +22,41 @@ interface PropsActive{
 }
 
 export const RowContent = (props: PropsRowContent): React.ReactElement | null => {
+
+    
     const dispatch = useAppDispatch();
+    const nav = useNavigate();
     const [deleteOption, setdeleteOption] = useState(false);
     const location = useLocation();
     const showDeleteOption = () => {
         setdeleteOption(prevState => !prevState);
     }
 
-    interface PropsStatus{
-        status: string;
+    const navToBookingDetailsOnClick = () => {
+        nav(`/bookings/${props.bookingObj?.id}`, {state:props.bookingObj})
     }
 
     const deleteBookingOnClick = () =>{
-        dispatch(deleteBooking(props.bookingObj))
-        setdeleteOption(prevState => !prevState);
+        if(props.bookingObj){
+            dispatch(deleteBooking(props.bookingObj))
+            setdeleteOption(prevState => !prevState)
+        }
+       
     }
 
     const deleteUserClick = () => {
-        setdeleteOption(prevState => !prevState);
-        dispatch(deleteUser(props.userObj))
-        
+        if(props.userObj){
+            dispatch(deleteUser(props.userObj))
+            setdeleteOption(prevState => !prevState);
+        }
     }
 
     const deleteroomsClick = () => {
-        dispatch(deleteRoom(props.roomObj))
-        setdeleteOption(prevState => !prevState);
+        
+        if(props.roomObj){
+            dispatch(deleteRoom(props.roomObj))
+            setdeleteOption(prevState => !prevState);
+        }
     }
 
     const arrayWithoutEmptyStrings = (array?: string[]) =>{
@@ -63,7 +72,7 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
     switch(location.pathname){
         case "/bookings":
             return(
-                <ContainerBookings >
+                <ContainerBookings onClick={navToBookingDetailsOnClick}>
                     <NameInfo>
                         
                         <NameProperties>

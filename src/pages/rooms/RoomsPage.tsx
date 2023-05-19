@@ -14,7 +14,7 @@ const RoomsPage = () =>{
     
     useEffect(() => {
         if (roomsStatus == "idle") {
-         dispatch(fetchRooms(roomsJSON));
+         dispatch(fetchRooms());
         
         }
      }, [roomsStatus]);

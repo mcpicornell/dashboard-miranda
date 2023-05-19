@@ -1,0 +1,23 @@
+
+[
+    {
+        "id": 1,
+        "contactDate": "2024-10-01",
+        "contactId": 520,
+        "guest": "chocolatero",
+        "email": "m@m.com",
+        "contact": 655555555,
+        "title": "I'm a title",
+        "text": "I'm a text"
+    },
+    {
+        "id": 2,
+        "contactDate": "2024-10-01",
+        "contactId": 471,
+        "guest": "Paquito",
+        "email": "m@m.com",
+        "contact": 655555555,
+        "title": "I'm a title",
+        "text": "I'm a text"
+    }
+]

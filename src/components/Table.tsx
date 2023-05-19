@@ -1,6 +1,6 @@
 
 import  {  useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import {RowContent}  from "./RowContent"
 import { NavLink } from "react-router-dom";
@@ -31,8 +31,7 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
   const roomsData = props.roomsData;
   const usersData = props.usersData;
   let content: JSX.Element[] = [];
-  
-  const nav = useNavigate()
+
 
   const allEmployeeActivateOnClick = () => {
     setAllEmployeeActivate(true);

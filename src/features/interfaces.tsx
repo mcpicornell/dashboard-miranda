@@ -1,6 +1,4 @@
 
-
-
     export interface IRooms{
         id: number,
         roomName: string,
@@ -34,12 +32,12 @@
         status: string
     }
     export interface IContacts{
-        id: string,
+        id: number,
         contactDate: string,
-        contactId: string,
+        contactId: number,
         guest: string,
         email: string,
-        contact: string,
+        contact: number,
         title: string,
         text: string
     }
