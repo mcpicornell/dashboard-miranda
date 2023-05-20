@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction} from "@reduxjs/toolkit"
-import { fetchRooms, addRoom, deleteRoom } from "../asyncThunk";
+import { fetchRooms, addRoom, deleteRoom, filterRoom } from "../asyncThunk";
 import type { RootState } from '../../app/store'
 import { IBookings, IRooms } from "../interfaces";
 
@@ -20,11 +20,7 @@ export const RoomsSlice = createSlice({
     name: "rooms",
     initialState,
 
-      reducers: {
-        setRoom: (state, action: PayloadAction<IBookings>) => {
-          state.room = state.data.find((element) => element.roomType ==  action.payload.roomType);
-      }
-      },
+      reducers:{},
 
       extraReducers: (builder) => {
         builder.addCase(fetchRooms.fulfilled, (state, action) => {
@@ -60,11 +56,13 @@ export const RoomsSlice = createSlice({
         .addCase(deleteRoom.pending, (state, action) => {
             state.status = "pending";
           })
+        .addCase(filterRoom.fulfilled, (state, action) => {
+          state.data = state.data.filter((element) => element.status ==  action.payload);
+        })
+        
       },
 
 });
-
-export const  {setRoom} = RoomsSlice.actions;
 
 export const getRoomsStatus = (state:RootState) => state.rooms.status;
 export const getRoomsData = (state:RootState) => state.rooms.data;

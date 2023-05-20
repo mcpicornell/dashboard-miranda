@@ -1,10 +1,10 @@
-
-import  {  useState } from "react";
+import  {  useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import {RowContent}  from "./RowContent"
 import { NavLink } from "react-router-dom";
 import { IBookings, IContacts, IRooms, IUsers, IBookingsTitles, IUsersTitles, IRoomsTitles } from "../features/interfaces";
+import { useEffect } from "react";
 
 interface PropsTable {
   roomsTitles?: IRoomsTitles,
@@ -21,92 +21,196 @@ interface PropsActive {
 }
 
 export const Table = (props: PropsTable): React.ReactElement | null => {
-  const [allEmployeeActivate, setAllEmployeeActivate] = useState(false);
+  const searchStringRef = useRef("")
+  const [allEmployeeActivate, setAllEmployeeActivate] = useState(true);
   const [activeEmployeeActivate, setActiveEmployeeActivate] = useState(false);
   const [inactiveEmployeeActivate, setInactiveEmployeeActivate] = useState(false);
-  const [inProgressActive, setInProgressActive] = useState(false);
-  const [searcher, setSearcher] = useState("");
+
+  const [allRoomsActivate, setAllRoomsActivate] = useState(true);
+  const [avaliableRoomsActivate, setAvaliableRoomsActivate] = useState(false);
+  const [bookedRoomsActivate, setBookedRoomsActivate] = useState(false);
+
+  const [allBookingsActivate, setAllBookingsActivate] = useState(true);
+  const [checkInActivate, setCheckInActivate] = useState(false);
+  const [checkOutActivate, setCheckOutActivate] = useState(false);
+  const [inProgressBookingsActivate, setInProgressBokingsActivate] = useState(false);
+
+  const bookingsDataVar = props.bookingsData;
+  const roomsDataVar = props.roomsData;
+  const usersDataVar = props.usersData;
+
+  const [bookingsData, setBookingsData] = useState<IBookings[]| undefined>(bookingsDataVar)
+  const [roomsData, setRoomsData] = useState<IRooms[]| undefined>(roomsDataVar)
+  const [usersData, setUsersData] = useState<IUsers[] | undefined>(usersDataVar)
+  const [searchString, setSearchString] = useState("");
   const location = useLocation();
-  const bookingsData = props.bookingsData;
-  const roomsData = props.roomsData;
-  const usersData = props.usersData;
+  let counter = 0;
+  
   let content: JSX.Element[] = [];
 
+  useEffect(() => {
+    setBookingsData(props.bookingsData);
+    setRoomsData(props.roomsData);
+    setUsersData(props.usersData);
+  }, [props.bookingsData, props.roomsData, props.usersData]);
+
+
+  const allBookingsActivateOnClick = () => {
+    setAllBookingsActivate(true);
+    setCheckInActivate(false)
+    setCheckOutActivate(false)
+    setInProgressBokingsActivate(false);
+    setBookingsData(bookingsDataVar)
+  };
+
+  const checkInActivateOnClick = () => {
+    setAllBookingsActivate(false);
+    setCheckInActivate(true)
+    setCheckOutActivate(false)
+    setInProgressBokingsActivate(false);
+    setBookingsData(bookingsDataVar!.filter((element) => element.status ===  "Check In"))
+  };
+
+  const checkOutActivateOnClick = () => {
+    setAllBookingsActivate(false);
+    setCheckInActivate(false)
+    setCheckOutActivate(true)
+    setInProgressBokingsActivate(false);
+    setBookingsData(bookingsDataVar!.filter((element) => element.status ===  "Check Out"))
+    }
+
+  const inProgressBookingsActivateOnClick = () =>{
+    setInProgressBokingsActivate(true);
+    setAllBookingsActivate(false)
+    setCheckInActivate(false)
+    setCheckOutActivate(false)
+    setBookingsData(bookingsDataVar!.filter((element) => element.status ===  "In Progress"))
+  }
 
   const allEmployeeActivateOnClick = () => {
-    setAllEmployeeActivate(true);
+    setUsersData(props.usersData)
     setInactiveEmployeeActivate(false)
     setActiveEmployeeActivate(false)
-    setInProgressActive(false);
   };
 
   const activeEmployeeActivateOnClick = () => {
+    setUsersData(props.usersData!.filter((element) => element.status ===  "Active"))
     setActiveEmployeeActivate(true);
     setAllEmployeeActivate(false)
     setInactiveEmployeeActivate(false)
-    setInProgressActive(false);
   };
 
   const inactiveEmployeeActivateOnClick = () => {
+    setUsersData(props.usersData!.filter((element) => element.status ===  "Inactive"))
     setInactiveEmployeeActivate(true);
     setAllEmployeeActivate(false)
     setActiveEmployeeActivate(false)
-    setInProgressActive(false);
     }
+
+    const allRoomsActivateOnClick = () => {
+      setRoomsData(props.roomsData)
+      setAllRoomsActivate(true);
+      setBookedRoomsActivate(false)
+      setAvaliableRoomsActivate(false)
+    };
   
+    const avaliableRoomsActivateOnClick = () => {
+      setRoomsData(props.roomsData!.filter((element) => element.status ===  "Avaliable"))
+      setAvaliableRoomsActivate(true);
+      setAllRoomsActivate(false)
+      setInactiveEmployeeActivate(false)
+    };
+  
+    const bookedRoomsActivateOnClick = () => {
+      setRoomsData(props.roomsData!.filter((element) => element.status ===  "Booked"))
+      setBookedRoomsActivate(true);
+      setAvaliableRoomsActivate(false)
+      setAllRoomsActivate(false)
+      }
 
-  const inProgressActiveOnClick = () =>{
-    setInProgressActive(true);
-    setAllEmployeeActivate(false)
-    setActiveEmployeeActivate(false)
-    setInactiveEmployeeActivate(false)
-    setAllEmployeeActivate(false)
-  }
-
+      const searcherHandlerOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const inputValue = event.target.value;
+        setSearchString(inputValue);
+      
+        if (inputValue.length > 0) {
+          switch (location.pathname) {
+            case "/bookings":
+              if (bookingsData) {
+                const filteredBookings = bookingsData.filter((element) => {
+                  const guest = element.guest.toLocaleLowerCase();
+                  return guest.includes(inputValue.toLowerCase());
+                });
+                setBookingsData(filteredBookings);
+              }
+              break;
+            case "/users":
+              if (usersData) {
+                const filteredUsers = usersData.filter((element) => {
+                  const name = element.name.toLocaleLowerCase();
+                  return name.includes(inputValue.toLowerCase());
+                });
+                setUsersData(filteredUsers);
+              }
+              break;
+            default:
+              break;
+          }
+        } else {
+          if (location.pathname === "/users") {
+            setUsersData(props.usersData);
+          } else {
+            setBookingsData(props.bookingsData);
+          }
+        }
+      };
+      
+    
 
   switch(location.pathname){
     case "/bookings":
-    bookingsData?.forEach((data) => { 
-      const bookingObj = 
-      {
-        guest: data.guest,
-        orderDate: data.orderDate,
-        checkIn: data.checkIn,
-        id: data.id,
-        checkOut: data.checkOut,
-        specialRequest: data.specialRequest,
-        roomType: data.roomType,
-        status: data.status
+      if(bookingsData){
+        bookingsData.forEach((data) => { 
+          const bookingObj = 
+          {
+            guest: data.guest,
+            orderDate: data.orderDate,
+            checkIn: data.checkIn,
+            id: data.id,
+            checkOut: data.checkOut,
+            specialRequest: data.specialRequest,
+            roomType: data.roomType,
+            status: data.status
+          }
+    
+          content.push(
+              <>
+                <RowContent bookingObj={bookingObj}/>
+              </>
+            );
+            
+          });
       }
-
-      content.push(
-          <>
-            <RowContent bookingObj={bookingObj}/>
-          </>
-        );
-        
-      });
       
       return(
         <>
         <TableStyled>
             <TopOptions>
                 <OptionsFilter>
-                  <FilterEmployee filterActive={allEmployeeActivate} onClick={allEmployeeActivateOnClick}>
+                  <FilterEmployee filterActive={allBookingsActivate} onClick={allBookingsActivateOnClick}>
                     <span>All Bookings</span>
                   </FilterEmployee>
-                  <FilterEmployee filterActive={activeEmployeeActivate} onClick={activeEmployeeActivateOnClick}>
+                  <FilterEmployee filterActive={checkInActivate} onClick={checkInActivateOnClick}>
                     <span>Checking In</span>
                   </FilterEmployee>
-                  <FilterEmployee filterActive={inactiveEmployeeActivate} onClick={inactiveEmployeeActivateOnClick}>
+                  <FilterEmployee filterActive={checkOutActivate} onClick={checkOutActivateOnClick}>
                     <span>Checking Out</span>
                   </FilterEmployee>
 
-                  <FilterEmployee filterActive={inProgressActive} onClick={inProgressActiveOnClick}>
+                  <FilterEmployee filterActive={inProgressBookingsActivate} onClick={inProgressBookingsActivateOnClick}>
                     <span>In Progress</span>
                   </FilterEmployee>
 
-                  <FilterSearcher placeholder="Search by Guest name" onChange={e => setSearcher(e.target.value)}/>
+                  <FilterSearcher placeholder="Search by Guest name" type="text" onChange={searcherHandlerOnChange}/>
 
                 </OptionsFilter>
                 <OptionsCreate>
@@ -133,8 +237,6 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
       );
 
     case "/rooms":
-      
-
     roomsData?.forEach((data) => { 
       const roomObj = 
       {
@@ -148,8 +250,6 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
         offerPrice: data.offerPrice,
         status: data.status
       }
-      
-
       content.push(
           <>
             <RowContent roomObj={roomObj}/>
@@ -162,13 +262,13 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
           <TableStyled>
             <TopOptions>
                 <OptionsFilter>
-                  <FilterEmployee filterActive={allEmployeeActivate} onClick={allEmployeeActivateOnClick}>
+                  <FilterEmployee filterActive={allRoomsActivate} onClick={allRoomsActivateOnClick}>
                     <span>All Rooms</span>
                   </FilterEmployee>
-                  <FilterEmployee filterActive={activeEmployeeActivate} onClick={activeEmployeeActivateOnClick}>
+                  <FilterEmployee filterActive={avaliableRoomsActivate} onClick={avaliableRoomsActivateOnClick}>
                     <span>Avaliable Rooms</span>
                   </FilterEmployee>
-                  <FilterEmployee filterActive={inactiveEmployeeActivate} onClick={inactiveEmployeeActivateOnClick}>
+                  <FilterEmployee filterActive={bookedRoomsActivate} onClick={bookedRoomsActivateOnClick}>
                     <span>Booked Rooms</span>
                   </FilterEmployee>
 
@@ -221,7 +321,6 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
 
       return(
         <>
-
           <TableStyled>
             <TopOptions>
                 <OptionsFilter>
@@ -235,7 +334,7 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
                     <span>Inactive Employee</span>
                   </FilterEmployee>
 
-                  <FilterSearcher placeholder="Search employee by name" onChange={e => setSearcher(e.target.value)}/>
+                  <FilterSearcher placeholder="Search employee by name" onChange={searcherHandlerOnChange} />
 
                 </OptionsFilter>
                 <OptionsCreate>
@@ -262,8 +361,8 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
       default: 
       return null;
   }
-  
-};
+}
+
 
 const TableStyled = styled.section`
 
@@ -362,7 +461,5 @@ const TitleRowElement = styled.span`
   span{
     padding-left: 30px;
   }
-
-
 `
 

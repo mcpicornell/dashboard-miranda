@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction} from "@reduxjs/toolkit"
-import { fetchUsers, addUser, deleteUser, editUser } from "../asyncThunk";
+import { fetchUsers, addUser, deleteUser, editUser, filterUser, searchUser } from "../asyncThunk";
 import type { RootState } from '../../app/store'
 import { IUsers } from "../interfaces";
 
@@ -66,6 +66,16 @@ export const UsersSlice = createSlice({
         .addCase(editUser.pending, (state, action) => {
           state.status = "pending";
           })
+        .addCase(filterUser.fulfilled, (state, action) => {
+          state.data = state.data.filter((element) => element.status ==  action.payload);
+        })
+        .addCase(searchUser.fulfilled, (state, action) => {
+          state.data = state.data.filter((element) => {
+            const name = element.name.toLocaleLowerCase();
+            return name.match(action.payload)
+          })
+          
+        })
       },
 
 });

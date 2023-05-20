@@ -28,7 +28,7 @@
         id: number,
         checkOut: string,
         specialRequest: string,
-        roomType: string,
+        roomType: IRooms,
         status: string
     }
     export interface IContacts{

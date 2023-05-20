@@ -47,8 +47,16 @@ export const deleteRoom = createAsyncThunk<IRooms, IRooms>('rooms/deleteRoom', a
     })
 });
 
+export const filterRoom = createAsyncThunk<string, string>('rooms/filterRoom', async (status) => {
+    return await new Promise ((resolve) => {
+        setTimeout(() => {
+            resolve(status)
+        }, 200)
+    })
+});
+
 //USERS
-export const fetchUsers = createAsyncThunk<IUsers[], void>('rooms/fetchUsers', async () => {
+export const fetchUsers = createAsyncThunk<IUsers[], void>('users/fetchUsers', async () => {
     return await new Promise ((resolve) => {
         setTimeout(() => {
             resolve(usersJSON)
@@ -56,7 +64,7 @@ export const fetchUsers = createAsyncThunk<IUsers[], void>('rooms/fetchUsers', a
     })
 });
 
-export const addUser = createAsyncThunk<IUsers, IUsers>('rooms/addUser', async (userObj) => {
+export const addUser = createAsyncThunk<IUsers, IUsers>('users/addUser', async (userObj) => {
     return await new Promise ((resolve) => {
         setTimeout(() => {
             resolve(userObj)
@@ -64,7 +72,7 @@ export const addUser = createAsyncThunk<IUsers, IUsers>('rooms/addUser', async (
     })
 });
 
-export const deleteUser = createAsyncThunk<IUsers, IUsers>('rooms/deleteUser', async (userObj) => {
+export const deleteUser = createAsyncThunk<IUsers, IUsers>('users/deleteUser', async (userObj) => {
     return await new Promise ((resolve) => {
         setTimeout(() => {
             resolve(userObj)
@@ -72,17 +80,33 @@ export const deleteUser = createAsyncThunk<IUsers, IUsers>('rooms/deleteUser', a
     })
 });
 
-export const editUser = createAsyncThunk<IUsers, IUsers>('rooms/editUser', async (userObj) => {
+export const editUser = createAsyncThunk<IUsers, IUsers>('users/editUser', async (userObj) => {
     return await new Promise ((resolve) => {
         setTimeout(() => {
             resolve(userObj)
+        }, 200)
+    })
+});
+
+export const filterUser = createAsyncThunk<string, string>('users/filterUser', async (status) => {
+    return await new Promise ((resolve) => {
+        setTimeout(() => {
+            resolve(status)
+        }, 200)
+    })
+});
+
+export const searchUser = createAsyncThunk<string, string>('users/searchUser', async (userName) => {
+    return await new Promise ((resolve) => {
+        setTimeout(() => {
+            resolve(userName)
         }, 200)
     })
 });
 
 
 //BOOKINGS
-export const fetchBookings = createAsyncThunk<IBookings[], void>('rooms/fetchBookings', async () => {
+export const fetchBookings = createAsyncThunk<IBookings[], void>('bookings/fetchBookings', async () => {
     return await new Promise ((resolve) => {
         setTimeout(() => {
             resolve(bookingsJSON)
@@ -90,7 +114,7 @@ export const fetchBookings = createAsyncThunk<IBookings[], void>('rooms/fetchBoo
     })
 });
 
-export const addBooking = createAsyncThunk<IBookings, IBookings>('rooms/addBooking', async (bookingObj) => {
+export const addBooking = createAsyncThunk<IBookings, IBookings>('bookings/addBooking', async (bookingObj) => {
     return await new Promise ((resolve) => {
         setTimeout(() => {
             resolve(bookingObj)
@@ -99,17 +123,33 @@ export const addBooking = createAsyncThunk<IBookings, IBookings>('rooms/addBooki
 });
 
 
-export const deleteBooking = createAsyncThunk<IBookings, IBookings>('rooms/deleteBooking', async (bookingObj) => {
+export const deleteBooking = createAsyncThunk<IBookings, IBookings>('bookings/deleteBooking', async (bookingObj) => {
     return await new Promise ((resolve) => {
         setTimeout(() => {
             resolve(bookingObj)
+        }, 200)
+    })
+});
+
+export const filterBooking = createAsyncThunk<string, string>('bookings/filterBooking', async (status) => {
+    return await new Promise ((resolve) => {
+        setTimeout(() => {
+            resolve(status)
+        }, 200)
+    })
+});
+
+export const searchBooking = createAsyncThunk<string, string>('bookings/searchBooking', async (guestName) => {
+    return await new Promise ((resolve) => {
+        setTimeout(() => {
+            resolve(guestName)
         }, 200)
     })
 });
 
 //CONTACT
 
-export const fetchContact = createAsyncThunk<IContacts[], void>('rooms/fetchContact', async () => {
+export const fetchContact = createAsyncThunk<IContacts[], void>('contacts/fetchContact', async () => {
     return await new Promise ((resolve) => {
         setTimeout(() => {
             resolve(contactsJSON)
@@ -119,7 +159,7 @@ export const fetchContact = createAsyncThunk<IContacts[], void>('rooms/fetchCont
 
 
 
-export const addContact = createAsyncThunk<IContacts, IContacts>('rooms/addContact', async (contactObj) => {
+export const addContact = createAsyncThunk<IContacts, IContacts>('contacts/addContact', async (contactObj) => {
     return await new Promise ((resolve) => {
         setTimeout(() => {
             resolve(contactObj)
@@ -127,7 +167,7 @@ export const addContact = createAsyncThunk<IContacts, IContacts>('rooms/addConta
     })
 });
 
-export const deleteContact = createAsyncThunk<IContacts, IContacts>('rooms/deleteContact', async (contactObj) => {
+export const deleteContact = createAsyncThunk<IContacts, IContacts>('contacts/deleteContact', async (contactObj) => {
     return await new Promise ((resolve) => {
         setTimeout(() => {
             resolve(contactObj)

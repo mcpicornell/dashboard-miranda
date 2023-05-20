@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchBookings, fetchRooms } from "../../features/asyncThunk";
 import { getBookingsData, getBookingsError, getBookingsStatus } from "../../features/bookings/BookingsSlice";
 import { getRoomsStatus } from "../../features/rooms/RoomsSlice";
@@ -14,14 +14,13 @@ const BookingsPage = () =>{
     const bookingsData = useAppSelector(getBookingsData);
     const bookingsError = useAppSelector(getBookingsError);
     const roomsStatus = useAppSelector(getRoomsStatus);
+
     useEffect(() => {
         if (bookingsStatus == "idle") {
          dispatch(fetchBookings());
         }
-        else if (roomsStatus == "idle") {
-            dispatch(fetchRooms());
-           }
-     }, [bookingsStatus]);
+        
+     }, [bookingsStatus, dispatch, bookingsData]);
 
      const bookingsTitles: IBookingsTitles = {
         guestName: "Guest",
@@ -33,9 +32,11 @@ const BookingsPage = () =>{
         status: "Status"
      }
 
+     
+     const bookingsDataCopy = [...bookingsData]
     return (
         <>
-            <Table  bookingsData={bookingsData} bookingsTitles={bookingsTitles} />
+            <Table  bookingsData={bookingsDataCopy} bookingsTitles={bookingsTitles} />
         </>
     )
 };

@@ -23,7 +23,9 @@ const UsersPage = () =>{
         if (usersStatus == "idle") {
           dispatch(fetchUsers())
         }
-      }, [usersStatus]);
+      }, [usersStatus, usersData, dispatch]);
+
+    const usersDataCopy = [...usersData]
 
     return (
         <>

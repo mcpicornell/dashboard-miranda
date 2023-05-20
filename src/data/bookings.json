@@ -6,7 +6,17 @@
         "checkIn": "2021-05-01",
         "checkOut": "2021-06-01",
         "specialRequest": "Request from Jim",
-        "roomType": "Single Bed",
+        "roomType": {
+            "id": 1,
+            "roomName": "Deluxe A-1",
+            "status": "Booked",
+            "offerPrice": 100,
+            "price": 145,
+            "roomNumber": 101,
+            "roomType": "Single Bed",
+            "amenities": ["suite bath", "suite bath", "suite bath", "suite bath"],
+            "photos": ["https://images.unspla.com/photo-1605346434674-a440ca4dc4c0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"]
+        },
         "status": "Check Out"
     },
     {   
@@ -16,7 +26,17 @@
         "checkIn": "2022-05-01",
         "checkOut": "2022-06-01",
         "specialRequest": "Request from Euan",
-        "roomType": "Double Bed",
+        "roomType": {
+            "id": 2,
+            "roomName": "Deluxe B-1",
+            "status": "Avaliable",
+            "offerPrice": 100,
+            "price": 145,
+            "roomNumber": 102,
+            "roomType": "Double Bed",
+            "amenities": ["suite bath", "suite bath", "suite bath", "suite bath"],
+            "photos": ["https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=327&q=80"]
+        },
         "status": "Check In"
     },
     {
@@ -26,7 +46,17 @@
         "checkIn": "2023-05-01",
         "checkOut": "2023-06-01",
         "specialRequest": "Request from Drew",
-        "roomType": "Double Superior",
+        "roomType": {
+            "id": 3,
+            "roomName": "Deluxe C-3",
+            "status": "Avaliable",
+            "offerPrice": 100,
+            "price": 145,
+            "roomNumber": 102,
+            "roomType": "Double Superior",
+            "amenities": ["suite bath", "suite bath", "suite bath", "suite bath"],
+            "photos": ["https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"]
+        },
         "status": "In Progress"
     }
     

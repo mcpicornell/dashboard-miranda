@@ -74,12 +74,10 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
             return(
                 <ContainerBookings onClick={navToBookingDetailsOnClick}>
                     <NameInfo>
-                        
                         <NameProperties>
                             <ElementGreyName>#{props.bookingObj?.id}</ElementGreyName>
                             <h5>{props.bookingObj?.guest}</h5>
                         </NameProperties>
-                        
                     </NameInfo>
 
                     <Description>
@@ -100,7 +98,7 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
                     </Contact>
 
                     <Contact>
-                            <ElementGrey>{props.bookingObj?.roomType}</ElementGrey>
+                            <ElementGrey>{props.bookingObj?.roomType.roomType}</ElementGrey>
                     </Contact>
 
                     <Status >
@@ -118,7 +116,7 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
             );
 
         case "/rooms":
-            console.log(props.roomObj?.photos[0])
+            
         return(
             <ContainerRooms >
                 <NameInfo>
@@ -234,6 +232,9 @@ grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr;
 const ContainerBookings = styled(Container)`
 display: grid;
 grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+:hover{
+    cursor: pointer;
+ }
 `
 
 

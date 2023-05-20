@@ -17,7 +17,7 @@ const RoomsPage = () =>{
          dispatch(fetchRooms());
         
         }
-     }, [roomsStatus]);
+     }, [roomsStatus, roomsData, dispatch]);
 
      const roomsTitles: IRoomsTitles = {
         roomName: "Room Name",
@@ -28,10 +28,11 @@ const RoomsPage = () =>{
         status: "Status"
      }
 
-     
+     const roomsDataCopy = [...roomsData]
+
         return (
             <>
-            <Table roomsData={roomsData} roomsTitles={roomsTitles} />
+            <Table roomsData={roomsDataCopy} roomsTitles={roomsTitles} />
 
             </>
         )

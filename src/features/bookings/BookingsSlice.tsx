@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction} from "@reduxjs/toolkit"
-import { addBooking, deleteBooking, fetchBookings } from "../asyncThunk";
+import { addBooking, deleteBooking, fetchBookings, filterBooking, searchBooking } from "../asyncThunk";
 import type { RootState } from '../../app/store'
 import { IBookings } from "../interfaces";
 
@@ -7,14 +7,16 @@ interface InitState {
   error: any,
   status: string,
   booking: string,
-  data: IBookings[]
+  data: IBookings[],
+  filter: IBookings[]
 }
 
 const initialState: InitState = {
   error: null,
   status: "idle",
   booking: "",
-  data: []
+  data: [],
+  filter: []
 }
 
 export const BookingsSlice = createSlice({
@@ -59,7 +61,14 @@ export const BookingsSlice = createSlice({
       .addCase(deleteBooking.pending, (state, action) => {
           state.status = "pending";
         })
-      }
+
+      .addCase(filterBooking.fulfilled, (state, action) => {
+        state.data = state.data.filter((element) => element.status ==  action.payload);
+      })
+      .addCase(searchBooking.fulfilled, (state, action) => {
+        state.data = state.data.filter((element) => element.guest ==  action.payload);
+      })
+    }
 });
 
 export const {setBooking} = BookingsSlice.actions;

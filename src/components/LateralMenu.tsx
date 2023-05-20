@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../UserContext';
 
-const logo =  require("../img/logoCompleto.PNG");
+export const logoImg =  require("../img/logoCompleto.PNG");
 const fakeMale = require('../img/fakeMale.jpg');
 
 interface PropsLateralMenu { open: boolean }
@@ -22,7 +22,7 @@ const LateralMenu = (props: PropsLateralMenu) => {
         <Aside open={props.open}>
             
                 <AsideLogo >
-                    <img className='logo__img' src={logo} />
+                    <img className='logo__img' src={logoImg} />
                 </AsideLogo>
 
                 <AsideList className='aside__list'>
