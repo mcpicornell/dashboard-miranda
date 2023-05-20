@@ -1,14 +1,15 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { addRoom } from "../../features/asyncThunk";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../app/store";
 import { useNavigate } from "react-router-dom";
+import { IRooms } from "../../features/interfaces";
 
 
 
 const RoomsAddPage = () =>{
     
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const nav = useNavigate();
     const [photo1, setPhoto1] = useState("");
     const [photo2, setPhoto2] = useState("");
@@ -16,47 +17,49 @@ const RoomsAddPage = () =>{
     const [photo4, setPhoto4] = useState("");
     const [photo5, setPhoto5] = useState("");
 
-    const [roomName, setRoomName] = useState();
-    const [roomNumber, setRoomNumber] = useState();
-    const [roomType, setRoomType] = useState();
-    const [amenitiesBath, setAmenitiesBath] = useState();
-    const [amenitiesShower, setAmenitiesShower] = useState();
-    const [amenitiesTV, setAmenitiesTV] = useState();
-    const [amenitiesSeaViews, setAmenitiesSeaViews] = useState();
-    const [amenitiesTowels, setAmenitiesTowels] = useState();
-    const [amenitiesWiFi, setAmenitiesWiFi] = useState();
-    const [price, setPrice] = useState(Number);
-    const [offerPrice, setOfferPrice] = useState(Number);
+    const [roomName, setRoomName] = useState("");
+    const [roomNumber, setRoomNumber] = useState<number |any>();
+    const [roomType, setRoomType] = useState("");
+    const [amenitiesBath, setAmenitiesBath] = useState("");
+    const [amenitiesShower, setAmenitiesShower] = useState("");
+    const [amenitiesTV, setAmenitiesTV] = useState("");
+    const [amenitiesSeaViews, setAmenitiesSeaViews] = useState("");
+    const [amenitiesTowels, setAmenitiesTowels] = useState("");
+    const [amenitiesWiFi, setAmenitiesWiFi] = useState("");
+    const [price, setPrice] = useState<number | any>();
+    const [offerPrice, setOfferPrice] = useState<number |any>();
     const [state, setState] = useState("Avaliable");
     
-    const getPriceWithDiscount = (discount, total) =>{
+    const getPriceWithDiscount = (discount: number, total: number) =>{
         const result = (discount/100)*total;
         return Math.round(result);
     }
 
     const onSubmitHandler = () => {
-            const newRoom = {
-                id: Math.random(9999999),
-                roomName: roomName,
-                roomNumber: roomNumber,
-                photos: {
-                    photo1: photo1,
-                    photo2: photo2,
-                    photo3: photo3,
-                    photo4: photo4,
-                    photo5: photo5
-                },
-                roomType: roomType,
+            const newRoom: IRooms = {
+                id: Math.random(),
+                roomName: roomName!,
+                roomNumber: roomNumber!,
+                photos: [
+                    photo1,
+                    photo2,
+                    photo3,
+                    photo4,
+                    photo5
+                ]
+                    
+                ,
+                roomType: roomType!,
                 amenities: [
-                        amenitiesShower,
-                        amenitiesBath,
-                        amenitiesTV,
-                        amenitiesSeaViews,
-                        amenitiesTowels,
-                        amenitiesWiFi
+                        amenitiesShower!,
+                        amenitiesBath!,
+                        amenitiesTV!,
+                        amenitiesSeaViews!,
+                        amenitiesTowels!,
+                        amenitiesWiFi!
                 ],
-                price: price,
-                offerPrice: getPriceWithDiscount(offerPrice, price),
+                price: price!,
+                offerPrice: getPriceWithDiscount(offerPrice!, price!),
                 status: state,
             }
             dispatch(addRoom(newRoom));
@@ -85,22 +88,22 @@ const RoomsAddPage = () =>{
             </OptionsContainer>
             <OptionsContainer>
                 <LabelCreateUser>Photo5:</LabelCreateUser>
-                <InputCreateUser placeholder="type the url of the room photo"  onChange={e => setPhoto5(e.target.value)}/>
+                <InputCreateUser placeholder="type the url of the room photo"  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPhoto5(e.target.value)}/>
             </OptionsContainer>
 
             <OptionsContainer>
                 <LabelCreateUser>Room Name:</LabelCreateUser>
-                <InputCreateUser required placeholder="type the room name"  onChange={e => setRoomName(e.target.value)} />
+                <InputCreateUser required placeholder="type the room name"  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRoomName(e.target.value)} />
             </OptionsContainer>
 
             <OptionsContainer>
                 <LabelCreateUser>Room Number:</LabelCreateUser>
-                <InputCreateUser required type="number" min={1} max={1000}  onChange={e => setRoomNumber(e.target.value)} />
+                <InputCreateUser required type="number" min={1} max={1000} value={roomNumber} onChange={(e) => setRoomNumber( typeof Number((e.target.value)))} />
             </OptionsContainer>
 
             <OptionsContainer>
                 <LabelCreateUser>Room Type:</LabelCreateUser>
-                <SelectUserOption  onChange={e => setRoomType(e.target.value)}>
+                <SelectUserOption  onChange={(e) => setRoomType(e.target.value)}>
                     <option value="Single Bed">Single Bed</option>
                     <option value="Double Bed">Double Bed</option>
                     <option value="Double Superior">Double Superior</option>
@@ -113,7 +116,7 @@ const RoomsAddPage = () =>{
 
                 <OptionsContainer>
                     <CheckBoxContainer>
-                        <CheckBox type="checkbox" value="Shower" onChange={e => setAmenitiesShower(e.target.value)} />
+                        <CheckBox type="checkbox" value="Shower" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAmenitiesShower(e.target.value)} />
                         <CheckBoxOption>Shower</CheckBoxOption>
                     </CheckBoxContainer>
 
@@ -148,12 +151,12 @@ const RoomsAddPage = () =>{
 
             <OptionsContainer>
                 <LabelCreateUser>Price:</LabelCreateUser>
-                <InputCreateUser type="number" required placeholder="type the original price"  onChange={e => setPrice(e.target.value)}/>
+                <InputCreateUser type="number" required placeholder="type the original price"  onChange={e => setPrice(typeof Number(e.target.value))}/>
             </OptionsContainer>
 
             <OptionsContainer>
                 <LabelCreateUser>Discount:</LabelCreateUser>
-                <InputCreateUser type="number"  min="0" max="100" required placeholder="type the percentage of discount"  onChange={e => setOfferPrice(e.target.value)}/>
+                <InputCreateUser type="number" min={0} max={100} required placeholder="type the percentage of discount"  onChange={e => setOfferPrice(typeof Number(e.target.value))}/>
             </OptionsContainer>
 
 

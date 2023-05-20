@@ -1,12 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { addUser } from "../../features/asyncThunk";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../app/store";
 import { useNavigate } from "react-router-dom";
 
 const UsersAddPage = () =>{
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const nav = useNavigate();
     const [photo, setPhoto] = useState("");
     const [fullName, setFullName] = useState("");
@@ -18,14 +18,12 @@ const UsersAddPage = () =>{
     const [state, setState] = useState("");
     const [password, setPassword] = useState("");
     const [verificationPassword, setVerificationPassword] = useState("");
-
-
    
 
     const onSubmitHandler = () => {
         if (verificationPassword === password){
             const newUser = {
-                id: Math.random(9999999),
+                id: Math.random(),
                 name: fullName,
                 photo: photo,
                 email: email,
@@ -40,7 +38,7 @@ const UsersAddPage = () =>{
 
         }
         else{
-            console.log("La contraseña de tu nuevo usuario no coincide")
+            alert("Password fields do not match, please try again")
         }
 
     }
