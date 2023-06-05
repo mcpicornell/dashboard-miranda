@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.55266033.css",
-    "main.js": "/static/js/main.d8d1dcd3.js",
-    "static/js/787.7cca6840.chunk.js": "/static/js/787.7cca6840.chunk.js",
-    "static/media/Poppins-Regular.ttf": "/static/media/Poppins-Regular.35d26b781dc5fda684cc.ttf",
-    "static/media/fakeMale.jpg": "/static/media/fakeMale.acb6d24dd0223cd71a8a.jpg",
-    "static/media/logoCompleto.PNG": "/static/media/logoCompleto.9cacd62718c1b846f832.PNG",
-    "index.html": "/index.html",
-    "main.55266033.css.map": "/static/css/main.55266033.css.map",
-    "main.d8d1dcd3.js.map": "/static/js/main.d8d1dcd3.js.map",
-    "787.7cca6840.chunk.js.map": "/static/js/787.7cca6840.chunk.js.map"
+    "main.css": "/dashboard-miranda/static/css/main.da97043e.css",
+    "main.js": "/dashboard-miranda/static/js/main.7b148006.js",
+    "static/js/787.7cca6840.chunk.js": "/dashboard-miranda/static/js/787.7cca6840.chunk.js",
+    "static/media/Poppins-Regular.ttf": "/dashboard-miranda/static/media/Poppins-Regular.35d26b781dc5fda684cc.ttf",
+    "static/media/fakeMale.jpg": "/dashboard-miranda/static/media/fakeMale.acb6d24dd0223cd71a8a.jpg",
+    "static/media/logoCompleto.PNG": "/dashboard-miranda/static/media/logoCompleto.9cacd62718c1b846f832.PNG",
+    "index.html": "/dashboard-miranda/index.html",
+    "main.da97043e.css.map": "/dashboard-miranda/static/css/main.da97043e.css.map",
+    "main.7b148006.js.map": "/dashboard-miranda/static/js/main.7b148006.js.map",
+    "787.7cca6840.chunk.js.map": "/dashboard-miranda/static/js/787.7cca6840.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.55266033.css",
-    "static/js/main.d8d1dcd3.js"
+    "static/css/main.da97043e.css",
+    "static/js/main.7b148006.js"
   ]
 }
