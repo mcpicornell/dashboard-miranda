@@ -21,14 +21,15 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy" : "npm run build",
+    "deploy" : "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress": "cypress open",
-    "tsc": "tsc",
-    "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d build"
+    "tsc": "tsc"
+    
   },
   "eslintConfig": {
     "extends": [

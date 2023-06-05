@@ -1,6 +1,6 @@
 
 import './App.css';
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/Dashboard";
 import BookingsPage from "./pages/bookings/BookingsPage";
@@ -62,7 +62,7 @@ function App() {
   return (
     <UserContext.Provider value={{ state, dispatch }}>
 
-      <HashRouter >
+      <BrowserRouter basename='/dashboard-miranda'>
 
         <Routes>
           <Route path="/login" element={<LoginPage />} />
@@ -87,7 +87,7 @@ function App() {
             </Route>
           </Route>
         </Routes>
-      </HashRouter >
+      </BrowserRouter >
     </UserContext.Provider>
 
   );
