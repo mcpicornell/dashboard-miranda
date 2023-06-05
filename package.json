@@ -2,6 +2,7 @@
   "name": "miranda-dashboard",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://mcpicornell.github.io/dashboard-miranda/",
   "dependencies": {
     "@react-icons/all-files": "^4.1.0",
     "@reduxjs/toolkit": "^1.9.5",
