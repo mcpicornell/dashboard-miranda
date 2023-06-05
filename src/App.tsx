@@ -71,7 +71,6 @@ function App() {
             <Route element={<Layout />}>
 
               <Route path="/" element={<Dashboard />} />
-
               <Route path="/bookings" element={<BookingsPage />} />
               <Route path="/bookings/:id" element={<BookingsInfoPage />} />
               <Route path="/bookings/addBooking" element={<BookingAddPage />} />

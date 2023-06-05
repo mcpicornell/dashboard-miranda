@@ -63,6 +63,14 @@ const LoginPage = () =>{
                 <input className='input-login' name='password' placeholder='password' type='password' onChange={e => setPassword(e.target.value)} />
             </FormOptions>
             <ButtonLogin  type='submit'>Log In</ButtonLogin>
+            <div className='credentials'>
+                <label>user credential:</label>
+                <span>admin</span>
+            </div>
+            <div className='credentials'>
+                <label>password credential:</label>
+                <span>admin</span>
+            </div>
         </LoginForm>
         </>
     )
@@ -84,6 +92,18 @@ const LoginForm = styled.form`
     top: 200px;
     border: 1px solid grey;
     border-radius: 5px;
+
+    .credentials{
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+    span{
+        margin-left: 10px;
+        font-weight: 600;
+    }
 `
 
 const FormOptions = styled.div`
