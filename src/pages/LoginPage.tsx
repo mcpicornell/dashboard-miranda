@@ -63,6 +63,7 @@ const LoginPage = () =>{
                 <input className='input-login' name='password' placeholder='password' type='password' onChange={e => setPassword(e.target.value)} />
             </FormOptions>
             <ButtonLogin  type='submit'>Log In</ButtonLogin>
+            <CredentialContainer>
             <div className='credentials'>
                 <label>user credential:</label>
                 <span>admin</span>
@@ -71,7 +72,9 @@ const LoginPage = () =>{
                 <label>password credential:</label>
                 <span>admin</span>
             </div>
+        </CredentialContainer>
         </LoginForm>
+        
         </>
     )
 };
@@ -93,6 +96,10 @@ const LoginForm = styled.form`
     border: 1px solid grey;
     border-radius: 5px;
 
+
+`
+
+const CredentialContainer = styled.div`
     .credentials{
         display: flex;
         flex-direction: row;
