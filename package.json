@@ -10,7 +10,14 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/react-redux": "^7.1.25",
+    "cross-fetch": "^3.1.6",
+    "crypto-browserify": "^3.12.0",
+    "dotenv": "^16.1.4",
+    "fallback": "^1.0.1",
     "firacode": "^6.2.0",
+    "os-browserify": "^0.3.0",
+    "path": "^0.12.7",
+    "path-browserify": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
@@ -22,15 +29,14 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress": "cypress open",
     "tsc": "tsc"
-    
   },
   "eslintConfig": {
     "extends": [
@@ -56,7 +62,10 @@
     "@types/react-dom": "^18.2.4",
     "@types/styled-components": "^5.1.26",
     "cypress": "^12.12.0",
+    "dotenv-webpack": "^8.0.1",
     "gh-pages": "^5.0.0",
+    "node-polyfill-webpack-plugin": "^2.0.1",
+    "react-app-rewired": "^2.2.1",
     "typescript": "^4.9.4"
   }
 }

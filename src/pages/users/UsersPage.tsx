@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import {getUsersStatus, getUsersData, getUsersError} from '../../features/users/UsersSlice'
-import { fetchUsers } from "../../features/asyncThunk";
+import { fetchUsers } from "../../features/users/apiCallUsers";
 import styled from "styled-components";
 import { useAppSelector, useAppDispatch } from "../../app/store";
 import { Table } from "../../components/Table";
@@ -24,6 +24,8 @@ const UsersPage = () =>{
           dispatch(fetchUsers())
         }
       }, [usersStatus, usersData, dispatch]);
+
+    
 
     const usersDataCopy = [...usersData]
 

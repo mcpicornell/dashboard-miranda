@@ -126,5 +126,5 @@
   },
   "include": [
     "src"
-  ]
+, "src/webpack.config.js"  ]
 }

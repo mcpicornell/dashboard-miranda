@@ -94,14 +94,14 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
   };
 
   const activeEmployeeActivateOnClick = () => {
-    setUsersData(props.usersData!.filter((element) => element.status ===  "Active"))
+    setUsersData(props.usersData!.filter((element) => element.isActive ===  true))
     setActiveEmployeeActivate(true);
     setAllEmployeeActivate(false)
     setInactiveEmployeeActivate(false)
   };
 
   const inactiveEmployeeActivateOnClick = () => {
-    setUsersData(props.usersData!.filter((element) => element.status ===  "Inactive"))
+    setUsersData(props.usersData!.filter((element) => element.isActive ===  false))
     setInactiveEmployeeActivate(true);
     setAllEmployeeActivate(false)
     setActiveEmployeeActivate(false)
@@ -115,14 +115,14 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
     };
   
     const avaliableRoomsActivateOnClick = () => {
-      setRoomsData(props.roomsData!.filter((element) => element.status ===  "Avaliable"))
+      setRoomsData(props.roomsData!.filter((element) => element.isAvaliable ===  true))
       setAvaliableRoomsActivate(true);
       setAllRoomsActivate(false)
       setInactiveEmployeeActivate(false)
     };
   
     const bookedRoomsActivateOnClick = () => {
-      setRoomsData(props.roomsData!.filter((element) => element.status ===  "Booked"))
+      setRoomsData(props.roomsData!.filter((element) => element.isAvaliable ===  false))
       setBookedRoomsActivate(true);
       setAvaliableRoomsActivate(false)
       setAllRoomsActivate(false)
@@ -167,134 +167,134 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
     
 
   switch(location.pathname){
-    case "/bookings":
-      if(bookingsData){
-        bookingsData.forEach((data) => { 
-          const bookingObj = 
-          {
-            guest: data.guest,
-            orderDate: data.orderDate,
-            checkIn: data.checkIn,
-            id: data.id,
-            checkOut: data.checkOut,
-            specialRequest: data.specialRequest,
-            roomType: data.roomType,
-            status: data.status
-          }
+    // case "/bookings":
+    //   if(bookingsData){
+    //     bookingsData.forEach((data) => { 
+    //       const bookingObj = 
+    //       {
+    //         guest: data.guest,
+    //         orderDate: data.orderDate,
+    //         checkIn: data.checkIn,
+    //         id: data.id,
+    //         checkOut: data.checkOut,
+    //         specialRequest: data.specialRequest,
+    //         roomType: data.roomType,
+    //         status: data.status
+    //       }
     
-          content.push(
-              <>
-                <RowContent bookingObj={bookingObj}/>
-              </>
-            );
+    //       content.push(
+    //           <>
+    //             <RowContent bookingObj={bookingObj}/>
+    //           </>
+    //         );
             
-          });
-      }
+    //       });
+    //   }
       
-      return(
-        <>
-        <TableStyled>
-            <TopOptions>
-                <OptionsFilter>
-                  <FilterEmployee filterActive={allBookingsActivate} onClick={allBookingsActivateOnClick}>
-                    <span>All Bookings</span>
-                  </FilterEmployee>
-                  <FilterEmployee filterActive={checkInActivate} onClick={checkInActivateOnClick}>
-                    <span>Checking In</span>
-                  </FilterEmployee>
-                  <FilterEmployee filterActive={checkOutActivate} onClick={checkOutActivateOnClick}>
-                    <span>Checking Out</span>
-                  </FilterEmployee>
+    //   return(
+    //     <>
+    //     <TableStyled>
+    //         <TopOptions>
+    //             <OptionsFilter>
+    //               <FilterEmployee filterActive={allBookingsActivate} onClick={allBookingsActivateOnClick}>
+    //                 <span>All Bookings</span>
+    //               </FilterEmployee>
+    //               <FilterEmployee filterActive={checkInActivate} onClick={checkInActivateOnClick}>
+    //                 <span>Checking In</span>
+    //               </FilterEmployee>
+    //               <FilterEmployee filterActive={checkOutActivate} onClick={checkOutActivateOnClick}>
+    //                 <span>Checking Out</span>
+    //               </FilterEmployee>
 
-                  <FilterEmployee filterActive={inProgressBookingsActivate} onClick={inProgressBookingsActivateOnClick}>
-                    <span>In Progress</span>
-                  </FilterEmployee>
+    //               <FilterEmployee filterActive={inProgressBookingsActivate} onClick={inProgressBookingsActivateOnClick}>
+    //                 <span>In Progress</span>
+    //               </FilterEmployee>
 
-                  <FilterSearcher placeholder="Search by Guest name" type="text" onChange={searcherHandlerOnChange}/>
+    //               <FilterSearcher placeholder="Search by Guest name" type="text" onChange={searcherHandlerOnChange}/>
 
-                </OptionsFilter>
-                <OptionsCreate>
-                    <ButtonCreateEmployee to={'/bookings/addBooking'}>
-                      <span>+ New Booking</span>
-                    </ButtonCreateEmployee>
-                </OptionsCreate>
-            </TopOptions>
-            <TitleRowBookings>
-              <TitleRowElement className="titleRowElementName"><span>{props.bookingsTitles?.guestName}</span></TitleRowElement>
-              <TitleRowElement>{props.bookingsTitles?.orderDate}</TitleRowElement>
-              <TitleRowElement>{props.bookingsTitles?.checkIn}</TitleRowElement>
-              <TitleRowElement>{props.bookingsTitles?.checkOut}</TitleRowElement>
-              <TitleRowElement>{props.bookingsTitles?.specialRequest}</TitleRowElement>
-              <TitleRowElement>{props.bookingsTitles?.roomType}</TitleRowElement>
-              <TitleRowElement>{props.bookingsTitles?.status}</TitleRowElement>
-            </TitleRowBookings>
+    //             </OptionsFilter>
+    //             <OptionsCreate>
+    //                 <ButtonCreateEmployee to={'/bookings/addBooking'}>
+    //                   <span>+ New Booking</span>
+    //                 </ButtonCreateEmployee>
+    //             </OptionsCreate>
+    //         </TopOptions>
+    //         <TitleRowBookings>
+    //           <TitleRowElement className="titleRowElementName"><span>{props.bookingsTitles?.guestName}</span></TitleRowElement>
+    //           <TitleRowElement>{props.bookingsTitles?.orderDate}</TitleRowElement>
+    //           <TitleRowElement>{props.bookingsTitles?.checkIn}</TitleRowElement>
+    //           <TitleRowElement>{props.bookingsTitles?.checkOut}</TitleRowElement>
+    //           <TitleRowElement>{props.bookingsTitles?.specialRequest}</TitleRowElement>
+    //           <TitleRowElement>{props.bookingsTitles?.roomType}</TitleRowElement>
+    //           <TitleRowElement>{props.bookingsTitles?.status}</TitleRowElement>
+    //         </TitleRowBookings>
 
-            <Rows>
-            {content}
-            </Rows> 
-          </TableStyled>
-        </>
-      );
+    //         <Rows>
+    //         {content}
+    //         </Rows> 
+    //       </TableStyled>
+    //     </>
+    //   );
 
-    case "/rooms":
-    roomsData?.forEach((data) => { 
-      const roomObj = 
-      {
-        photos: data.photos,
-        roomName: data.roomName,
-        roomNumber: data.roomNumber,
-        roomType: data.roomType,
-        id: data.id,
-        amenities: data.amenities,
-        price: data.price,
-        offerPrice: data.offerPrice,
-        status: data.status
-      }
-      content.push(
-          <>
-            <RowContent roomObj={roomObj}/>
-          </>
-        );
+    // case "/rooms":
+    // roomsData?.forEach((data) => { 
+    //   const roomObj = 
+    //   {
+    //     photos: data.photos,
+    //     roomName: data.roomName,
+    //     roomNumber: data.roomNumber,
+    //     roomType: data.roomType,
+    //     id: data.id,
+    //     amenities: data.amenities,
+    //     price: data.price,
+    //     offerPrice: data.offerPrice,
+    //     status: data.status
+    //   }
+    //   content.push(
+    //       <>
+    //         <RowContent roomObj={roomObj}/>
+    //       </>
+    //     );
         
-      });
-      return(
-        <>
-          <TableStyled>
-            <TopOptions>
-                <OptionsFilter>
-                  <FilterEmployee filterActive={allRoomsActivate} onClick={allRoomsActivateOnClick}>
-                    <span>All Rooms</span>
-                  </FilterEmployee>
-                  <FilterEmployee filterActive={avaliableRoomsActivate} onClick={avaliableRoomsActivateOnClick}>
-                    <span>Avaliable Rooms</span>
-                  </FilterEmployee>
-                  <FilterEmployee filterActive={bookedRoomsActivate} onClick={bookedRoomsActivateOnClick}>
-                    <span>Booked Rooms</span>
-                  </FilterEmployee>
+    //   });
+    //   return(
+    //     <>
+    //       <TableStyled>
+    //         <TopOptions>
+    //             <OptionsFilter>
+    //               <FilterEmployee filterActive={allRoomsActivate} onClick={allRoomsActivateOnClick}>
+    //                 <span>All Rooms</span>
+    //               </FilterEmployee>
+    //               <FilterEmployee filterActive={avaliableRoomsActivate} onClick={avaliableRoomsActivateOnClick}>
+    //                 <span>Avaliable Rooms</span>
+    //               </FilterEmployee>
+    //               <FilterEmployee filterActive={bookedRoomsActivate} onClick={bookedRoomsActivateOnClick}>
+    //                 <span>Booked Rooms</span>
+    //               </FilterEmployee>
 
-                </OptionsFilter>
-                <OptionsCreate>
-                    <ButtonCreateEmployee to={'/rooms/addRoom'}>
-                      <span>+ New Room</span>
-                    </ButtonCreateEmployee>
-                </OptionsCreate>
-            </TopOptions>
-            <TitleRowRooms>
-              <TitleRowElement className="titleRowElementName"><span>{props.roomsTitles?.roomName}</span></TitleRowElement>
-              <TitleRowElement>{props.roomsTitles?.roomType}</TitleRowElement>
-              <TitleRowElement>{props.roomsTitles?.amenities}</TitleRowElement>
-              <TitleRowElement>{props.roomsTitles?.price}</TitleRowElement>
-              <TitleRowElement>{props.roomsTitles?.offerPrice}</TitleRowElement>
-              <TitleRowElement>{props.roomsTitles?.status}</TitleRowElement>
-            </TitleRowRooms>
+    //             </OptionsFilter>
+    //             <OptionsCreate>
+    //                 <ButtonCreateEmployee to={'/rooms/addRoom'}>
+    //                   <span>+ New Room</span>
+    //                 </ButtonCreateEmployee>
+    //             </OptionsCreate>
+    //         </TopOptions>
+    //         <TitleRowRooms>
+    //           <TitleRowElement className="titleRowElementName"><span>{props.roomsTitles?.roomName}</span></TitleRowElement>
+    //           <TitleRowElement>{props.roomsTitles?.roomType}</TitleRowElement>
+    //           <TitleRowElement>{props.roomsTitles?.amenities}</TitleRowElement>
+    //           <TitleRowElement>{props.roomsTitles?.price}</TitleRowElement>
+    //           <TitleRowElement>{props.roomsTitles?.offerPrice}</TitleRowElement>
+    //           <TitleRowElement>{props.roomsTitles?.status}</TitleRowElement>
+    //         </TitleRowRooms>
 
-            <Rows>
-            {content}
-            </Rows> 
-          </TableStyled>
+    //         <Rows>
+    //         {content}
+    //         </Rows> 
+    //       </TableStyled>
 
-        </>
-      );
+    //     </>
+    //   );
     
     case "/users":
       usersData?.forEach((data) => { 
@@ -303,11 +303,11 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
         contact: data.contact,
         descriptionJob: data.descriptionJob,
         email: data.email,
-        id: data.id,
+        _id: data._id,
         name: data.name,
         photo: data.photo,
         startDate: data.startDate,
-        status: data.status
+        isActive: data.isActive
       }
 
       content.push(

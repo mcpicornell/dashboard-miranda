@@ -15,22 +15,20 @@ const UsersAddPage = () =>{
     const [contactNumber, setContactNumber] = useState("");
     const [startDate, setStartDate] = useState("");
     const [description, setDescription] = useState("");
-    const [state, setState] = useState("");
+    const [isActive, setIsActive] = useState(true);
     const [password, setPassword] = useState("");
     const [verificationPassword, setVerificationPassword] = useState("");
-   
 
     const onSubmitHandler = () => {
         if (verificationPassword === password){
             const newUser = {
-                id: Math.random(),
                 name: fullName,
                 photo: photo,
                 email: email,
                 startDate: startDate,
                 descriptionJob: description,
-                contact: contactNumber,
-                status: state,
+                contact: Number(contactNumber),
+                isActive: isActive,
                 password: password
             }
             dispatch(addUser(newUser));
@@ -100,9 +98,9 @@ const UsersAddPage = () =>{
             <OptionsContainer>
                 <LabelCreateUser>State</LabelCreateUser>
 
-                <SelectUserOption  onChange={e => setState(e.target.value)}>
-                    <option value={"Active"}>Active</option>
-                    <option value={"Inactive"}>Inactive</option>
+                <SelectUserOption  onChange={e => setIsActive(Boolean(e.target.value))}>
+                    <option value={"true"}>Active</option>
+                    <option value={"false"}>Inactive</option>
                 </SelectUserOption>
 
             </OptionsContainer>

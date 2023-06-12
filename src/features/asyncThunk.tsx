@@ -5,23 +5,15 @@ import bookingsJSON from '../data/bookings.json'
 import usersJSON from '../data/users.json'
 import contactsJSON from '../data/contacts.json'
 
-//  function delay(data: any, time = 200) {
-//     return new Promise((resolve) => {
-//         setTimeout(() => {
-//             resolve(data);
-//         }, time);
-//     });
-// }
-
 //ROOMS
 
-export const fetchRooms = createAsyncThunk<IRooms[], void>('rooms/fetchRooms', async () => {
-    return await new Promise ((resolve) => {
-        setTimeout(() => {
-            resolve(roomsJSON)
-        }, 200)
-    })
-});
+// export const fetchRooms = createAsyncThunk<IRooms[], void>('rooms/fetchRooms', async () => {
+//     return await new Promise ((resolve) => {
+//         setTimeout(() => {
+//             resolve(roomsJSON)
+//         }, 200)
+//     })
+// });
 
 export const getRoom = createAsyncThunk<IRooms, IRooms>('rooms/addRoom', async (roomObj) => {
     return await new Promise ((resolve) => {
@@ -56,13 +48,13 @@ export const filterRoom = createAsyncThunk<string, string>('rooms/filterRoom', a
 });
 
 //USERS
-export const fetchUsers = createAsyncThunk<IUsers[], void>('users/fetchUsers', async () => {
-    return await new Promise ((resolve) => {
-        setTimeout(() => {
-            resolve(usersJSON)
-        }, 200)
-    })
-});
+// export const fetchUsers = createAsyncThunk<IUsers[], void>('users/fetchUsers', async () => {
+//     return await new Promise ((resolve) => {
+//         setTimeout(() => {
+//             resolve(usersJSON)
+//         }, 200)
+//     })
+// });
 
 export const addUser = createAsyncThunk<IUsers, IUsers>('users/addUser', async (userObj) => {
     return await new Promise ((resolve) => {
@@ -106,13 +98,13 @@ export const searchUser = createAsyncThunk<string, string>('users/searchUser', a
 
 
 //BOOKINGS
-export const fetchBookings = createAsyncThunk<IBookings[], void>('bookings/fetchBookings', async () => {
-    return await new Promise ((resolve) => {
-        setTimeout(() => {
-            resolve(bookingsJSON)
-        }, 200)
-    })
-});
+// export const fetchBookings = createAsyncThunk<IBookings[], void>('bookings/fetchBookings', async () => {
+//     return await new Promise ((resolve) => {
+//         setTimeout(() => {
+//             resolve(bookingsJSON)
+//         }, 200)
+//     })
+// });
 
 export const addBooking = createAsyncThunk<IBookings, IBookings>('bookings/addBooking', async (bookingObj) => {
     return await new Promise ((resolve) => {
