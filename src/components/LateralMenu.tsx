@@ -6,17 +6,39 @@ import {BiUser } from 'react-icons/bi';
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../UserContext';
+import { editUser } from '../features/users/apiCallUsers';
+import { faker } from '@faker-js/faker';
+import { IUsers, convertToDateFormat } from '../features/interfaces';
+import { useAppDispatch } from '../app/store';
+
 
 export const logoImg =  require("../img/logoCompleto.PNG");
 const fakeMale = require('../img/fakeMale.jpg');
 
 interface PropsLateralMenu { open: boolean }
 
+const userFake: IUsers = {
+        _id: "648854e853a5f56d90ea3aa1",
+                name: faker.internet.userName(),
+                photo: faker.image.avatar(),
+                email: faker.internet.email(),
+                startDate: convertToDateFormat(faker.date.past()),
+                descriptionJob: faker.lorem.sentence(),
+                contact: faker.number.int({ min: 60000000, max: 79999999 }),
+                isActive: faker.datatype.boolean(),
+                password: faker.string.alphanumeric()
+}
+
+
 const LateralMenu = (props: PropsLateralMenu) => {
     
-    const {state, dispatch} = useContext(UserContext);
+    const {state} = useContext(UserContext);
 
-    
+    const dispatch = useAppDispatch();
+    const putUser = (e: React.MouseEvent<HTMLAnchorElement> | undefined) => {
+        dispatch(editUser(userFake))
+        console.log(userFake)
+    }
 
     return (
         <Aside open={props.open}>
@@ -79,7 +101,7 @@ const LateralMenu = (props: PropsLateralMenu) => {
                     <img className='card__img-aside-card' src={fakeMale}/>
                     <h4 className='card__user-name'>{state.userName}</h4>
                     <h5 className='card__user-email'>{state.email}</h5>
-                    <a className='card__edit-button'><span className='edit__button-span-card'>Edit</span></a>
+                    <a className='card__edit-button' onClick={putUser}><span className='edit__button-span-card'>Edit</span></a>
                 </AsideCard>
                 
                 <div className='aside__bottom'>

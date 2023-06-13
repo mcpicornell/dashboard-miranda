@@ -78,7 +78,7 @@ export const deleteUser = createAsyncThunk<string, string>('users/deleteUser', a
 export const editUser = createAsyncThunk<IUsers, IUsers>('users/editUser', async (userObj) => {
     try{
         const response = await fetchApi(userObj, "PUT", `${urlUsers}/${userObj._id}`)
-        return response.data
+        return response.data.user
     }
     catch(error){
         console.error('Error al eliminar el usuario:', error);

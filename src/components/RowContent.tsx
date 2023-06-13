@@ -34,7 +34,7 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
     }
 
     // const navToBookingDetailsOnClick = () => {
-    //     nav(`/bookings/${props.bookingObj?.id}`, {state:props.bookingObj})
+    //     nav(`/bookings/${props.bookingObj?.id}`, {state:props.bookingObj}
     // }
 
     const deleteBookingOnClick = () =>{
@@ -47,7 +47,6 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
 
     const deleteUserClick = () => {
         if(props.userObj){
-            console.log(props.userObj._id)
             dispatch(deleteUser(props.userObj._id!))
             setdeleteOption(prevState => !prevState);
         }
