@@ -9,7 +9,7 @@ export const convertToDateFormat = (date: Date) =>  {
 export interface IRooms {
     _id?: string,
     roomName: string,
-    isAvaliable: boolean
+    isAvailable: boolean
     offerPrice: number,
     price: number,
     roomNumber: number,
@@ -34,10 +34,9 @@ export interface IBookings{
     guest: string,
     orderDate: string,
     checkIn: string,
-    bookingId: number,
     checkOut: string,
     specialRequest: string,
-    roomId: number,
+    roomId: string,
     status: string
 }
 export interface IContacts {

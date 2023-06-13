@@ -3,11 +3,11 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/Dashboard";
-// import BookingsPage from "./pages/bookings/BookingsPage";
-// import BookingsInfoPage from './pages/bookings/BookingsInfoPage';
-// import RoomsPage from "./pages/rooms/RoomsPage";
-// import RoomsAddPage from "./pages/rooms/RoomsAddPage";
-// import BookingAddPage from './pages/bookings/BookingAddPage';
+import BookingsPage from "./pages/bookings/BookingsPage";
+import BookingsInfoPage from './pages/bookings/BookingsInfoPage';
+import BookingAddPage from './pages/bookings/BookingAddPage';
+import RoomsPage from "./pages/rooms/RoomsPage";
+import RoomsAddPage from "./pages/rooms/RoomsAddPage";
 import ContactPage from "./pages/ContactPage";
 import UsersPage from "./pages/users/UsersPage";
 import UsersAddPage from "./pages/users/UsersAddPage";
@@ -71,12 +71,12 @@ function App() {
             <Route element={<Layout />}>
 
               <Route path="/" element={<Dashboard />} />
-              {/* <Route path="/bookings" element={<BookingsPage />} />
+              <Route path="/bookings" element={<BookingsPage />} />
               <Route path="/bookings/:id" element={<BookingsInfoPage />} />
               <Route path="/bookings/addBooking" element={<BookingAddPage />} />
 
               <Route path="/rooms" element={<RoomsPage />} />
-              <Route path='/rooms/addRoom' element={<RoomsAddPage />} /> */}
+              <Route path='/rooms/addRoom' element={<RoomsAddPage />} />
 
               <Route path='/contact' element={<ContactPage />} />
 

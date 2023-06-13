@@ -2,8 +2,10 @@ import styled from "styled-components"
 import {HiPhone} from "react-icons/hi"
 import {BsThreeDotsVertical} from "react-icons/bs"
 import { useState } from "react"
-import { deleteRoom, deleteBooking } from "../features/asyncThunk"
-import { deleteUser } from "../features/users/apiCallUsers"
+import { deleteBooking } from "../features/bookings/fetchBookings"
+import { deleteUser } from "../features/users/fetchUsers"
+import { deleteRoom, getRoomById } from "../features/rooms/fetchRooms"
+
 import { useLocation, useNavigate } from "react-router-dom"
 import { IBookings, IRooms, IUsers } from "../features/interfaces"
 import { useAppDispatch } from "../app/store"
@@ -16,11 +18,23 @@ interface PropsRowContent {
 }
 
 interface PropsStatus{
-    status: boolean | undefined;
+    status: string | undefined;
+}
+
+interface PropsIsActive{
+    isActive: boolean | undefined;
+}
+
+interface PropsIsAvaliable{
+    isAvaliable: boolean | undefined;
 }
 
 interface PropsActive{
     active: boolean;
+}
+
+const sliceID = (id:string, slices: number) =>{
+    return id.slice(-6)
 }
 
 export const RowContent = (props: PropsRowContent): React.ReactElement | null => {
@@ -33,16 +47,18 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
         setdeleteOption(prevState => !prevState);
     }
 
-    // const navToBookingDetailsOnClick = () => {
-    //     nav(`/bookings/${props.bookingObj?.id}`, {state:props.bookingObj}
-    // }
+    const navToBookingDetailsOnClick = () => {
+        if(props.bookingObj){
+        dispatch(getRoomById(props.bookingObj.roomId!))
+        nav(`/bookings/${props.bookingObj?._id}`, {state:props.bookingObj})
+        }
+    }
 
     const deleteBookingOnClick = () =>{
         if(props.bookingObj){
-            dispatch(deleteBooking(props.bookingObj))
+            dispatch(deleteBooking(props.bookingObj._id!))
             setdeleteOption(prevState => !prevState)
         }
-       
     }
 
     const deleteUserClick = () => {
@@ -52,10 +68,10 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
         }
     }
 
-    const deleteroomsClick = () => {
+    const deleteRoomsClick = () => {
         
         if(props.roomObj){
-            dispatch(deleteRoom(props.roomObj))
+            dispatch(deleteRoom(props.roomObj._id!))
             setdeleteOption(prevState => !prevState);
         }
     }
@@ -71,98 +87,106 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
     }
 
     useEffect(() => {
-      }, [props.bookingObj, props.roomObj, props.userObj]);
+        
+      }, [props.bookingObj, props.roomObj, props.userObj, dispatch]);
     
     switch(location.pathname){
-        // case "/bookings":
-        //     return(
-        //         <ContainerBookings onClick={navToBookingDetailsOnClick}>
-        //             <NameInfo>
-        //                 <NameProperties>
-        //                     <ElementGreyName>#{props.bookingObj?.id}</ElementGreyName>
-        //                     <h5>{props.bookingObj?.guest}</h5>
-        //                 </NameProperties>
-        //             </NameInfo>
+        case "/bookings":
+            return(
+                <ContainerBookings onClick={navToBookingDetailsOnClick}>
+                    <NameInfo>
+                        <NameProperties>
+                            <ElementGreyName><div id={sliceID(props.bookingObj?._id!, 6)}></div></ElementGreyName>
+                            <h5>{props.bookingObj?.guest}</h5>
+                        </NameProperties>
+                    </NameInfo>
 
-        //             <Description>
-        //                     <ElementGrey>{props.bookingObj?.orderDate}</ElementGrey>
-        //             </Description>
+                    <Description>
+                            <ElementGrey>{props.bookingObj?.orderDate}</ElementGrey>
+                    </Description>
 
-        //             <Contact>
-        //                     <ElementGrey>{props.bookingObj?.checkIn}</ElementGrey>
-        //             </Contact>
+                    <Contact>
+                            <ElementGrey>{props.bookingObj?.checkIn}</ElementGrey>
+                    </Contact>
 
                     
-        //             <Contact>
-        //                     <ElementGrey>{props.bookingObj?.checkOut}</ElementGrey>
-        //             </Contact>
+                    <Contact>
+                            <ElementGrey>{props.bookingObj?.checkOut}</ElementGrey>
+                    </Contact>
 
-        //             <Contact>
-        //                     <ElementGrey>{props.bookingObj?.specialRequest}</ElementGrey>
-        //             </Contact>
+                    <Contact>
+                            <ElementGrey>{props.bookingObj?.specialRequest}</ElementGrey>
+                    </Contact>
 
-        //             <Contact>
-        //                     <ElementGrey>{props.bookingObj?.roomType.roomType}</ElementGrey>
-        //             </Contact>
+                    <Contact>
+                            <ElementGrey>{props.bookingObj?.roomId}</ElementGrey>
+                    </Contact>
 
-        //             <Status >
-        //                 <StatusSpanBookings status={props.bookingObj?.status}> {props.bookingObj?.status} </StatusSpanBookings>
-        //                 <DeleteButtonsContainer>
-        //                     <DeleteButton onClick={showDeleteOption}>
-        //                         <BsThreeDotsVertical />
-        //                     </DeleteButton>
-        //                     <DeleteOption active={deleteOption} onClick={deleteBookingOnClick}>
-        //                             <span>Delete</span>
-        //                     </DeleteOption>
-        //                 </DeleteButtonsContainer>
-        //             </Status>
-        //         </ContainerBookings>
-        //     );
+                    <Status >
+                        <StatusSpanBookings status={props.bookingObj?.status}> {props.bookingObj?.status} </StatusSpanBookings>
+                        <DeleteButtonsContainer>
+                            <DeleteButton onClick={showDeleteOption}>
+                                <BsThreeDotsVertical />
+                            </DeleteButton>
+                            <DeleteOption active={deleteOption} onClick={deleteBookingOnClick}>
+                                    <span>Delete</span>
+                            </DeleteOption>
+                        </DeleteButtonsContainer>
+                    </Status>
+                </ContainerBookings>
+            );
 
-        // case "/rooms":
+        case "/rooms":
+        let isAvailable: string;
+            if(props.roomObj?.isAvailable === true){
+                isAvailable = "Avaliable"
+            }
+            else{
+                isAvailable = "Booked"
+            }
             
-        // return(
-        //     <ContainerRooms >
-        //         <NameInfo>
-        //                 <ImgContainer>
-        //                     <img src={props.roomObj?.photos[0]}/>
-        //                 </ImgContainer>
-        //                 <NameProperties>
-        //                     <ElementGreyName>#{props.roomObj?.id}</ElementGreyName>
-        //                     <h5>{props.roomObj?.roomName}</h5>
-        //                 </NameProperties>
+        return(
+            <ContainerRooms >
+                <NameInfo>
+                        <ImgContainer>
+                            <img src={props.roomObj?.photos[0]}/>
+                        </ImgContainer>
+                        <NameProperties>
+                            <ElementGreyName>#{props.roomObj?._id}</ElementGreyName>
+                            <h5>{props.roomObj?.roomName}</h5>
+                        </NameProperties>
                         
-        //         </NameInfo>
+                </NameInfo>
 
-        //         <Description>
-        //                 <ElementGrey>{props.roomObj?.roomType}</ElementGrey>
-        //         </Description>
+                <Description>
+                        <ElementGrey>{props.roomObj?.roomType}</ElementGrey>
+                </Description>
 
-        //         <Contact>
-        //                 <ElementGrey>{arrayWithoutEmptyStrings(props.roomObj?.amenities)}</ElementGrey>
-        //         </Contact>
+                <Contact>
+                        <ElementGrey>{arrayWithoutEmptyStrings(props.roomObj?.amenities)}</ElementGrey>
+                </Contact>
 
-        //         <Price>
-        //             ${props.roomObj?.price}<span>/Night</span>
-        //         </Price>
+                <Price>
+                    ${props.roomObj?.price}<span>/Night</span>
+                </Price>
 
-        //         <OfferPrice>
-        //             ${props.roomObj?.offerPrice}<span>/Night</span>
-        //         </OfferPrice>
+                <OfferPrice>
+                    ${props.roomObj?.offerPrice}<span>/Night</span>
+                </OfferPrice>
 
-        //         <Status >
-        //             <StatusSpanRooms status={props.roomObj?.status}>{props.roomObj?.status}</StatusSpanRooms>
-        //             <DeleteButtonsContainer>
-        //                 <DeleteButton onClick={showDeleteOption}>
-        //                     <BsThreeDotsVertical />
-        //                 </DeleteButton>
-        //                 <DeleteOption active={deleteOption} onClick={deleteroomsClick}>
-        //                         <span>Delete</span>
-        //                 </DeleteOption>
-        //             </DeleteButtonsContainer>
-        //         </Status>
-        //     </ContainerRooms>
-        //   );
+                <Status >
+                    <StatusSpanRooms isAvaliable={props.roomObj?.isAvailable}>{isAvailable}</StatusSpanRooms>
+                    <DeleteButtonsContainer>
+                        <DeleteButton onClick={showDeleteOption}>
+                            <BsThreeDotsVertical />
+                        </DeleteButton>
+                        <DeleteOption active={deleteOption} onClick={deleteRoomsClick}>
+                                <span>Delete</span>
+                        </DeleteOption>
+                    </DeleteButtonsContainer>
+                </Status>
+            </ContainerRooms>
+          );
 
         case "/users":
 
@@ -182,7 +206,7 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
                         </ImgContainer>
                         <NameProperties>
                             <h5>{props.userObj?.name}</h5>
-                            {/* <ElementGreyName>#{props.userObj?.id}</ElementGreyName> */}
+                            <ElementGreyName>#{props.userObj?._id}</ElementGreyName>
                             <ElementGreyName>{props.userObj?.email}</ElementGreyName>
                             <ElementGreyName>{props.userObj?.startDate}</ElementGreyName>
                         </NameProperties>
@@ -199,7 +223,7 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
                 </Contact>
 
                 <Status >
-                    <StatusSpan status={props.userObj?.isActive}> {isActive} </StatusSpan>
+                    <StatusSpan isActive={props.userObj?.isActive}> {isActive} </StatusSpan>
                     <DeleteButtonsContainer>
                         <DeleteButton onClick={showDeleteOption}>
                             <BsThreeDotsVertical />
@@ -329,33 +353,33 @@ justify-content: space-between;
 align-items: center;
 `
 
-const StatusSpan = styled.span<PropsStatus>`
+const StatusSpan = styled.span<PropsIsActive>`
 margin-left: 20px;
 text-transform: uppercase;
 font: normal normal 600 14px/21px 'Poppins';
-color: ${props => props.status===true ? "#5AD07A" : "#E23428" };
+color: ${props => props.isActive===true ? "#5AD07A" : "#E23428" };
 `
 
-// const StatusSpanBookings = styled.span<PropsStatus>`
-// margin-left: 0px;
-// width: 68px;
-// padding: 5px 12px 5px 12px;
-// font: normal normal 600 14px/21px 'Poppins';
-// font-size: 12px;
-// border-radius: 15px;
-// text-align: center;
-// color: ${props => props.status === "Check In" ? "#5AD07A" : props.status === "Check Out" ? "#E23428" :  "#F7DE3A"};
-// background-color: ${props => props.status === "Check In" ? "#E8FFEE" : props.status === "Check Out" ? "#FFEDEC" :  "#f8f8ed"};;
-// `
+const StatusSpanBookings = styled.span<PropsStatus>`
+margin-left: 0px;
+width: 68px;
+padding: 5px 12px 5px 12px;
+font: normal normal 600 14px/21px 'Poppins';
+font-size: 12px;
+border-radius: 15px;
+text-align: center;
+color: ${props => props.status === "Check In" ? "#5AD07A" : props.status === "Check Out" ? "#E23428" :  "#F7DE3A"};
+background-color: ${props => props.status === "Check In" ? "#E8FFEE" : props.status === "Check Out" ? "#FFEDEC" :  "#f8f8ed"};;
+`
 
-// const StatusSpanRooms = styled.span<PropsStatus>`
-// text-align: center;
-// font: normal normal 600 14px/21px 'Poppins';
-// color: #FFFFFF;
-// background-color: ${props => props.status === "Avaliable" ? "#5AD07A" : "#E23428"};
-// border-radius: 15px;
-// width: 70px;
-// padding: 10px 20px 10px 20px;
+const StatusSpanRooms = styled.span<PropsIsAvaliable>`
+text-align: center;
+font: normal normal 600 14px/21px 'Poppins';
+color: #FFFFFF;
+background-color: ${props => props.isAvaliable === true ? "#5AD07A" : "#E23428"};
+border-radius: 15px;
+width: 70px;
+padding: 10px 20px 10px 20px;
 // `
 
 const DeleteButtonsContainer = styled.div`

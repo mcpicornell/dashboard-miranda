@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { addUser } from "../../features/users/apiCallUsers";
+import { addUser } from "../../features/users/fetchUsers";
 import { useAppDispatch } from "../../app/store";
 import { useNavigate } from "react-router-dom";
 import { IUsers, convertToDateFormat } from "../../features/interfaces";

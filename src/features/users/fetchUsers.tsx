@@ -1,28 +1,30 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IUsers } from '../interfaces';
+import fetch from 'cross-fetch';
+import 'cross-fetch/polyfill';
+import {fetchApi} from '../fetchApi'
 
 const urlUsers = "http://localhost:3001/api/users"
 
 //USERS
 
-export const fetchApi = async (body: string | IUsers, method: string, url: string) => {
+  export const postLogin = async (body: any) => {
     try {
-      const response = await fetch(url, {
-        method: method,
+      const response = await fetch("http://localhost:3001/login", {
+        method: "POST",
         mode: "cors",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(body),
-       
       });
       if (response.status >= 400) {
         throw new Error("Bad response from server");
       } else {
         return await response.json();
       }
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -50,8 +52,6 @@ export const getOneUser = createAsyncThunk<IUsers>('users/getOneUser', async (us
         throw error;
     }
 });
-
-
 
 export const addUser = createAsyncThunk<IUsers, IUsers>('users/addUser', async (userObj: IUsers) => {
     try{
@@ -85,28 +85,3 @@ export const editUser = createAsyncThunk<IUsers, IUsers>('users/editUser', async
         throw error;
     }
 });
-
-
-// export const editUser = createAsyncThunk<IUsers, IUsers>('users/editUser', async (userObj) => {
-//     return await new Promise ((resolve) => {
-//         setTimeout(() => {
-//             resolve(userObj)
-//         }, 200)
-//     })
-// });
-
-// export const filterUser = createAsyncThunk<string, string>('users/filterUser', async (status) => {
-//     return await new Promise ((resolve) => {
-//         setTimeout(() => {
-//             resolve(status)
-//         }, 200)
-//     })
-// });
-
-// export const searchUser = createAsyncThunk<string, string>('users/searchUser', async (userName) => {
-//     return await new Promise ((resolve) => {
-//         setTimeout(() => {
-//             resolve(userName)
-//         }, 200)
-//     })
-// });

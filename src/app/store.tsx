@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import { RoomsSlice } from "../features/rooms/RoomsSlice";
-// import { BookingsSlice } from "../features/bookings/BookingsSlice";
+import { RoomsSlice } from "../features/rooms/RoomsSlice";
+import { BookingsSlice } from "../features/bookings/BookingsSlice";
 import { UsersSlice } from "../features/users/UsersSlice";
 import { useSelector, useDispatch, TypedUseSelectorHook } from "react-redux";
 import { ContactSlice } from "../features/contact/ContactSlicer";
@@ -8,8 +8,8 @@ import { ContactSlice } from "../features/contact/ContactSlicer";
 
 export const store = configureStore({
   reducer: {
-    // rooms: RoomsSlice.reducer,
-    // bookings: BookingsSlice.reducer,
+    rooms: RoomsSlice.reducer,
+    bookings: BookingsSlice.reducer,
     users: UsersSlice.reducer,
     contacts: ContactSlice.reducer
   },

@@ -1,7 +1,7 @@
 import { createSlice} from "@reduxjs/toolkit"
 import type { RootState } from '../../app/store'
 import { IUsers } from "../interfaces";
-import { fetchUsers, editUser, deleteUser, addUser } from "./apiCallUsers";
+import { fetchUsers, editUser, deleteUser, addUser } from "./fetchUsers";
 
 interface InitState {
   error: any,

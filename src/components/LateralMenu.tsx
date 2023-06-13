@@ -6,7 +6,7 @@ import {BiUser } from 'react-icons/bi';
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../UserContext';
-import { editUser } from '../features/users/apiCallUsers';
+import { editUser } from '../features/users/fetchUsers';
 import { faker } from '@faker-js/faker';
 import { IUsers, convertToDateFormat } from '../features/interfaces';
 import { useAppDispatch } from '../app/store';

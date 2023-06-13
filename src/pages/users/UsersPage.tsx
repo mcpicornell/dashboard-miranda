@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import {getUsersStatus, getUsersData, getUsersError} from '../../features/users/UsersSlice'
-import { fetchUsers } from "../../features/users/apiCallUsers";
-import styled from "styled-components";
+import { fetchUsers } from "../../features/users/fetchUsers";
 import { useAppSelector, useAppDispatch } from "../../app/store";
 import { Table } from "../../components/Table";
 
