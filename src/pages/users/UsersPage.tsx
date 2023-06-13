@@ -31,7 +31,7 @@ const UsersPage = () =>{
 
     return (
         <>
-        <Table usersTitles={usersTitles} usersData={usersData} />
+        <Table usersTitles={usersTitles} usersData={usersDataCopy} />
         </>
     )
 };

@@ -1,6 +1,13 @@
+export const convertToDateFormat = (date: Date) =>  {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const dateFormated = `${year}-${month}-${day}`;
+    return dateFormated;
+  }
 
 export interface IRooms {
-    roomId: number,
+    _id?: string,
     roomName: string,
     isAvaliable: boolean
     offerPrice: number,
@@ -16,12 +23,14 @@ export interface IUsers{
     descriptionJob: string,
     email: string,
     name: string,
-    _id?: number,
+    _id?: string,
     photo: string,
     startDate: string,
-    isActive: boolean
+    isActive: boolean,
+    password: string
 }
 export interface IBookings{
+    _id?: string,
     guest: string,
     orderDate: string,
     checkIn: string,

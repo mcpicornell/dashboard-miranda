@@ -16,7 +16,6 @@ export const fetchApi = async (body: string | IUsers, method: string, url: strin
         body: JSON.stringify(body),
        
       });
-      console.log(body)
       if (response.status >= 400) {
         throw new Error("Bad response from server");
       } else {
@@ -54,17 +53,17 @@ export const getOneUser = createAsyncThunk<IUsers>('users/getOneUser', async (us
 
 
 
-// export const addUser = createAsyncThunk<IUsers>('users/addUser', async (userObj) => {
-//     try{
-//         const response = await fetchApi(userObj, "POST", urlUsers)
-//         console.log(response)
-//         return response
-//     }
-//     catch(error){
-//         console.error('Error al crear el usuario:', error);
-//         throw error;
-//     }
-// });
+export const addUser = createAsyncThunk<IUsers, IUsers>('users/addUser', async (userObj: IUsers) => {
+    try{
+        const response = await fetchApi(userObj, "POST", urlUsers)
+        console.log(response.data.userPosted)
+        return response.data.userPosted
+    }
+    catch(error){
+        console.error('Error al crear el usuario:', error);
+        throw error;
+    }
+});
 
 export const deleteUser = createAsyncThunk<string, string>('users/deleteUser', async (userId) => {
     try {
@@ -76,16 +75,16 @@ export const deleteUser = createAsyncThunk<string, string>('users/deleteUser', a
     }
   });
 
-// export const editUser = createAsyncThunk('users/editUser', async (userObj, id) => {
-//     try{
-//         const response = await fetchApi(userObj, "PUT", `${urlUsers}/${id}`)
-//         return response
-//     }
-//     catch(error){
-//         console.error('Error al eliminar el usuario:', error);
-//         throw error;
-//     }
-// });
+export const editUser = createAsyncThunk<IUsers, IUsers>('users/editUser', async (userObj) => {
+    try{
+        const response = await fetchApi(userObj, "PUT", `${urlUsers}/${userObj._id}`)
+        return response.data
+    }
+    catch(error){
+        console.error('Error al eliminar el usuario:', error);
+        throw error;
+    }
+});
 
 
 // export const editUser = createAsyncThunk<IUsers, IUsers>('users/editUser', async (userObj) => {

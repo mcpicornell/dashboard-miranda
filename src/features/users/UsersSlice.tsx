@@ -1,8 +1,7 @@
-import { createSlice, PayloadAction} from "@reduxjs/toolkit"
-import {  addUser, editUser, filterUser, searchUser } from "../asyncThunk";
+import { createSlice} from "@reduxjs/toolkit"
 import type { RootState } from '../../app/store'
 import { IUsers } from "../interfaces";
-import { fetchUsers, getOneUser, deleteUser } from "./apiCallUsers";
+import { fetchUsers, editUser, deleteUser, addUser } from "./apiCallUsers";
 
 interface InitState {
   error: any,
@@ -41,10 +40,9 @@ export const UsersSlice = createSlice({
         //     state.data = action.payload;
         //   })
 
-        // .addCase(addUser.fulfilled, (state, action) => {
-        //     state.data = action.payload;
-            
-        //   })
+        .addCase(addUser.fulfilled, (state, action) => {
+            state.data = [action.payload, ...state.data];
+          })
         .addCase(addUser.rejected, (state, action) => {
             state.error = action.payload;
           })
@@ -53,7 +51,8 @@ export const UsersSlice = createSlice({
         })
 
         .addCase(deleteUser.fulfilled, (state, action) => {
-          state.data = state.data.filter((element) => element._id !==  Number(action.payload));
+          state.data = state.data.filter((element) => element._id !==  action.payload);
+          
           })
         .addCase(deleteUser.rejected, (state, action) => {
             state.error = action.payload;
@@ -61,26 +60,16 @@ export const UsersSlice = createSlice({
         .addCase(deleteUser.pending, (state, action) => {
           state.status = "pending";
           })
-        // .addCase(editUser.fulfilled, (state, action) => {
-        //   state.data = state.data.filter((user) => user.id !==  action.payload.id);
-        //   state.data.push(action.payload);
-        //   })
+        .addCase(editUser.fulfilled, (state, action) => {
+          state.data = state.data.filter((user) => user._id !==  action.payload._id);
+          state.data.push(action.payload);
+          })
         .addCase(editUser.rejected, (state, action) => {
           state.error = action.payload;
           })
         .addCase(editUser.pending, (state, action) => {
           state.status = "pending";
           })
-        // .addCase(filterUser.fulfilled, (state, action) => {
-        //   state.data = state.data.filter((element) => String(element.isActive) ===  action.payload);
-        // })
-        // .addCase(searchUser.fulfilled, (state, action) => {
-        //   state.data = state.data.filter((element) => {
-        //     const name = element.name.toLocaleLowerCase();
-        //     return name.match(action.payload)
-        //   })
-          
-        // })
       },
 
 });

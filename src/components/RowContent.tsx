@@ -7,6 +7,7 @@ import { deleteUser } from "../features/users/apiCallUsers"
 import { useLocation, useNavigate } from "react-router-dom"
 import { IBookings, IRooms, IUsers } from "../features/interfaces"
 import { useAppDispatch } from "../app/store"
+import { useEffect } from "react"
 
 interface PropsRowContent {
     bookingObj?: IBookings,
@@ -47,7 +48,7 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
     const deleteUserClick = () => {
         if(props.userObj){
             console.log(props.userObj._id)
-            dispatch(deleteUser(String(props.userObj._id!)))
+            dispatch(deleteUser(props.userObj._id!))
             setdeleteOption(prevState => !prevState);
         }
     }
@@ -69,6 +70,9 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
             return null;
         }
     }
+
+    useEffect(() => {
+      }, [props.bookingObj, props.roomObj, props.userObj]);
     
     switch(location.pathname){
         // case "/bookings":

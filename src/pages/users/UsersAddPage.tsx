@@ -1,8 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { addUser } from "../../features/asyncThunk";
+import { addUser } from "../../features/users/apiCallUsers";
 import { useAppDispatch } from "../../app/store";
 import { useNavigate } from "react-router-dom";
+import { IUsers, convertToDateFormat } from "../../features/interfaces";
 
 const UsersAddPage = () =>{
 
@@ -15,20 +16,20 @@ const UsersAddPage = () =>{
     const [contactNumber, setContactNumber] = useState("");
     const [startDate, setStartDate] = useState("");
     const [description, setDescription] = useState("");
-    const [isActive, setIsActive] = useState(true);
+    const [isActive, setIsActive] = useState<boolean>(true);
     const [password, setPassword] = useState("");
     const [verificationPassword, setVerificationPassword] = useState("");
 
     const onSubmitHandler = () => {
         if (verificationPassword === password){
-            const newUser = {
+            const newUser: IUsers = {
                 name: fullName,
                 photo: photo,
                 email: email,
-                startDate: startDate,
+                startDate: convertToDateFormat(new Date(startDate)),
                 descriptionJob: description,
                 contact: Number(contactNumber),
-                isActive: isActive,
+                isActive: isActive!,
                 password: password
             }
             dispatch(addUser(newUser));
@@ -64,6 +65,7 @@ const UsersAddPage = () =>{
                     <option value="Manager">Manager</option>
                     <option value="Reception">Reception</option>
                     <option value="Room Service">Room Service</option>
+                    <option value="Admin">Admin</option>
                 </SelectUserOption>
 
             </OptionsContainer>
