@@ -1,23 +1,9 @@
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
-import { IBookings } from '../../features/interfaces';
-import { useEffect, useState } from 'react';
-import { getRoomObj, getRoomsStatus} from "../../features/rooms/RoomsSlice"
-import { useAppSelector } from '../../app/store';
-import { useAppDispatch } from '../../app/store';
-import { getRoomById } from '../../features/rooms/fetchRooms';
 
 const BookingsInfoPage = () =>{
     const location = useLocation();
-    const [bookingObj, roomObj] = location.state;
-    const roomsStatus = useAppSelector(getRoomsStatus)
-    const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        if (!roomObj || roomObj._id !== bookingObj.roomId) {
-          dispatch(getRoomById(bookingObj.roomId));
-        }
-      }, [bookingObj.roomId, dispatch, roomObj]);
+    const bookingObj = location.state;
      
     return (
         <CardBookingsInfo>
@@ -41,12 +27,12 @@ const BookingsInfoPage = () =>{
                 <ElementContainerRow>
                     <ElementContainerColumn>
                         <GreyInfo>Room Info</GreyInfo>
-                        <CheckInOutSpan>{roomObj?.roomNumber}</CheckInOutSpan>
+                        <CheckInOutSpan>{bookingObj.roomObj?.roomNumber}</CheckInOutSpan>
 
                     </ElementContainerColumn>
                     <ElementContainerColumn>
                         <GreyInfo>Price</GreyInfo>
-                        <CheckInOutSpan>{roomObj?.price}</CheckInOutSpan>
+                        <CheckInOutSpan>{bookingObj.roomObj?.price}</CheckInOutSpan>
                         
                     </ElementContainerColumn>
                 </ElementContainerRow>
@@ -54,17 +40,17 @@ const BookingsInfoPage = () =>{
                     <SpecialRequest>{bookingObj.specialRequest}</SpecialRequest>
                     <AmenitiesContainer>
                         <GreyInfo>Amenities</GreyInfo>
-                        <AmenitiesSpan>{roomObj?.amenities[0]}</AmenitiesSpan>
-                        <AmenitiesSpan>{roomObj?.amenities[1]}</AmenitiesSpan>
-                        <AmenitiesSpan>{roomObj?.amenities[2]}</AmenitiesSpan>
-                        <AmenitiesSpan>{roomObj?.amenities[3]}</AmenitiesSpan>
+                        <AmenitiesSpan>{bookingObj.roomObj?.amenities[0]}</AmenitiesSpan>
+                        <AmenitiesSpan>{bookingObj.roomObj?.amenities[1]}</AmenitiesSpan>
+                        <AmenitiesSpan>{bookingObj.roomObj?.amenities[2]}</AmenitiesSpan>
+                        <AmenitiesSpan>{bookingObj.roomObj?.amenities[3]}</AmenitiesSpan>
                     </AmenitiesContainer>
                 </SpecialRequestContainer>
 
             </InfoBookingsInfo>
              
             <SliderBookingsInfo>
-                <img className='slider-img' src={roomObj?.photos[0]} alt='hotel-room' />
+                <img className='slider-img' src={bookingObj.roomObj?.photos[0]} alt='hotel-room' />
             </SliderBookingsInfo>
         </CardBookingsInfo>
        

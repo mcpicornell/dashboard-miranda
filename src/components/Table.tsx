@@ -183,7 +183,7 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
             _id: data._id,
             checkOut: data.checkOut,
             specialRequest: data.specialRequest,
-            roomId: data.roomId,
+            roomObj: data.roomObj,
             status: data.status
           }
     

@@ -1,10 +1,4 @@
-export const convertToDateFormat = (date: Date) =>  {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const dateFormated = `${year}-${month}-${day}`;
-    return dateFormated;
-  }
+
 
 export interface IRooms {
     _id?: string,
@@ -36,7 +30,7 @@ export interface IBookings{
     checkIn: string,
     checkOut: string,
     specialRequest: string,
-    roomId: string,
+    roomObj: IRooms,
     status: string
 }
 export interface IContacts {

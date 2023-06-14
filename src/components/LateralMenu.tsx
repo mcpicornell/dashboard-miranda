@@ -8,7 +8,9 @@ import { useContext } from 'react';
 import { UserContext } from '../UserContext';
 import { editUser } from '../features/users/fetchUsers';
 import { faker } from '@faker-js/faker';
-import { IUsers, convertToDateFormat } from '../features/interfaces';
+import { IUsers } from '../features/interfaces';
+import {convertToDateFormat} from '../features/functions'
+
 import { useAppDispatch } from '../app/store';
 
 

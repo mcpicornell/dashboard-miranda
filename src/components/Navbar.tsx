@@ -8,6 +8,7 @@ import LateralMenu from './LateralMenu';
 import { useState } from 'react';
 import {BsChevronRight} from 'react-icons/bs';
 import {BsChevronLeft} from 'react-icons/bs';
+import config from '../config';
 
 interface PropsNavbar{
     title: string;
@@ -30,7 +31,7 @@ const NavBar = (props: PropsNavbar) =>{
     const closeOpenMenu = () => {
         setOpen(prevState => !prevState);
     }
-    console.log(process.env.REACT_APP_API_URL)
+    console.log(config.REACT_APP_API_URL)
     return(
         <>
         

@@ -5,12 +5,12 @@ import { useState } from "react"
 import { deleteBooking } from "../features/bookings/fetchBookings"
 import { deleteUser } from "../features/users/fetchUsers"
 import { deleteRoom, getRoomById } from "../features/rooms/fetchRooms"
-
 import { useLocation, useNavigate } from "react-router-dom"
 import { IBookings, IRooms, IUsers } from "../features/interfaces"
 import { useAppDispatch, useAppSelector } from "../app/store"
 import { useEffect } from "react"
 import { getRoomObj } from "../features/rooms/RoomsSlice"
+import { sliceID } from "../features/functions"
 
 interface PropsRowContent {
     bookingObj?: IBookings,
@@ -34,9 +34,7 @@ interface PropsActive{
     active: boolean;
 }
 
-const sliceID = (id:string, slices: number) =>{
-    return id.slice(-6)
-}
+
 
 export const RowContent = (props: PropsRowContent): React.ReactElement | null => {
     const roomObj = useAppSelector(getRoomObj)
@@ -53,7 +51,7 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
 
     const navToBookingDetailsOnClick = () => {
         if(props.bookingObj){
-        nav(`/bookings/${props.bookingObj?._id}`, {state:[props.bookingObj, roomObj]})
+        nav(`/bookings/${props.bookingObj?._id}`, {state:props.bookingObj})
         }
     }
 
@@ -90,13 +88,6 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
     }
 
     useEffect(() => {
-        // if (location.pathname === "/bookings" && (!roomObj || roomObj._id !== props.bookingObj?.roomId)) {
-        //     dispatch(getRoomById(props.bookingObj!.roomId));
-        //    }
-        if(location.pathname === "/bookings" && !roomObj){
-            dispatch(getRoomById(props.bookingObj!.roomId));
-        }
-        console.log(roomObj)
            
       }, [props.bookingObj, props.roomObj, props.userObj, roomObj]);
     
@@ -129,7 +120,7 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
                     </Contact>
 
                     <Contact>
-                            <ElementGrey>{props.bookingObj?.roomId}</ElementGrey>
+                            <ElementGrey>{props.bookingObj?.roomObj.roomType}</ElementGrey>
                     </Contact>
 
                     <Status >
@@ -162,7 +153,7 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
                             <img src={props.roomObj?.photos[0]}/>
                         </ImgContainer>
                         <NameProperties>
-                            <ElementGreyName>#{props.roomObj?._id}</ElementGreyName>
+                            <ElementGreyName>#{sliceID(props.roomObj?._id!, 6)}</ElementGreyName>
                             <h5>{props.roomObj?.roomName}</h5>
                         </NameProperties>
                         
@@ -216,7 +207,7 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
                         </ImgContainer>
                         <NameProperties>
                             <h5>{props.userObj?.name}</h5>
-                            <ElementGreyName>#{props.userObj?._id}</ElementGreyName>
+                            <ElementGreyName>#{sliceID(props.userObj?._id!, 6)}</ElementGreyName>
                             <ElementGreyName>{props.userObj?.email}</ElementGreyName>
                             <ElementGreyName>{props.userObj?.startDate}</ElementGreyName>
                         </NameProperties>

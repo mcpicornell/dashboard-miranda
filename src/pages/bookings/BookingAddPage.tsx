@@ -4,6 +4,7 @@ import { addBooking } from "../../features/bookings/fetchBookings";
 import { useAppDispatch } from "../../app/store";
 import { useNavigate } from "react-router-dom";
 import { IBookings, IRooms } from "../../features/interfaces";
+
 const BookingAddPage = () =>{
 
     const dispatch = useAppDispatch();
@@ -14,7 +15,7 @@ const BookingAddPage = () =>{
     const [checkOut, setCheckOut] = useState<string>();
     const [specialRequest, setSpecialRequest] = useState<string>();
     const [roomType, setRoomType] = useState<string>();
-    const [roomTypeObj, setRoomTypeObj] = useState<string>();
+    const [roomObj, setRoomObj] = useState<IRooms>();
     const [state, setState] = useState<string>();
 
     // const onSubmitHandler = () => {
@@ -93,7 +94,7 @@ const BookingAddPage = () =>{
                 checkIn: checkIn!,
                 checkOut: checkOut!,
                 specialRequest: specialRequest!,
-                roomId: roomTypeObj!,
+                roomObj: roomObj!,
                 status: state!
             }
 
