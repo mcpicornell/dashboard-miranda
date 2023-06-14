@@ -30,7 +30,7 @@ const NavBar = (props: PropsNavbar) =>{
     const closeOpenMenu = () => {
         setOpen(prevState => !prevState);
     }
-    
+    console.log(process.env.REACT_APP_API_URL)
     return(
         <>
         

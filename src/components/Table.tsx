@@ -5,6 +5,9 @@ import {RowContent}  from "./RowContent"
 import { NavLink } from "react-router-dom";
 import { IBookings, IContacts, IRooms, IUsers, IBookingsTitles, IUsersTitles, IRoomsTitles } from "../features/interfaces";
 import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../app/store";
+import { getRoomById } from "../features/rooms/fetchRooms";
+import { getRoomObj } from "../features/rooms/RoomsSlice";
 
 interface PropsTable {
   roomsTitles?: IRoomsTitles,
@@ -43,10 +46,10 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
   const [roomsData, setRoomsData] = useState<IRooms[]| undefined>(roomsDataVar)
   const [usersData, setUsersData] = useState<IUsers[] | undefined>(usersDataVar)
   const [searchString, setSearchString] = useState("");
+
   const location = useLocation();
-  let counter = 0;
-  
   let content: JSX.Element[] = [];
+
 
   useEffect(() => {
     setBookingsData(props.bookingsData);
@@ -186,7 +189,7 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
     
           content.push(
               <>
-                <RowContent bookingObj={bookingObj}/>
+                <RowContent bookingObj={bookingObj} />
               </>
             );
             

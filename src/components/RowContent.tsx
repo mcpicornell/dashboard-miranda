@@ -8,8 +8,9 @@ import { deleteRoom, getRoomById } from "../features/rooms/fetchRooms"
 
 import { useLocation, useNavigate } from "react-router-dom"
 import { IBookings, IRooms, IUsers } from "../features/interfaces"
-import { useAppDispatch } from "../app/store"
+import { useAppDispatch, useAppSelector } from "../app/store"
 import { useEffect } from "react"
+import { getRoomObj } from "../features/rooms/RoomsSlice"
 
 interface PropsRowContent {
     bookingObj?: IBookings,
@@ -38,7 +39,10 @@ const sliceID = (id:string, slices: number) =>{
 }
 
 export const RowContent = (props: PropsRowContent): React.ReactElement | null => {
+    const roomObj = useAppSelector(getRoomObj)
+
     
+    const [roomObjState, setRoomObjState] = useState()
     const dispatch = useAppDispatch();
     const nav = useNavigate();
     const [deleteOption, setdeleteOption] = useState(false);
@@ -49,8 +53,7 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
 
     const navToBookingDetailsOnClick = () => {
         if(props.bookingObj){
-        dispatch(getRoomById(props.bookingObj.roomId!))
-        nav(`/bookings/${props.bookingObj?._id}`, {state:props.bookingObj})
+        nav(`/bookings/${props.bookingObj?._id}`, {state:[props.bookingObj, roomObj]})
         }
     }
 
@@ -87,8 +90,15 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
     }
 
     useEffect(() => {
-        
-      }, [props.bookingObj, props.roomObj, props.userObj, dispatch]);
+        // if (location.pathname === "/bookings" && (!roomObj || roomObj._id !== props.bookingObj?.roomId)) {
+        //     dispatch(getRoomById(props.bookingObj!.roomId));
+        //    }
+        if(location.pathname === "/bookings" && !roomObj){
+            dispatch(getRoomById(props.bookingObj!.roomId));
+        }
+        console.log(roomObj)
+           
+      }, [props.bookingObj, props.roomObj, props.userObj, roomObj]);
     
     switch(location.pathname){
         case "/bookings":

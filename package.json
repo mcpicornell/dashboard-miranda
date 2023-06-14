@@ -13,7 +13,6 @@
     "@types/react-redux": "^7.1.25",
     "cross-fetch": "^3.1.6",
     "crypto-browserify": "^3.12.0",
-    "dotenv": "^16.1.4",
     "fallback": "^1.0.1",
     "firacode": "^6.2.0",
     "os-browserify": "^0.3.0",
@@ -37,7 +36,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress": "cypress open",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "dev": "set NODE_ENV=development react-scripts start"
   },
   "eslintConfig": {
     "extends": [

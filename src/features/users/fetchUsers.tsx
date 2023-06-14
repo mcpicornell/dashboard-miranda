@@ -5,6 +5,8 @@ import 'cross-fetch/polyfill';
 import {fetchApi} from '../fetchApi'
 
 const urlUsers = "http://localhost:3001/api/users"
+const url = process.env.REACT_APP_API_URL
+
 
 //USERS
 
@@ -33,6 +35,7 @@ export const fetchUsers = createAsyncThunk<IUsers[]>('users/fetchUsers', async (
     try{
         const response = await fetch(urlUsers);
     const data = await response.json();
+    console.log(process.env.REACT_APP_API_URL)
     return data.data.users;
     }
     catch(error){

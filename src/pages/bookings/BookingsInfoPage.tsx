@@ -9,16 +9,15 @@ import { getRoomById } from '../../features/rooms/fetchRooms';
 
 const BookingsInfoPage = () =>{
     const location = useLocation();
-    const bookingObj: IBookings = location.state;
-    const roomObj = useAppSelector(getRoomObj)
+    const [bookingObj, roomObj] = location.state;
     const roomsStatus = useAppSelector(getRoomsStatus)
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (!roomObj || roomObj._id !== bookingObj.roomId) {
-         dispatch(getRoomById(bookingObj.roomId));
+          dispatch(getRoomById(bookingObj.roomId));
         }
-     }, [roomsStatus, bookingObj.roomId, dispatch, roomObj]);
+      }, [bookingObj.roomId, dispatch, roomObj]);
      
     return (
         <CardBookingsInfo>
