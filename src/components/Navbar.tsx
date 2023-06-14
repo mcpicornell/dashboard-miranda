@@ -8,7 +8,8 @@ import LateralMenu from './LateralMenu';
 import { useState } from 'react';
 import {BsChevronRight} from 'react-icons/bs';
 import {BsChevronLeft} from 'react-icons/bs';
-import config from '../config';
+import { deleteDataLocalStorage } from '../data/localStorage';
+
 
 interface PropsNavbar{
     title: string;
@@ -23,15 +24,15 @@ const NavBar = (props: PropsNavbar) =>{
     const {dispatch} = useContext(UserContext);
     const logOutClickHandler = (event: React.MouseEvent<SVGElement>) => {
         event.preventDefault();
+        deleteDataLocalStorage("auth")
         dispatch({  type: "logOut" });
     }
     const [ open, setOpen ] = useState(false);
-    
 
     const closeOpenMenu = () => {
         setOpen(prevState => !prevState);
     }
-    console.log(config.REACT_APP_API_URL)
+    
     return(
         <>
         
@@ -101,13 +102,14 @@ const OptionsDiv = styled.div<PropsOpen>`
     `
 const Title = styled.h1`
         position: relative;
-        margin-left: -90px;
+        margin-left: -100px;
         font: normal normal 600 28px/42px 'Poppins';
         font-size: 24px;
         letter-spacing: 0px;
         color: #262626;
         opacity: 1;
-        width: 300px;
+        width: 315px;
+        padding-top: 2px;
 `
 
 

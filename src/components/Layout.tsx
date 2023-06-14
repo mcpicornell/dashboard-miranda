@@ -1,14 +1,12 @@
 import { useLocation } from 'react-router-dom';
-import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import LateralMenu from './LateralMenu';
 import NavBar from './Navbar';
 
 export const Layout = () => {
     const location = useLocation();
 
     const getTitleSections = () => {
-        switch(location.pathname){
+        switch (location.pathname) {
             case "/":
                 return "Dashboard";
 
@@ -17,7 +15,7 @@ export const Layout = () => {
 
             case "/bookings/addBooking":
                 return "New Booking"
-
+            
             case "/rooms":
                 return "Rooms";
 
@@ -32,23 +30,30 @@ export const Layout = () => {
 
             case "/users/addUser":
                 return "New User";
+
+            case "/user/":
+                return "Edit User"
+
             default:
-                return "";
+                if (location.pathname.startsWith("/bookings/")) {
+                    return "Booking Details";
+                  }
+                  return "Edit User";
         }
     }
-    
+
 
 
     return (
         <>
-        <div style={{display: 'flex'}}>
-            
-                
-        <NavBar title ={getTitleSections()} />
-            
-            
-            <Outlet />
-        </div>
+            <div style={{ display: 'flex' }}>
+
+
+                <NavBar title={getTitleSections()} />
+
+
+                <Outlet />
+            </div>
         </>
     );
 };

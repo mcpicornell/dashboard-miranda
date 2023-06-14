@@ -5,6 +5,9 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import {AddUser} from './users/UsersAddPage'
 import { logoImg } from '../components/LateralMenu';
+import { getObjInLocalStorage,  saveInLocalStorage} from '../data/localStorage';
+import { loginPost } from '../features/loginFetch';
+import { getUserById } from '../features/users/fetchUsers';
 
 const LoginPage = () =>{
 
@@ -18,7 +21,7 @@ const LoginPage = () =>{
         userName: "admin",
         email: "admin",
         password: "admin"
-      };
+    }
 
     const {dispatch} = useContext(UserContext);
 
@@ -27,25 +30,31 @@ const LoginPage = () =>{
     const [emailValue, setEmail] = useState("");
     const [passwordValue, setPassword] = useState("");
 
-    const loginSubmitHandler = (event: React.SyntheticEvent) => {
+    const loginSubmitHandler = async (event: React.SyntheticEvent) => {
         event.preventDefault();
+        try{
+            const  idAndTokeObj = await loginPost({email: emailValue, password: passwordValue})
+            
+        if(idAndTokeObj){
+            saveInLocalStorage("auth", idAndTokeObj)
+            const user = await getUserById(idAndTokeObj.id)
+            dispatch({type: "auth", value: {userName: user.name, email: user.email}})
+            nav("/")
+        }
 
-        if (emailValue === user.email && 
+        else if (emailValue === user.email && 
             passwordValue === user.password ){
             dispatch({type: "auth", value: {userName: user.userName, email: emailValue}})
             nav("/")
         }
-        else if(emailValue !== user.email && 
-            passwordValue !== user.password){
-            alert("Incorrect email user and password")
-        }
-        else if(emailValue === user.email && 
-            passwordValue !== user.password){
-            alert("The password is incorrect, please introduce it again")
-        }
         else{
-            alert("The email user is incorrect, please introduce it again")
+            alert("Something was wrong, please introduce your credentials again")
         }
+        }
+        catch(error){
+            console.log("Error: ", error)
+        }
+        
     }
 
     return (

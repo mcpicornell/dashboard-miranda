@@ -1,4 +1,12 @@
+export interface loginInfo{
+    email: string,
+    password: string
+}
 
+export interface localStorageObj {
+    token: string,
+    id: string
+}
 
 export interface IRooms {
     _id?: string,

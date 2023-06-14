@@ -40,7 +40,6 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
     const roomObj = useAppSelector(getRoomObj)
 
     
-    const [roomObjState, setRoomObjState] = useState()
     const dispatch = useAppDispatch();
     const nav = useNavigate();
     const [deleteOption, setdeleteOption] = useState(false);

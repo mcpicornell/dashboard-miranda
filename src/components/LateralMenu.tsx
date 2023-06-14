@@ -3,15 +3,17 @@ import {MdOutlineDashboard, MdOutlinePermContactCalendar } from 'react-icons/md'
 import {RiCalendarEventLine} from 'react-icons/ri';
 import {VscKey } from 'react-icons/vsc';
 import {BiUser } from 'react-icons/bi';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../UserContext';
-import { editUser } from '../features/users/fetchUsers';
+import { editUser, getUserById } from '../features/users/fetchUsers';
 import { faker } from '@faker-js/faker';
 import { IUsers } from '../features/interfaces';
 import {convertToDateFormat} from '../features/functions'
-
 import { useAppDispatch } from '../app/store';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { getObjInLocalStorage } from '../data/localStorage';
 
 
 export const logoImg =  require("../img/logoCompleto.PNG");
@@ -19,27 +21,50 @@ const fakeMale = require('../img/fakeMale.jpg');
 
 interface PropsLateralMenu { open: boolean }
 
-const userFake: IUsers = {
-        _id: "648854e853a5f56d90ea3aa1",
-                name: faker.internet.userName(),
-                photo: faker.image.avatar(),
-                email: faker.internet.email(),
-                startDate: convertToDateFormat(faker.date.past()),
-                descriptionJob: faker.lorem.sentence(),
-                contact: faker.number.int({ min: 60000000, max: 79999999 }),
-                isActive: faker.datatype.boolean(),
-                password: faker.string.alphanumeric()
-}
+// const userFake: IUsers = {
+//         _id: "648854e853a5f56d90ea3aa1",
+//                 name: faker.internet.userName(),
+//                 photo: faker.image.avatar(),
+//                 email: faker.internet.email(),
+//                 startDate: convertToDateFormat(faker.date.past()),
+//                 descriptionJob: faker.lorem.sentence(),
+//                 contact: faker.number.int({ min: 60000000, max: 79999999 }),
+//                 isActive: faker.datatype.boolean(),
+//                 password: faker.string.alphanumeric()
+// }
 
 
 const LateralMenu = (props: PropsLateralMenu) => {
-    
+    const nav = useNavigate();
     const {state} = useContext(UserContext);
 
     const dispatch = useAppDispatch();
-    const putUser = (e: React.MouseEvent<HTMLAnchorElement> | undefined) => {
-        dispatch(editUser(userFake))
-        console.log(userFake)
+    // const putUser = (e: React.MouseEvent<HTMLAnchorElement> | undefined) => {
+    //     dispatch(editUser(userFake))
+    //     console.log(userFake)
+    // }
+
+
+    const [user, setUser] = useState<IUsers | null>();
+
+    useEffect(() => {
+      const getUser = async () => {
+        try {
+          const objInLocalStorage = getObjInLocalStorage("auth");
+          if (objInLocalStorage && objInLocalStorage.id) {
+            const user = await getUserById(objInLocalStorage.id);
+            setUser(user);
+          }
+        } catch (error) {
+          console.error('Error al obtener los datos del usuario:', error);
+        }
+      };
+  
+      getUser();
+    }, []);
+
+    const navToEditUser = () => {
+        nav(`/users/${user?._id}`, {state:user})
     }
 
     return (
@@ -100,10 +125,10 @@ const LateralMenu = (props: PropsLateralMenu) => {
                 </AsideList>
 
                 <AsideCard className='aside__card'>
-                    <img className='card__img-aside-card' src={fakeMale}/>
-                    <h4 className='card__user-name'>{state.userName}</h4>
-                    <h5 className='card__user-email'>{state.email}</h5>
-                    <a className='card__edit-button' onClick={putUser}><span className='edit__button-span-card'>Edit</span></a>
+                    <img className='card__img-aside-card' src={user?.photo}/>
+                    <h4 className='card__user-name'>{user?.name}</h4>
+                    <h5 className='card__user-email'>{user?.email}</h5>
+                    <a className='card__edit-button' onClick={navToEditUser}><span className='edit__button-span-card'>Edit</span></a>
                 </AsideCard>
                 
                 <div className='aside__bottom'>

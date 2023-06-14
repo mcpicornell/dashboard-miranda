@@ -10,34 +10,23 @@ const urlUsers = "http://localhost:3001/api/users"
 const url = `${config.REACT_APP_API_URL}/api/users`
 
 
-//USERS
-
-  export const postLogin = async (body: any) => {
-    try {
-      const response = await fetch("http://localhost:3001/login", {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
-      if (response.status >= 400) {
-        throw new Error("Bad response from server");
-      } else {
-        return await response.json();
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+export const getUserById = async (userId: string): Promise<IUsers> => {
+  try{
+      const response = await fetch(`${url}/${userId}`);
+  const data = await response.json();
+  return data.data.user;
+  }
+  catch(error){
+      console.error('Error al obtener los usuarios:', error);
+      throw error;
+  }
+};
 
 
 export const fetchUsers = createAsyncThunk<IUsers[]>('users/fetchUsers', async () => {
     try{
         const response = await fetch(urlUsers);
     const data = await response.json();
-    console.log(process.env.REACT_APP_API_URL)
     return data.data.users;
     }
     catch(error){
@@ -46,17 +35,6 @@ export const fetchUsers = createAsyncThunk<IUsers[]>('users/fetchUsers', async (
     }
 });
 
-export const getOneUser = createAsyncThunk<IUsers>('users/getOneUser', async (userId) => {
-    try{
-        const response = await fetch(urlUsers);
-        const data = await response.json();
-        return data.data.users;
-    }
-    catch(error){
-        console.error('Error al obtener el usuario:', error);
-        throw error;
-    }
-});
 
 export const addUser = createAsyncThunk<IUsers, IUsers>('users/addUser', async (userObj: IUsers) => {
     try{

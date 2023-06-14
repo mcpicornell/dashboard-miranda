@@ -39,6 +39,11 @@ export const initialState: State = {
   userName: ""
 };
 
+export const isLoggedIn = (): boolean => {
+  const authData = localStorage.getItem("auth");
+  return !!authData;
+}
+
 
 export const reducer = (state: typeof initialState, action: ReducerAction) => {
   if (action.type === "auth") {
