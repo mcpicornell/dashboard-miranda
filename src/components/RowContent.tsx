@@ -4,12 +4,11 @@ import {BsThreeDotsVertical} from "react-icons/bs"
 import { useState } from "react"
 import { deleteBooking } from "../features/bookings/fetchBookings"
 import { deleteUser } from "../features/users/fetchUsers"
-import { deleteRoom, getRoomById } from "../features/rooms/fetchRooms"
+import { deleteRoom } from "../features/rooms/fetchRooms"
 import { useLocation, useNavigate } from "react-router-dom"
 import { IBookings, IRooms, IUsers } from "../features/interfaces"
 import { useAppDispatch, useAppSelector } from "../app/store"
 import { useEffect } from "react"
-import { getRoomObj } from "../features/rooms/RoomsSlice"
 import { sliceID } from "../features/functions"
 
 interface PropsRowContent {
@@ -37,7 +36,6 @@ interface PropsActive{
 
 
 export const RowContent = (props: PropsRowContent): React.ReactElement | null => {
-    const roomObj = useAppSelector(getRoomObj)
 
     
     const dispatch = useAppDispatch();
@@ -88,7 +86,7 @@ export const RowContent = (props: PropsRowContent): React.ReactElement | null =>
 
     useEffect(() => {
            
-      }, [props.bookingObj, props.roomObj, props.userObj, roomObj]);
+      }, [props.bookingObj, props.roomObj, props.userObj]);
     
     switch(location.pathname){
         case "/bookings":

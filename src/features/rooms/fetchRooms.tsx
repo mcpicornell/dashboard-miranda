@@ -1,29 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IRooms } from '../interfaces';
 import fetch from 'cross-fetch';
-import 'cross-fetch/polyfill';
-import {fetchApi} from '../fetchApi'
+import {fetchApi, getApi} from '../fetchApi'
 
 const urlRooms = "http://localhost:3001/api/rooms"
 
 
 export const fetchRooms = createAsyncThunk<IRooms[]>('rooms/fetchRooms', async () => {
     try{
-        const response = await fetch(urlRooms);
-    const data = await response.json();
-    return data.data.rooms;
-    }
-    catch(error){
-        console.error('Error to get rooms:', error);
-        throw error;
-    }
-});
-
-export const getRoomById = createAsyncThunk<IRooms, string>('rooms/getRoomById', async (roomId) => {
-    try{
-        const response = await fetch(`${urlRooms}/${roomId}`);
-    const data = await response.json();
-    return data.data.room;
+        const response = await getApi(urlRooms);
+    return response.data.rooms;
     }
     catch(error){
         console.error('Error to get rooms:', error);

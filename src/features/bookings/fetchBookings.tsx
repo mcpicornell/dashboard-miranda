@@ -2,16 +2,15 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IBookings } from '../interfaces';
 import fetch from 'cross-fetch';
 import 'cross-fetch/polyfill';
-import {fetchApi} from '../fetchApi'
+import {fetchApi, getApi} from '../fetchApi'
 
 const urlBookings = "http://localhost:3001/api/bookings"
 
 
 export const fetchBookings = createAsyncThunk<IBookings[]>('bookings/fetchBookings', async () => {
     try{
-        const response = await fetch(urlBookings);
-    const data = await response.json();
-    return data.data.bookings;
+        const response = await getApi(urlBookings);
+    return response.data.bookings;
     }
     catch(error){
         console.error('Error to get bookings:', error);

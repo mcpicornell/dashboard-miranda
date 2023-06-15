@@ -2,32 +2,21 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IUsers } from '../interfaces';
 import fetch from 'cross-fetch';
 import 'cross-fetch/polyfill';
-import {fetchApi} from '../fetchApi'
+import {fetchApi, getApi} from '../fetchApi'
 import config from '../../config';
-
 
 const urlUsers = "http://localhost:3001/api/users"
 const url = `${config.REACT_APP_API_URL}/api/users`
 
-
-export const getUserById = async (userId: string): Promise<IUsers> => {
-  try{
-      const response = await fetch(`${url}/${userId}`);
-  const data = await response.json();
-  return data.data.user;
-  }
-  catch(error){
-      console.error('Error al obtener los usuarios:', error);
-      throw error;
-  }
-};
-
+export const getUserById = async(userId: string): Promise<IUsers> => {
+    const response = await getApi(`${url}/${userId}`)
+    return response.data.user;
+}
 
 export const fetchUsers = createAsyncThunk<IUsers[]>('users/fetchUsers', async () => {
     try{
-        const response = await fetch(urlUsers);
-    const data = await response.json();
-    return data.data.users;
+    const response = await getApi(urlUsers);
+    return response.data.users;
     }
     catch(error){
         console.error('Error al obtener los usuarios:', error);
@@ -39,7 +28,6 @@ export const fetchUsers = createAsyncThunk<IUsers[]>('users/fetchUsers', async (
 export const addUser = createAsyncThunk<IUsers, IUsers>('users/addUser', async (userObj: IUsers) => {
     try{
         const response = await fetchApi(userObj, "POST", urlUsers)
-        console.log(response.data.userPosted)
         return response.data.userPosted
     }
     catch(error){

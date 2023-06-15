@@ -6,8 +6,6 @@ import { NavLink } from "react-router-dom";
 import { IBookings, IContacts, IRooms, IUsers, IBookingsTitles, IUsersTitles, IRoomsTitles } from "../features/interfaces";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../app/store";
-import { getRoomById } from "../features/rooms/fetchRooms";
-import { getRoomObj } from "../features/rooms/RoomsSlice";
 
 interface PropsTable {
   roomsTitles?: IRoomsTitles,

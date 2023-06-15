@@ -1,13 +1,12 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import {  loginInfo } from './interfaces'
-
 import config from '../config';
 
-const url = `${config.REACT_APP_API_URL}/login`
+const urlLogin = `${config.REACT_APP_API_URL}/login`
+
 
 export const loginPost = async (body: loginInfo) => {
     try {
-      const response = await fetch(url, {
+      const response = await fetch(urlLogin, {
         method: "POST",
         mode: "cors",
         headers: {

@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { fetchRooms, addRoom, deleteRoom, getRoomById } from "./fetchRooms";
+import { fetchRooms, addRoom, deleteRoom } from "./fetchRooms";
 import type { RootState } from '../../app/store'
 import { IRooms } from "../interfaces";
 
 interface InitState {
   error: any,
   status: string,
-  room?: IRooms,
   data: IRooms[]
 }
 
@@ -14,7 +13,6 @@ const initialState: InitState = {
   error: null,
   status: "idle",
   data: [],
-  room: {} as IRooms
 }
 
 export const RoomsSlice = createSlice({
@@ -35,9 +33,6 @@ export const RoomsSlice = createSlice({
       })
       .addCase(fetchRooms.pending, (state, action) => {
         state.status = "loading";
-      })
-      .addCase(getRoomById.fulfilled, (state, action) => {
-        state.room = action.payload;
       })
 
       .addCase(addRoom.fulfilled, (state, action) => {
@@ -68,4 +63,3 @@ export const RoomsSlice = createSlice({
 export const getRoomsStatus = (state: RootState) => state.rooms.status;
 export const getRoomsData = (state: RootState) => state.rooms.data;
 export const getRoomsError = (state: RootState) => state.rooms.error;
-export const getRoomObj = (state: RootState) => state.rooms.room;

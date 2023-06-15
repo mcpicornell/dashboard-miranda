@@ -67,6 +67,17 @@ const LateralMenu = (props: PropsLateralMenu) => {
         nav(`/users/${user?._id}`, {state:user})
     }
 
+    const validateImageFormat = (imageUrl: string): string => {
+        const img = new Image();
+        img.src = imageUrl;
+      
+        if (img.complete && img.naturalWidth > 0) {
+          return imageUrl;
+        } else {
+          return "https://assets.3dtotal.com/neo-arc-04.ycg6wu.expanded.fjn.jpg";
+        }
+      };
+
     return (
         <Aside open={props.open}>
             
@@ -125,7 +136,7 @@ const LateralMenu = (props: PropsLateralMenu) => {
                 </AsideList>
 
                 <AsideCard className='aside__card'>
-                    <img className='card__img-aside-card' src={user?.photo}/>
+                    <img className='card__img-aside-card' src={validateImageFormat(user?.photo!)}/>
                     <h4 className='card__user-name'>{user?.name}</h4>
                     <h5 className='card__user-email'>{user?.email}</h5>
                     <a className='card__edit-button' onClick={navToEditUser}><span className='edit__button-span-card'>Edit</span></a>

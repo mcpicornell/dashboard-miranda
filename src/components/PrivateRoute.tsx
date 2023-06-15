@@ -6,10 +6,11 @@ import { isLoggedIn } from "../App";
 export const PrivateRoute = () => {
     const {state} = useContext(UserContext);
     
-    if (state.auth === true) {
-        return <Outlet/>;
-    }
-    else if(isLoggedIn() === true){
+    // if (state.auth === true) {
+    //     return <Outlet/>;
+    // }
+    if(isLoggedIn() === true){
+        console.log(isLoggedIn())
         return <Outlet/>;
     }
 
