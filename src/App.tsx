@@ -16,6 +16,8 @@ import { PrivateRoute } from './components/PrivateRoute';
 import { Layout } from './components/Layout';
 import { useReducer } from 'react';
 import { UserContext } from './UserContext';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 
 export interface State {
@@ -68,8 +70,9 @@ function App() {
     <UserContext.Provider value={{ state, dispatch }}>
 
       <BrowserRouter basename='/dashboard-miranda'>
-
+      
         <Routes>
+        
           <Route path="/login" element={<LoginPage />} />
 
           <Route element={<PrivateRoute />}>
@@ -91,7 +94,9 @@ function App() {
             </Route>
           </Route>
         </Routes>
+       
       </BrowserRouter >
+      <ToastContainer />
     </UserContext.Provider>
 
   );

@@ -47,11 +47,7 @@ export const Layout = () => {
     return (
         <>
             <div style={{ display: 'flex' }}>
-
-
                 <NavBar title={getTitleSections()} />
-
-
                 <Outlet />
             </div>
         </>

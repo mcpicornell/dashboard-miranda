@@ -5,11 +5,11 @@ import 'cross-fetch/polyfill';
 import {fetchApi, getApi} from '../fetchApi'
 
 const urlBookings = "http://localhost:3001/api/bookings"
-
+ 
 
 export const fetchBookings = createAsyncThunk<IBookings[]>('bookings/fetchBookings', async () => {
     try{
-        const response = await getApi(urlBookings);
+    const response = await getApi(urlBookings);
     return response.data.bookings;
     }
     catch(error){
@@ -21,7 +21,6 @@ export const fetchBookings = createAsyncThunk<IBookings[]>('bookings/fetchBookin
 export const addBooking = createAsyncThunk<IBookings, IBookings>('bookings/addBooking', async (bookingObj: IBookings) => {
     try{
         const response = await fetchApi(bookingObj, "POST", urlBookings)
-        console.log(response.data.userPosted)
         return response.data.roomPosted
     }
     catch(error){

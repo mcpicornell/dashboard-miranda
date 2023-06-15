@@ -5,7 +5,6 @@ import {RowContent}  from "./RowContent"
 import { NavLink } from "react-router-dom";
 import { IBookings, IContacts, IRooms, IUsers, IBookingsTitles, IUsersTitles, IRoomsTitles } from "../features/interfaces";
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../app/store";
 
 interface PropsTable {
   roomsTitles?: IRoomsTitles,
@@ -22,7 +21,6 @@ interface PropsActive {
 }
 
 export const Table = (props: PropsTable): React.ReactElement | null => {
-  const searchStringRef = useRef("")
   const [allEmployeeActivate, setAllEmployeeActivate] = useState(true);
   const [activeEmployeeActivate, setActiveEmployeeActivate] = useState(false);
   const [inactiveEmployeeActivate, setInactiveEmployeeActivate] = useState(false);

@@ -110,10 +110,10 @@ const UsersAddPage = () =>{
 
             <OptionsContainer >
                 <LabelCreateUser>Password:</LabelCreateUser>
-                <InputCreateUser required placeholder="type your password"  onChange={e => setPassword(e.target.value)}/>
+                <InputCreateUser type="password" required placeholder="type your password"  onChange={e => setPassword(e.target.value)}/>
 
                 <LabelCreateUser>Type your password again:</LabelCreateUser>
-                <InputCreateUser required placeholder="type your password again for verification"  onChange={e => setVerificationPassword(e.target.value)}/>
+                <InputCreateUser type="password" required placeholder="type your password again for verification"  onChange={e => setVerificationPassword(e.target.value)}/>
             </OptionsContainer>
 
             <AddUser type="submit">Create User</AddUser>

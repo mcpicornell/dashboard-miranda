@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IUsers } from '../interfaces';
-import fetch from 'cross-fetch';
 import 'cross-fetch/polyfill';
 import {fetchApi, getApi} from '../fetchApi'
 import config from '../../config';

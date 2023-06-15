@@ -5,9 +5,10 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import {AddUser} from './users/UsersAddPage'
 import { logoImg } from '../components/LateralMenu';
-import { getObjInLocalStorage,  saveInLocalStorage} from '../data/localStorage';
+import {  saveInLocalStorage} from '../data/localStorage';
 import { loginPost } from '../features/loginFetch';
 import { getUserById } from '../features/users/fetchUsers';
+import { showToast } from '../features/functions';
 
 const LoginPage = () =>{
 
@@ -27,8 +28,8 @@ const LoginPage = () =>{
 
     const nav = useNavigate();
 
-    const [emailValue, setEmail] = useState("");
-    const [passwordValue, setPassword] = useState("");
+    const [emailValue, setEmail] = useState<string>("");
+    const [passwordValue, setPassword] = useState<string>("");
 
     const loginSubmitHandler = async (event: React.SyntheticEvent) => {
         event.preventDefault();
@@ -39,19 +40,22 @@ const LoginPage = () =>{
             saveInLocalStorage("auth", idAndTokeObj)
             const user = await getUserById(idAndTokeObj.id)
             dispatch({type: "auth", value: {userName: user.name, email: user.email}})
+            showToast("Welcome!", "success")
             nav("/")
         }
 
         else if (emailValue === user.email && 
             passwordValue === user.password ){
             dispatch({type: "auth", value: {userName: user.userName, email: emailValue}})
+            showToast("Welcome!", "success")
             nav("/")
         }
         else{
-            alert("Something was wrong, please introduce your credentials again")
+            showToast("Something was wrong, please introduce your credentials again", "error")
         }
         }
         catch(error){
+            showToast("Error! An unexpected error occurred", "error")
             console.log("Error: ", error)
         }
         
