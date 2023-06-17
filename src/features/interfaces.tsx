@@ -29,7 +29,8 @@ export interface IUsers{
     photo: string,
     startDate: string,
     isActive: boolean,
-    password: string
+    password: string,
+    isAdmin: boolean
 }
 export interface IBookings{
     _id?: string,

@@ -16,16 +16,6 @@ const initialState: InitState = {
   data: [],
 };
 
-let fetchRoomsToastShownFullfilled = false;
-let fetchRoomsToastShownPending = false;
-let fetchRoomsToastShownError = false;
-let addRoomToastShownFullfilled = false;
-let addRoomToastShownPending = false;
-let addRoomToastShownError = false;
-let deleteRoomToastShownFullfilled = false;
-let deleteRoomToastShownPending = false;
-let deleteRoomToastShownError = false;
-
 export const RoomsSlice = createSlice({
   name: "rooms",
   initialState,
@@ -36,71 +26,42 @@ export const RoomsSlice = createSlice({
     builder
       .addCase(fetchRooms.pending, (state, action) => {
         state.status = "pending";
-        if (!fetchRoomsToastShownPending) {
-          showToast("Fetching rooms...", "pending");
-          fetchRoomsToastShownPending = true;
-        }
+        showToast("Fetching rooms...", "pending");
       })
       .addCase(fetchRooms.fulfilled, (state, action) => {
         state.status = "fulfilled";
         state.data = action.payload;
-
-        if (!fetchRoomsToastShownFullfilled) {
-          showToast("Rooms fetched successfully!", "success");
-          fetchRoomsToastShownFullfilled = true;
-        }
       })
       .addCase(fetchRooms.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
-        if (!fetchRoomsToastShownError) {
-          showToast("Failed to fetch rooms", "error");
-          fetchRoomsToastShownError = true;
-        }
+        showToast("Failed to fetch rooms", "error");
       })
       .addCase(addRoom.fulfilled, (state, action) => {
         state.data = [action.payload, ...state.data];
-        if (!addRoomToastShownFullfilled) {
-          showToast("Room added successfully!", "success");
-          addRoomToastShownFullfilled = true;
-        }
+        showToast("Room added successfully!", "success");
       })
       .addCase(addRoom.rejected, (state, action) => {
         state.error = action.payload;
-        if (!addRoomToastShownError) {
-          showToast("Failed to add room", "error");
-          addRoomToastShownError = true;
-        }
+        showToast("Failed to add room", "error");
       })
       .addCase(addRoom.pending, (state, action) => {
         state.status = "pending";
-        if (!addRoomToastShownPending) {
-          showToast("Adding room...", "pending");
-          addRoomToastShownPending = true;
-        }
+        showToast("Adding room...", "pending");
       })
       .addCase(deleteRoom.fulfilled, (state, action) => {
         state.data = state.data.filter(
           (element) => element._id !== action.payload
         );
-        if (!deleteRoomToastShownFullfilled) {
-          showToast("Room deleted successfully!", "success");
-          deleteRoomToastShownFullfilled = true;
-        }
+        showToast("Room deleted successfully!", "success");
       })
       .addCase(deleteRoom.rejected, (state, action) => {
         state.error = action.payload;
-        if (!deleteRoomToastShownError) {
-          showToast("Failed to delete room", "error");
-          deleteRoomToastShownError = true;
-        }
+        showToast("Failed to delete room", "error");
       })
       .addCase(deleteRoom.pending, (state, action) => {
         state.status = "pending";
-        if (!deleteRoomToastShownPending) {
-          showToast("Deleting room...", "pending");
-          deleteRoomToastShownPending = true;
-        }
+        showToast("Deleting room...", "pending");
       });
   },
 });

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { RootState } from '../../app/store';
+import type { RootState } from "../../app/store";
 import { IUsers } from "../interfaces";
 import { fetchUsers, editUser, deleteUser, addUser } from "./fetchUsers";
 import { showToast } from "../functions";
@@ -16,20 +16,6 @@ const initialState: InitState = {
   data: [],
 };
 
-let fetchUsersToastShownFullfilled = false; 
-let fetchUsersToastShownPending = false; 
-let fetchUsersToastShownError = false;
-let addUserToastShownFullfilled = false; 
-let addUserToastShownPending = false; 
-let addUserToastShownError = false;
-let deleteUserToastShownFullfilled = false; 
-let deleteUserToastShownPending = false; 
-let deleteUserToastShownError = false;
-let editUserToastShownFullfilled = false; 
-let editUserToastShownPending = false; 
-let editUserToastShownError = false;
-
-
 export const UsersSlice = createSlice({
   name: "users",
   initialState,
@@ -39,94 +25,59 @@ export const UsersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchUsers.pending, (state, action) => {
-        state.status = 'pending';
-        if (!fetchUsersToastShownPending) {
-          showToast('Fetching users...', 'pending');
-          fetchUsersToastShownPending = true; 
-        }
+        state.status = "pending";
+        showToast("Fetching users...", "pending");
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
-        state.status = 'fulfilled';
+        state.status = "fulfilled";
         state.data = action.payload;
-        
-        if (!fetchUsersToastShownFullfilled) {
-          showToast('Users fetched successfully!', 'success');
-          fetchUsersToastShownFullfilled = true; 
-        }
       })
       .addCase(fetchUsers.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = "failed";
         state.error = action.payload;
-        if (!fetchUsersToastShownError) {
-          showToast('Failed to fetch users', 'error');
-          fetchUsersToastShownError = true; 
-        }
+        showToast("Failed to fetch users", "error");
       })
       .addCase(addUser.fulfilled, (state, action) => {
         state.data = [action.payload, ...state.data];
-        if (!addUserToastShownFullfilled) {
-          showToast('User added successfully!', 'success');
-          addUserToastShownFullfilled = true; 
-        }
+        showToast("User added successfully!", "success");
       })
       .addCase(addUser.rejected, (state, action) => {
         state.error = action.payload;
-        if (!addUserToastShownError) {
-          showToast('Failed to add user', 'error');
-          addUserToastShownError = true; 
-        }
+        showToast("Failed to add user", "error");
       })
       .addCase(addUser.pending, (state, action) => {
-        state.status = 'pending';
-        if (!addUserToastShownPending) {
-          showToast('Adding user...', 'pending');
-          addUserToastShownPending = true; 
-        }
+        state.status = "pending";
+        showToast("Adding user...", "pending");
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
-        state.data = state.data.filter((element) => element._id !== action.payload);
-        if (!deleteUserToastShownFullfilled) {
-          showToast('User deleted successfully!', 'success');
-          deleteUserToastShownFullfilled = true; 
-        }
+        state.data = state.data.filter(
+          (element) => element._id !== action.payload
+        );
+        showToast("User deleted successfully!", "success");
       })
       .addCase(deleteUser.rejected, (state, action) => {
         state.error = action.payload;
-        if (!deleteUserToastShownError) {
-          showToast('Failed to delete user', 'error');
-          deleteUserToastShownError = true; 
-        }
+        showToast("Failed to delete user", "error");
       })
       .addCase(deleteUser.pending, (state, action) => {
-        state.status = 'pending';
-        if (!deleteUserToastShownPending) {
-          showToast('Deleting user...', 'pending');
-          deleteUserToastShownPending = true; 
-        }
+        state.status = "pending";
+        showToast("Deleting user...", "pending");
       })
       .addCase(editUser.fulfilled, (state, action) => {
-        state.data = state.data.filter((user) => user._id !== action.payload._id);
+        state.data = state.data.filter(
+          (user) => user._id !== action.payload._id
+        );
         state.data.push(action.payload);
-        if (!editUserToastShownFullfilled) {
-          showToast('User edited successfully!', 'success');
-          editUserToastShownFullfilled = true; 
-        }
+        showToast("User edited successfully!", "success");
       })
       .addCase(editUser.rejected, (state, action) => {
         state.error = action.payload;
-        if (!editUserToastShownError) {
-          showToast('Failed to edit user', 'error');
-          editUserToastShownError = true; 
-        }
+        showToast("Failed to edit user", "error");
       })
       .addCase(editUser.pending, (state, action) => {
         state.status = "pending";
-        if (!editUserToastShownPending) {
-          showToast('Editing user...', 'pending');
-          editUserToastShownPending = true; 
-        }
+        showToast("Editing user...", "pending");
       });
-
   },
 });
 

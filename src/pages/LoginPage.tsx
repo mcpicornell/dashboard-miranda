@@ -58,7 +58,6 @@ const LoginPage = () =>{
             showToast("Error! An unexpected error occurred", "error")
             console.log("Error: ", error)
         }
-        
     }
 
     return (
@@ -79,7 +78,7 @@ const LoginPage = () =>{
             <CredentialContainer>
             <div className='credentials'>
                 <label>user credential:</label>
-                <span>admin</span>
+                <span>admin@admin.com</span>
             </div>
             <div className='credentials'>
                 <label>password credential:</label>

@@ -5,7 +5,8 @@ import { useAppDispatch } from "../../app/store";
 import { useNavigate } from "react-router-dom";
 import { IUsers } from "../../features/interfaces";
 import {convertToDateFormat} from '../../features/functions'
-
+import { validateImageFormat } from "../../components/LateralMenu";
+import { showToast } from "../../features/functions";
 const UsersAddPage = () =>{
 
     const dispatch = useAppDispatch();
@@ -21,25 +22,37 @@ const UsersAddPage = () =>{
     const [password, setPassword] = useState("");
     const [verificationPassword, setVerificationPassword] = useState("");
 
+    const isAdmin = (jobPosition: string) => {
+        if(jobPosition === "Admin"){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     const onSubmitHandler = () => {
+        console.log(jobPosition)
         if (verificationPassword === password){
+            console.log(isAdmin)
             const newUser: IUsers = {
                 name: fullName,
-                photo: photo,
+                photo: validateImageFormat(photo),
                 email: email,
                 startDate: convertToDateFormat(new Date(startDate)),
                 descriptionJob: description,
                 contact: Number(contactNumber),
-                isActive: isActive!,
-                password: password
+                isActive: isActive,
+                password: password,
+                isAdmin: isAdmin(jobPosition)
             }
             dispatch(addUser(newUser));
             nav("/users");
 
         }
-        else{
-            alert("Password fields do not match, please try again")
-        }
+        else {
+            showToast("Password fields do not match, please try again", "error")
+            }
 
     }
 

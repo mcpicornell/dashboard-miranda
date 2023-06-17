@@ -309,7 +309,8 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
         photo: data.photo,
         startDate: data.startDate,
         isActive: data.isActive,
-        password: data.password
+        password: data.password,
+        isAdmin: data.isAdmin,
       }
 
       content.push(

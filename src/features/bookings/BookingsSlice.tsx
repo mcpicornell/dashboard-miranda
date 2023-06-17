@@ -10,16 +10,6 @@ interface InitState {
   data: IBookings[];
 }
 
-let fetchBookingsToastShownFullfilled = false;
-let fetchBookingsToastShownPending = false;
-let fetchBookingsToastShownError = false;
-let addBookingToastShownFullfilled = false;
-let addBookingToastShownPending = false;
-let addBookingToastShownError = false;
-let deleteBookingToastShownFullfilled = false;
-let deleteBookingToastShownPending = false;
-let deleteBookingToastShownError = false;
-
 const initialState: InitState = {
   error: null,
   status: "idle",
@@ -35,78 +25,49 @@ export const BookingsSlice = createSlice({
       .addCase(fetchBookings.fulfilled, (state, action) => {
         state.status = "fulfilled";
         state.data = action.payload;
-
-        if (!fetchBookingsToastShownFullfilled) {
-          showToast("Bookings fetched successfully!", "success");
-          fetchBookingsToastShownFullfilled = true;
-        }
       })
       .addCase(fetchBookings.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload;
 
-        if (!fetchBookingsToastShownError) {
-          showToast("Failed to fetch bookings", "error");
-          fetchBookingsToastShownError = true;
-        }
+        showToast("Failed to fetch bookings", "error");
       })
       .addCase(fetchBookings.pending, (state, action) => {
         state.status = "pending";
 
-        if (!fetchBookingsToastShownPending) {
-          showToast("Fetching bookings...", "pending");
-          fetchBookingsToastShownPending = true;
-        }
+        showToast("Fetching bookings...", "pending");
       })
       .addCase(addBooking.fulfilled, (state, action) => {
         state.data = [action.payload, ...state.data];
 
-        if (!addBookingToastShownFullfilled) {
-          showToast("Booking added successfully!", "success");
-          addBookingToastShownFullfilled = true;
-        }
+        showToast("Booking added successfully!", "success");
       })
       .addCase(addBooking.rejected, (state, action) => {
         state.error = action.payload;
 
-        if (!addBookingToastShownError) {
-          showToast("Failed to add booking", "error");
-          addBookingToastShownError = true;
-        }
+        showToast("Failed to add booking", "error");
       })
       .addCase(addBooking.pending, (state, action) => {
         state.status = "pending";
 
-        if (!addBookingToastShownPending) {
-          showToast("Adding booking...", "pending");
-          addBookingToastShownPending = true;
-        }
+        showToast("Adding booking...", "pending");
       })
       .addCase(deleteBooking.fulfilled, (state, action) => {
         state.data = state.data.filter(
           (element) => element._id !== action.payload
         );
 
-        if (!deleteBookingToastShownFullfilled) {
-          showToast("Booking deleted successfully!", "success");
-          deleteBookingToastShownFullfilled = true;
-        }
+        showToast("Booking deleted successfully!", "success");
       })
       .addCase(deleteBooking.rejected, (state, action) => {
         state.error = action.payload;
 
-        if (!deleteBookingToastShownError) {
-          showToast("Failed to delete booking", "error");
-          deleteBookingToastShownError = true;
-        }
+        showToast("Failed to delete booking", "error");
       })
       .addCase(deleteBooking.pending, (state, action) => {
         state.status = "pending";
 
-        if (!deleteBookingToastShownPending) {
-          showToast("Deleting booking...", "pending");
-          deleteBookingToastShownPending = true;
-        }
+        showToast("Deleting booking...", "pending");
       });
   },
 });

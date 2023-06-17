@@ -185,7 +185,7 @@ const FormUserContainer = styled.form`
     padding: 30px;
     border-radius: 10px;
     background-color: #FFFFFF;
-    height: 400px;
+    height: 420px;
 `
 
 const OptionsContainer = styled.div`
