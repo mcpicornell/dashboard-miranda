@@ -49,8 +49,6 @@ interface ModalProps {
 export const RowContent = (
   props: PropsRowContent
 ): React.ReactElement | null => {
-  let subtitle: any;
-  const [modalIsOpen, setIsOpen] = useState(false);
   const [activeRow, setActiveRow] = useState(null);
   const dispatch = useAppDispatch();
   const nav = useNavigate();
@@ -58,7 +56,6 @@ export const RowContent = (
   const location = useLocation();
 
   const [showModal, setShowModal] = useState(false);
-
   const openModal = () => {
     setShowModal(true);
     setTimeout(() => {
@@ -230,14 +227,14 @@ export const RowContent = (
             <StatusSpanRooms isAvaliable={props.roomObj?.isAvailable}>
               {isAvailable}
             </StatusSpanRooms>
-            <DeleteButtonsContainer>
+            <DeleteButtonContainerRooms isAvaliable={props.roomObj?.isAvailable}>
               <DeleteButton onClick={showDeleteOption}>
                 <BsThreeDotsVertical />
               </DeleteButton>
               <DeleteOption active={deleteOption} onClick={deleteRoomsClick}>
                 <span>Delete</span>
               </DeleteOption>
-            </DeleteButtonsContainer>
+            </DeleteButtonContainerRooms>
           </Status>
         </ContainerRooms>
       );
@@ -525,4 +522,8 @@ text-align: center;
   width: 90px;
   padding: 7px 10px 7px 10px;
   background-color: #cddeef;
+`
+
+const DeleteButtonContainerRooms = styled(DeleteButtonsContainer)<PropsIsAvaliable>`
+  visibility: ${(props) => (props.isAvaliable === false ? "hidden" : "visible")};
 `
