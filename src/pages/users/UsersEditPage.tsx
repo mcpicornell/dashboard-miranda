@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { editUser } from "../../features/users/fetchUsers";
 import { useAppDispatch } from "../../app/store";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { IUsers } from "../../features/interfaces";
 import { convertToDateFormat, showToast } from "../../features/functions";
 import { validateImageFormat } from "../../components/LateralMenu";
@@ -20,9 +20,11 @@ const UsersEditPage = () => {
   const [isActive, setIsActive] = useState<boolean>(true);
   const [password, setPassword] = useState<string>("");
   const [verificationPassword, setVerificationPassword] = useState<string>("");
+  const {state} = useLocation()
+  const user = state.user;
 
   const isAdmin = (jobPosition: string) => {
-    if(jobPosition === "Admin"){
+    if(jobPosition === "Admin" || user.isAdmin === true){
         return true;
     }
     else{
@@ -30,19 +32,35 @@ const UsersEditPage = () => {
     }
 }
 
+const checkIfPasswordAdmin = (password: string) => {
+  if(user.isAdmin === true){
+    return user.password
+  }
+  else{
+    return password
+  }
+}
+
+const checkIfEmailAdmin = (email: string) => {
+  if(user.isAdmin === true){
+    return user.password
+  }
+  else{
+    return email
+  }
+}
+
 const onSubmitHandler = () => {
-    console.log(jobPosition)
     if (verificationPassword === password){
-        console.log(isAdmin)
         const userEdited: IUsers = {
             name: fullName,
             photo: validateImageFormat(photo),
-            email: email,
+            email: checkIfEmailAdmin(email),
             startDate: convertToDateFormat(new Date(startDate)),
             descriptionJob: description,
             contact: Number(contactNumber),
             isActive: isActive,
-            password: password,
+            password: checkIfPasswordAdmin(password),
             isAdmin: isAdmin(jobPosition)
         }
       dispatch(editUser(userEdited));

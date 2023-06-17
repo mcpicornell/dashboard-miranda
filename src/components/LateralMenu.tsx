@@ -53,7 +53,7 @@ const LateralMenu = (props: PropsLateralMenu) => {
 
     getUser();
   }, [user]);
-console.log(user)
+  
   const navToEditUser = () => {
     nav(`/users/${user?._id}`, { state: user });
   };
