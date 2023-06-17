@@ -3,9 +3,37 @@ import { BiBed } from "react-icons/bi";
 import { RiCalendarCheckLine } from "react-icons/ri";
 import { IoLogOutOutline } from "react-icons/io5";
 import { IoLogInOutline } from "react-icons/io5";
-
+import Calendar from 'reactjs-availability-calendar'
+import '../styles/calendar.css'
+import { useEffect } from "react";
+import { getBookingsData, getBookingsStatus } from "../features/bookings/BookingsSlice";
+import { useAppSelector, useAppDispatch } from "../app/store";
+import { fetchBookings } from "../features/bookings/fetchBookings";
 const Dashboard = () => {
+
+  const bookingsData = useAppSelector(getBookingsData)
+  const bookingsStatus = useAppSelector(getBookingsStatus)
+  const dispatch = useAppDispatch()
+
+  const dateConversor = (string: string) => {
+    const date = new Date(string)
+    return date
+  }
+
+  useEffect(() => {
+    if(bookingsStatus === 'idle'){
+      dispatch(fetchBookings())
+    }
+  },[dispatch, bookingsData, bookingsStatus])
+
+  let calendarBookingDates;
+  if(bookingsData){
+    calendarBookingDates = bookingsData.map(element => ({from: dateConversor(element.checkIn), to: dateConversor(element.checkOut), middayCheckout: false}))
+  }
   return (
+    <>    
+    <Body>
+
     <Header>
       <HeaderElements>
         <BiBed className="bed" />
@@ -39,10 +67,18 @@ const Dashboard = () => {
         </ElementsInformation>
       </HeaderElements>
     </Header>
+      <Calendar showNumberOfMonths={1} bookings={calendarBookingDates}/>
+
+    </Body>
+    </>
   );
 };
 
 export default Dashboard;
+
+const Body = styled.div`
+
+`
 
 const Header = styled.header`
   margin-top: 150px;
