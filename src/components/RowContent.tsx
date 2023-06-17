@@ -9,8 +9,6 @@ import { IBookings, IRooms, IUsers } from "../features/interfaces";
 import { useAppDispatch, useAppSelector } from "../app/store";
 import { useEffect, useState } from "react";
 import { sliceID } from "../features/functions";
-import Modal from "react-modal";
-import IconCross from "./IconCross";
 
 interface PropsRowContent {
   bookingObj?: IBookings;
@@ -19,8 +17,8 @@ interface PropsRowContent {
 }
 
 interface ActiveModals {
-    [key: string]: boolean;
-  }
+  [key: string]: boolean;
+}
 
 interface PropsStatus {
   status: string | undefined;
@@ -59,8 +57,8 @@ export const RowContent = (
   const openModal = () => {
     setShowModal(true);
     setTimeout(() => {
-        setShowModal(false);
-      }, 5000);
+      setShowModal(false);
+    }, 5000);
   };
 
   const closeModal = () => {
@@ -77,8 +75,8 @@ export const RowContent = (
   const showDeleteOption = () => {
     setdeleteOption((prevState) => !prevState);
     setTimeout(() => {
-        setdeleteOption(false);
-      }, 2000);
+      setdeleteOption(false);
+    }, 2000);
   };
 
   const navToBookingDetailsOnClick = () => {
@@ -124,9 +122,10 @@ export const RowContent = (
   switch (location.pathname) {
     case "/bookings":
       return (
-        <ContainerBookings onMouseEnter={() => handleMouseEnter(props.bookingObj?._id)}
-        onMouseLeave={handleMouseLeave}>
-        
+        <ContainerBookings
+          onMouseEnter={() => handleMouseEnter(props.bookingObj?._id)}
+          onMouseLeave={handleMouseLeave}
+        >
           <NameInfo>
             <NameProperties onClick={navToBookingDetailsOnClick}>
               <ElementGreyName>
@@ -147,12 +146,16 @@ export const RowContent = (
           <Contact onClick={navToBookingDetailsOnClick}>
             <ElementGrey>{props.bookingObj?.checkOut}</ElementGrey>
           </Contact>
-          
-          <ButtonShowRequest onClick={openModal}>Show Request</ButtonShowRequest>
+
+          <ButtonShowRequest onClick={openModal}>
+            Show Request
+          </ButtonShowRequest>
           {showModal && (
             <ModalWrapper onClick={closeModal}>
               <ModalContent>
-                <ModalDescription>{props.bookingObj?.specialRequest}</ModalDescription>
+                <ModalDescription>
+                  {props.bookingObj?.specialRequest}
+                </ModalDescription>
               </ModalContent>
             </ModalWrapper>
           )}
@@ -227,7 +230,9 @@ export const RowContent = (
             <StatusSpanRooms isAvaliable={props.roomObj?.isAvailable}>
               {isAvailable}
             </StatusSpanRooms>
-            <DeleteButtonContainerRooms isAvaliable={props.roomObj?.isAvailable}>
+            <DeleteButtonContainerRooms
+              isAvaliable={props.roomObj?.isAvailable}
+            >
               <DeleteButton onClick={showDeleteOption}>
                 <BsThreeDotsVertical />
               </DeleteButton>
@@ -317,7 +322,7 @@ const ContainerRooms = styled(Container)`
   grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr;
 `;
 const ContainerBookings = styled(Container)`
-position: relative;
+  position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   :hover {
@@ -514,16 +519,19 @@ const ModalDescription = styled.p`
 `;
 
 const ButtonShowRequest = styled.a`
-text-align: center;
+  text-align: center;
   font: normal normal 600 12px "Poppins";
   color: #0a7cee;
-  background-color:  "#5AD07A";
+  background-color: "#5AD07A";
   border-radius: 15px;
   width: 90px;
   padding: 7px 10px 7px 10px;
   background-color: #cddeef;
-`
+`;
 
-const DeleteButtonContainerRooms = styled(DeleteButtonsContainer)<PropsIsAvaliable>`
-  visibility: ${(props) => (props.isAvaliable === false ? "hidden" : "visible")};
-`
+const DeleteButtonContainerRooms = styled(
+  DeleteButtonsContainer
+)<PropsIsAvaliable>`
+  visibility: ${(props) =>
+    props.isAvaliable === false ? "hidden" : "visible"};
+`;

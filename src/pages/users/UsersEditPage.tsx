@@ -20,53 +20,50 @@ const UsersEditPage = () => {
   const [isActive, setIsActive] = useState<boolean>(true);
   const [password, setPassword] = useState<string>("");
   const [verificationPassword, setVerificationPassword] = useState<string>("");
-  const {state} = useLocation()
+  const { state } = useLocation();
   const user = state.user;
 
   const isAdmin = (jobPosition: string) => {
-    if(jobPosition === "Admin" || user.isAdmin === true){
-        return true;
+    if (jobPosition === "Admin" || user.isAdmin === true) {
+      return true;
+    } else {
+      return false;
     }
-    else{
-        return false;
+  };
+
+  const checkIfPasswordAdmin = (password: string) => {
+    if (user.isAdmin === true) {
+      return user.password;
+    } else {
+      return password;
     }
-}
+  };
 
-const checkIfPasswordAdmin = (password: string) => {
-  if(user.isAdmin === true){
-    return user.password
-  }
-  else{
-    return password
-  }
-}
+  const checkIfEmailAdmin = (email: string) => {
+    if (user.isAdmin === true) {
+      return user.password;
+    } else {
+      return email;
+    }
+  };
 
-const checkIfEmailAdmin = (email: string) => {
-  if(user.isAdmin === true){
-    return user.password
-  }
-  else{
-    return email
-  }
-}
-
-const onSubmitHandler = () => {
-    if (verificationPassword === password){
-        const userEdited: IUsers = {
-            name: fullName,
-            photo: validateImageFormat(photo),
-            email: checkIfEmailAdmin(email),
-            startDate: convertToDateFormat(new Date(startDate)),
-            descriptionJob: description,
-            contact: Number(contactNumber),
-            isActive: isActive,
-            password: checkIfPasswordAdmin(password),
-            isAdmin: isAdmin(jobPosition)
-        }
+  const onSubmitHandler = () => {
+    if (verificationPassword === password) {
+      const userEdited: IUsers = {
+        name: fullName,
+        photo: validateImageFormat(photo),
+        email: checkIfEmailAdmin(email),
+        startDate: convertToDateFormat(new Date(startDate)),
+        descriptionJob: description,
+        contact: Number(contactNumber),
+        isActive: isActive,
+        password: checkIfPasswordAdmin(password),
+        isAdmin: isAdmin(jobPosition),
+      };
       dispatch(editUser(userEdited));
       nav("/users");
     } else {
-    showToast("Password fields do not match, please try again", "error")
+      showToast("Password fields do not match, please try again", "error");
     }
   };
 

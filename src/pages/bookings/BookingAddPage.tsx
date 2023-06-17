@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { addBooking, editBooking } from "../../features/bookings/fetchBookings";
+import { addBooking } from "../../features/bookings/fetchBookings";
 import { useNavigate } from "react-router-dom";
-import { IBookings, IRooms } from "../../features/interfaces";
+import { IBookings } from "../../features/interfaces";
 import { showToast } from "../../features/functions";
 import { getRoomsData, getRoomsStatus } from "../../features/rooms/RoomsSlice";
 import { fetchRooms } from "../../features/rooms/fetchRooms";
@@ -16,27 +16,27 @@ const BookingAddPage = () => {
   const [orderDate, setOrderDate] = useState<string>();
   const [checkIn, setCheckIn] = useState<string>();
   const [checkOut, setCheckOut] = useState<string>();
-  const [specialRequest, setSpecialRequest] = useState<string>("No special request");
+  const [specialRequest, setSpecialRequest] =
+    useState<string>("No special request");
   const [roomType, setRoomType] = useState<string>("Single Bed");
   const [state, setState] = useState<string>("In Progress");
   const roomsData = useAppSelector(getRoomsData);
-  const roomsStatus = useAppSelector(getRoomsStatus)
+  const roomsStatus = useAppSelector(getRoomsStatus);
 
   useEffect(() => {
     if (roomsStatus === "idle") {
-     dispatch(fetchRooms());
+      dispatch(fetchRooms());
     }
-    
- }, [roomsStatus, dispatch, roomsData, roomType]);
+  }, [roomsStatus, dispatch, roomsData, roomType]);
 
   const onSubmitHandler = () => {
-
-    const roomSelected = roomsData.find(element => element.roomType === roomType)
+    const roomSelected = roomsData.find(
+      (element) => element.roomType === roomType
+    );
 
     if (roomSelected) {
-      const updatedRoom = {...roomSelected, isAvailable:false};
+      const updatedRoom = { ...roomSelected, isAvailable: false };
       editRoom(updatedRoom);
-
       const bookingPosted: IBookings = {
         guest: guestName!,
         orderDate: orderDate!,
@@ -45,13 +45,11 @@ const BookingAddPage = () => {
         specialRequest: specialRequest!,
         roomObj: updatedRoom!,
         status: state!,
+      };
+      dispatch(addBooking(bookingPosted));
+      showToast("Booking created correctly!", "success");
+      nav("/bookings");
     }
-    dispatch(addBooking(bookingPosted));
-    showToast("Booking created correctly!", "success")
-    nav("/bookings");           
-    };
-    
-    
   };
 
   return (

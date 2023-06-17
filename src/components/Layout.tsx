@@ -1,56 +1,53 @@
-import { useLocation } from 'react-router-dom';
-import { Outlet } from 'react-router-dom';
-import NavBar from './Navbar';
+import { useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import NavBar from "./Navbar";
 
 export const Layout = () => {
-    const location = useLocation();
+  const location = useLocation();
 
-    const getTitleSections = () => {
-        switch (location.pathname) {
-            case "/":
-                return "Dashboard";
+  const getTitleSections = () => {
+    switch (location.pathname) {
+      case "/":
+        return "Dashboard";
 
-            case "/bookings":
-                return "Bookings";
+      case "/bookings":
+        return "Bookings";
 
-            case "/bookings/addBooking":
-                return "New Booking"
-            
-            case "/rooms":
-                return "Rooms";
+      case "/bookings/addBooking":
+        return "New Booking";
 
-            case "/rooms/addRoom":
-                return "New Room";
+      case "/rooms":
+        return "Rooms";
 
-            case "/contact":
-                return "Contact";
+      case "/rooms/addRoom":
+        return "New Room";
 
-            case "/users":
-                return "Users";
+      case "/contact":
+        return "Contact";
 
-            case "/users/addUser":
-                return "New User";
+      case "/users":
+        return "Users";
 
-            case "/user/":
-                return "Edit User"
+      case "/users/addUser":
+        return "New User";
 
-            default:
-                if (location.pathname.startsWith("/bookings/")) {
-                    return "Booking Details";
-                  }
-                  return "Edit User";
+      case "/user/":
+        return "Edit User";
+
+      default:
+        if (location.pathname.startsWith("/bookings/")) {
+          return "Booking Details";
         }
+        return "Edit User";
     }
+  };
 
-
-
-    return (
-        <>
-            <div style={{ display: 'flex' }}>
-                <NavBar title={getTitleSections()} />
-                <Outlet />
-            </div>
-        </>
-    );
+  return (
+    <>
+      <div style={{ display: "flex" }}>
+        <NavBar title={getTitleSections()} />
+        <Outlet />
+      </div>
+    </>
+  );
 };
-

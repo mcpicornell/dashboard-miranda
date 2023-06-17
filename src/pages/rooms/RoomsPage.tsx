@@ -1,40 +1,42 @@
 import { useEffect } from "react";
 import { fetchRooms } from "../../features/rooms/fetchRooms";
-import {getRoomsStatus, getRoomsData, getRoomsError} from "../../features/rooms/RoomsSlice"
+import {
+  getRoomsStatus,
+  getRoomsData,
+  getRoomsError,
+} from "../../features/rooms/RoomsSlice";
 import { Table } from "../../components/Table";
 import { useAppDispatch, useAppSelector } from "../../app/store";
 import { IRoomsTitles } from "../../features/interfaces";
 
-const RoomsPage = () =>{
-    const dispatch  = useAppDispatch();
-    const roomsStatus = useAppSelector(getRoomsStatus);
-    const roomsData = useAppSelector(getRoomsData);
-    const roomsError = useAppSelector(getRoomsError);
-    
-    useEffect(() => {
-        if (roomsStatus == "idle") {
-         dispatch(fetchRooms());
-        
-        }
-     }, [roomsStatus, roomsData, dispatch]);
+const RoomsPage = () => {
+  const dispatch = useAppDispatch();
+  const roomsStatus = useAppSelector(getRoomsStatus);
+  const roomsData = useAppSelector(getRoomsData);
+  const roomsError = useAppSelector(getRoomsError);
 
-     const roomsTitles: IRoomsTitles = {
-        roomName: "Room Name",
-        roomType: "Room Type",
-        amenities: "Amenities",
-        price: "Price",
-        offerPrice: "Offer Price",
-        status: "Status"
-     }
+  useEffect(() => {
+    if (roomsStatus == "idle") {
+      dispatch(fetchRooms());
+    }
+  }, [roomsStatus, roomsData, dispatch]);
 
-     const roomsDataCopy = [...roomsData]
+  const roomsTitles: IRoomsTitles = {
+    roomName: "Room Name",
+    roomType: "Room Type",
+    amenities: "Amenities",
+    price: "Price",
+    offerPrice: "Offer Price",
+    status: "Status",
+  };
 
-        return (
-            <>
-            <Table roomsData={roomsDataCopy} roomsTitles={roomsTitles} />
+  const roomsDataCopy = [...roomsData];
 
-            </>
-        )
+  return (
+    <>
+      <Table roomsData={roomsDataCopy} roomsTitles={roomsTitles} />
+    </>
+  );
 };
 
 export default RoomsPage;

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import IconCross from './IconCross';
+import React, { useState } from "react";
+import styled from "styled-components";
+import IconCross from "./IconCross";
 
 interface ModalProps {
   title: string;
@@ -27,7 +27,9 @@ const Modal: React.FC<ModalProps> = ({ title, description }) => {
           <ModalContent>
             <ModalTitle>{title}</ModalTitle>
             <ModalDescription>{description}</ModalDescription>
-            <a onClick={closeModal}><IconCross /></a>
+            <a onClick={closeModal}>
+              <IconCross />
+            </a>
           </ModalContent>
         </ModalWrapper>
       )}
