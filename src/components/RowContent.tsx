@@ -414,7 +414,7 @@ const StatusSpan = styled.span<PropsIsActive>`
   color: ${(props) => (props.isActive === true ? "#5AD07A" : "#E23428")};
 `;
 
-const StatusSpanBookings = styled.span<PropsStatus>`
+export const StatusSpanBookings = styled.span<PropsStatus>`
   margin-left: 0px;
   width: 68px;
   padding: 5px 12px 5px 12px;

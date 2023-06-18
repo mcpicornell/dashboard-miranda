@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { addBooking } from "../../features/bookings/fetchBookings";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,19 @@ import { getRoomsData, getRoomsStatus } from "../../features/rooms/RoomsSlice";
 import { fetchRooms } from "../../features/rooms/fetchRooms";
 import { useAppDispatch, useAppSelector } from "../../app/store";
 import { editRoom } from "../../features/rooms/fetchRooms";
+
+const checksInCheckInOut = (checkIn: string, checkOut: string) => {
+  const date = new Date();
+  const checkInDate = new Date(checkIn);
+  const checkOutDate = new Date(checkOut);
+  if (checkInDate > checkOutDate) {
+    return "Check Out";
+  } else if (date >= checkInDate && date <= checkOutDate) {
+    return "Check In";
+  } else {
+    return "In Progress";
+  }
+};
 
 const BookingAddPage = () => {
   const dispatch = useAppDispatch();
@@ -23,20 +36,34 @@ const BookingAddPage = () => {
   const roomsData = useAppSelector(getRoomsData);
   const roomsStatus = useAppSelector(getRoomsStatus);
 
+  
+
   useEffect(() => {
     if (roomsStatus === "idle") {
       dispatch(fetchRooms());
     }
-  }, [roomsStatus, dispatch, roomsData, roomType]);
+    const updateState = () => {
+      setGuestName("Valor recibido para guestName");
+      setOrderDate("Valor recibido para orderDate");
+      setCheckIn("Valor recibido para checkIn");
+      setCheckOut("Valor recibido para checkOut");
+      setSpecialRequest("Valor recibido para special request");
+    };
+    updateState()
+
+  }, [roomsStatus, dispatch, roomsData]);
 
   const onSubmitHandler = () => {
     const roomSelected = roomsData.find(
       (element) => element.roomType === roomType
     );
 
+    const status = checksInCheckInOut(checkIn!, checkOut!)
+
     if (roomSelected) {
       const updatedRoom = { ...roomSelected, isAvailable: false };
-      editRoom(updatedRoom);
+      dispatch(editRoom(updatedRoom));
+
       const bookingPosted: IBookings = {
         guest: guestName!,
         orderDate: orderDate!,
@@ -44,11 +71,35 @@ const BookingAddPage = () => {
         checkOut: checkOut!,
         specialRequest: specialRequest!,
         roomObj: updatedRoom!,
-        status: state!,
+        status: status,
       };
-      dispatch(addBooking(bookingPosted));
-      showToast("Booking created correctly!", "success");
-      nav("/bookings");
+
+      console.log(bookingPosted)
+
+      
+      if(checkIn && checkOut && orderDate){
+        const checkInDate = new Date(checkIn);
+        const checkOutDate = new Date(checkOut);
+        const orderDateDate = new Date(orderDate);
+
+        if(checkOutDate < checkInDate){
+          showToast("Check in date cannot exceed check out date or be the same", "error");
+        }
+        else if(orderDateDate > checkInDate){
+          showToast("Order date cannot exceed check in", "error");
+        }
+        else if(orderDateDate > checkOutDate){
+          showToast("Order date cannot exceed check out date or be the same", "error");
+        }
+        
+        else if(orderDateDate < checkInDate && checkInDate < checkOutDate) {
+          dispatch(addBooking(bookingPosted));
+          showToast("Booking created correctly!", "success");
+          nav("/bookings");
+        }
+        
+      }
+      
     }
   };
 
@@ -105,7 +156,7 @@ const BookingAddPage = () => {
         </SelectUserOption>
       </OptionsContainer>
 
-      <OptionsContainer>
+      {/* <OptionsContainer>
         <LabelCreateUser>State:</LabelCreateUser>
 
         <SelectUserOption required onChange={(e) => setState(e.target.value)}>
@@ -113,7 +164,7 @@ const BookingAddPage = () => {
           <option value={"Check Out"}>Check Out</option>
           <option value={"In Progress"}>In Progress</option>
         </SelectUserOption>
-      </OptionsContainer>
+      </OptionsContainer> */}
 
       <SpecialRequestContainer>
         <LabelCreateUser>Special Request:</LabelCreateUser>

@@ -14,7 +14,7 @@ export const sliceID = (id: string, slices: number) => {
 
 export const showToast = (
   message: string,
-  type: "success" | "error" | "pending"
+  type: "success" | "error" | "pending" | "warning"
 ) => {
   if (type === "success") {
     const toastSuccessMessage = toast.success(message, {
@@ -37,5 +37,12 @@ export const showToast = (
     setTimeout(() => {
       toast.dismiss(toastLoadingMessage);
     }, 1200);
+  } else if (type === "warning"){
+    const toastWarningMessage = toast.warn(message, {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+    setTimeout(() => {
+      toast.dismiss(toastWarningMessage);
+    }, 6000);
   }
 };

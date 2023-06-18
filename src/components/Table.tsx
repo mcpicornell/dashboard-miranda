@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { RowContent } from "./RowContent";
 import { NavLink } from "react-router-dom";
+import { Icon } from 'react-icons-kit';
+import { search } from 'react-icons-kit/fa/search';
 import {
   IBookings,
   IContacts,
@@ -249,11 +251,16 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
                   <span>In Progress</span>
                 </FilterEmployee>
 
+                <FilterContainer>
                 <FilterSearcher
                   placeholder="Search by Guest name"
                   type="text"
                   onChange={searcherHandlerOnChange}
                 />
+                <IconComponent icon={search} />
+                </FilterContainer>
+
+                
               </OptionsFilter>
               <OptionsCreate>
                 <ButtonCreateEmployee to={"/bookings/addBooking"}>
@@ -396,11 +403,14 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
                 >
                   <span>Inactive Employee</span>
                 </FilterEmployee>
-
+                <FilterContainer>
                 <FilterSearcher
                   placeholder="Search employee by name"
                   onChange={searcherHandlerOnChange}
                 />
+                <IconComponent icon={search} />
+                </FilterContainer>
+                
               </OptionsFilter>
               <OptionsCreate>
                 <ButtonCreateEmployee to={"/users/addUser"}>
@@ -427,6 +437,8 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
       return null;
   }
 };
+
+
 
 const TableStyled = styled.section`
   display: flex;
@@ -469,11 +481,32 @@ const FilterEmployee = styled.a<PropsActive>`
 `;
 
 const FilterSearcher = styled.input`
-  border-radius: 15px;
   margin-left: 20px;
   background-color: #f8f8f8;
   width: 100px;
+  border: none;
+  border-bottom: 2px solid #135846;
+  outline: none;
+  width: 180px;
+  padding-bottom: 10px;
+  position: relative;
+  bottom: -7px;
 `;
+
+const IconComponent = styled(Icon)`
+  color: #135846;
+  position: absolute;
+  right: 0px;
+  bottom: 10px;
+`
+
+const FilterContainer = styled.div`
+  position: relative;
+  .searchIcon{
+    position: absolute;
+    color: #135846;
+  }
+`
 
 const OptionsCreate = styled.div``;
 
