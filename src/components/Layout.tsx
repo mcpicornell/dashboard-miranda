@@ -22,7 +22,7 @@ export const Layout = () => {
       case "/rooms/addRoom":
         return "New Room";
 
-      case "/contact":
+      case "/contacts":
         return "Contact";
 
       case "/users":

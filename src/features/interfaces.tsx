@@ -32,6 +32,7 @@ export interface IUsers {
   password: string;
   isAdmin: boolean;
 }
+
 export interface IBookings {
   _id?: string;
   guest: string;
@@ -43,14 +44,14 @@ export interface IBookings {
   status: string;
 }
 export interface IContacts {
-  id: number;
-  contactDate: string;
-  contactId: number;
-  guest: string;
-  email: string;
-  contact: number;
-  title: string;
-  text: string;
+  _id?: string;
+  date: string;
+  customerName: string;
+  customerEmail: string;
+  customerPhoneNumber: number;
+  subject: string;
+  comment: string;
+  isArchive: boolean;
 }
 
 export interface IBookingsTitles {
@@ -77,4 +78,12 @@ export interface IRoomsTitles {
   price: string;
   offerPrice: string;
   status: string;
+}
+
+export interface IContactsTitles {
+  orderId: string;
+  date: string;
+  customer: string;
+  comment: string;
+  action: string;
 }

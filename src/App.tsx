@@ -7,7 +7,7 @@ import BookingsInfoPage from "./pages/bookings/BookingsInfoPage";
 import BookingAddPage from "./pages/bookings/BookingAddPage";
 import RoomsPage from "./pages/rooms/RoomsPage";
 import RoomsAddPage from "./pages/rooms/RoomsAddPage";
-import ContactPage from "./pages/ContactPage";
+import ContactPage from "./pages/contacts/ContactPage";
 import UsersPage from "./pages/users/UsersPage";
 import UsersAddPage from "./pages/users/UsersAddPage";
 import UsersEditPage from "./pages/users/UsersEditPage";
@@ -80,7 +80,7 @@ function App() {
               <Route path="/rooms" element={<RoomsPage />} />
               <Route path="/rooms/addRoom" element={<RoomsAddPage />} />
 
-              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/contacts" element={<ContactPage />} />
 
               <Route path="/users" element={<UsersPage />} />
               <Route path="/users/addUser" element={<UsersAddPage />} />

@@ -97,7 +97,7 @@ const LateralMenu = (props: PropsLateralMenu) => {
 
       <AsideList className="aside__list">
         <div className="list__container-element">
-          <LinkList to="/contact">
+          <LinkList to="/contacts">
             <MdOutlinePermContactCalendar className="container-element__svg" />
             <span className="container-element__name-list-element">
               Contact

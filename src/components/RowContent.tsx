@@ -5,19 +5,25 @@ import { deleteBooking } from "../features/bookings/fetchBookings";
 import { deleteUser } from "../features/users/fetchUsers";
 import { deleteRoom } from "../features/rooms/fetchRooms";
 import { useLocation, useNavigate } from "react-router-dom";
-import { IBookings, IRooms, IUsers } from "../features/interfaces";
+import { IBookings, IContacts, IRooms, IUsers } from "../features/interfaces";
 import { useAppDispatch, useAppSelector } from "../app/store";
 import { useEffect, useState } from "react";
 import { sliceID } from "../features/functions";
+import { editContact } from "../features/contact/fetchContacts";
 
 interface PropsRowContent {
-  bookingObj?: IBookings;
-  roomObj?: IRooms;
-  userObj?: IUsers;
+  bookingObj?: IBookings,
+  roomObj?: IRooms,
+  userObj?: IUsers,
+  contactObj?: IContacts,
+  setArchivedActivate?: Function,
+  setAllContactsActivate?: Function,
+  setContactsData?: Function,
+  contactsDataVar?: IContacts[]
 }
 
-interface ActiveModals {
-  [key: string]: boolean;
+interface PropsIsArchive {
+  isArchive: boolean | undefined
 }
 
 interface PropsStatus {
@@ -38,10 +44,6 @@ interface PropsIsAvaliable {
 
 interface PropsActive {
   active: boolean;
-}
-interface ModalProps {
-  title: string;
-  description: string;
 }
 
 export const RowContent = (
@@ -92,6 +94,20 @@ export const RowContent = (
     }
   };
 
+  const archiveContact = () => {
+    if(props.contactObj){
+      console.log(props.contactObj)
+      const contactObj = {...props.contactObj, isArchive: true}
+      console.log(contactObj)
+      dispatch(editContact(contactObj))
+      if(props.setArchivedActivate && props.setAllContactsActivate && props.setContactsData && props.contactsDataVar){
+        props.setArchivedActivate(true)
+        props.setAllContactsActivate(false)
+        props.setContactsData(props.contactsDataVar!.filter((element) => element.isArchive === true))
+      }
+    }
+  }
+
   const deleteUserClick = () => {
     if (props.userObj) {
       dispatch(deleteUser(props.userObj._id!));
@@ -117,7 +133,7 @@ export const RowContent = (
     }
   };
 
-  useEffect(() => {}, [props.bookingObj, props.roomObj, props.userObj]);
+  useEffect(() => {}, [props.bookingObj, props.roomObj, props.userObj, props.contactObj]);
 
   switch (location.pathname) {
     case "/bookings":
@@ -183,7 +199,44 @@ export const RowContent = (
           </Status>
         </ContainerBookings>
       );
+    
 
+    case "/contacts":
+      let archiveString: string;
+      
+      return (
+        <ContainerContacts>
+          <NameInfo>
+            <NameProperties>
+              <ElementGreyName>
+                #{sliceID(props.contactObj?._id!, 6)}
+              </ElementGreyName>
+            </NameProperties>
+          </NameInfo>
+
+          <Contact>
+            <ElementGrey>{props.contactObj?.date}</ElementGrey>
+          </Contact>
+
+          <Contact>
+            <ElementGrey>
+              {props.contactObj?.customerName}
+            </ElementGrey>
+          </Contact>
+
+          <ContactDescription>
+            {props.contactObj?.comment}
+          </ContactDescription>
+
+
+          <ContactElementContainer>
+            <StatusSpanContacts onClick={archiveContact} isArchive={props.contactObj?.isArchive}>
+                Archive
+            </StatusSpanContacts>
+          </ContactElementContainer>
+          
+        </ContainerContacts>
+      );
     case "/rooms":
       let isAvailable: string;
       if (props.roomObj?.isAvailable === true) {
@@ -317,10 +370,33 @@ const Container = styled.section`
   }
 `;
 
+const ContactsContainer = styled.section`
+
+`
+
 const ContainerRooms = styled(Container)`
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr 1fr;
+  padding: 10px 30px 10px 30px;
+  width: auto;
+  border-radius: 0px 0px 10px 10px;
+  opacity: 1;
+  align-items: center;
 `;
+
+const ContainerContacts = styled.section`
+display: grid;
+grid-template-columns: 1fr 1fr 1fr 1.5fr 1fr;
+padding: 10px 30px 10px 40px;
+width: auto;
+background: #ffffff 0% 0% no-repeat padding-box;
+border-radius: 0px 0px 10px 10px;
+opacity: 1;
+align-items: center;
+margin-top: 1px;
+`
+
+
 const ContainerBookings = styled(Container)`
   position: relative;
   display: grid;
@@ -386,6 +462,13 @@ const Description = styled.div`
   width: auto;
 `;
 
+const ContactElementContainer = styled.div`
+  margin-left: 20px;
+`
+const ContactDescription = styled(Description)`
+font-size: 12px;
+margin-right: 10px;
+`
 const Contact = styled.div`
   display: flex;
   align-items: center;
@@ -445,7 +528,6 @@ const StatusSpanRooms = styled.span<PropsIsAvaliable>`
   border-radius: 15px;
   width: 70px;
   padding: 10px 20px 10px 20px;
-  //
 `;
 
 const DeleteButtonsContainer = styled.div`
@@ -535,3 +617,16 @@ const DeleteButtonContainerRooms = styled(
   visibility: ${(props) =>
     props.isAvaliable === false ? "hidden" : "visible"};
 `;
+
+const StatusSpanContacts = styled.span<PropsIsArchive>`
+  text-align: center;
+  font: normal normal 600 14px/21px "Poppins";
+  color: ${(props) =>
+    props.isArchive === true ? "#3c4046" : "#E23428"};
+  border-radius: 15px;
+  width: 70px;
+  :hover{
+    cursor: pointer;
+    text-decoration: underline 1px "#E23428";
+  }
+`

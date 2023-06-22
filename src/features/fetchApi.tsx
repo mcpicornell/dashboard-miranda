@@ -1,11 +1,11 @@
 import { getObjInLocalStorage } from "../data/localStorage";
-import { IUsers, IRooms, IBookings } from "./interfaces";
+import { IUsers, IRooms, IBookings, IContacts } from "./interfaces";
 import fetch from "cross-fetch";
 
 const tokenAndIdObj = getObjInLocalStorage("auth");
 
 export const fetchApi = async (
-  body: string | IUsers | IRooms | IBookings,
+  body: string | IUsers | IRooms | IBookings | IContacts,
   method: string,
   url: string
 ) => {

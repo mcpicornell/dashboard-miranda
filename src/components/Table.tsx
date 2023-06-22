@@ -13,17 +13,19 @@ import {
   IBookingsTitles,
   IUsersTitles,
   IRoomsTitles,
+  IContactsTitles,
 } from "../features/interfaces";
 import { useEffect } from "react";
 
 interface PropsTable {
-  roomsTitles?: IRoomsTitles;
-  roomsData?: IRooms[];
-  usersTitles?: IUsersTitles;
-  usersData?: IUsers[];
-  bookingsTitles?: IBookingsTitles;
-  bookingsData?: IBookings[];
-  contactsData?: IContacts[];
+  roomsTitles?: IRoomsTitles,
+  roomsData?: IRooms[],
+  usersTitles?: IUsersTitles,
+  usersData?: IUsers[],
+  bookingsTitles?: IBookingsTitles,
+  bookingsData?: IBookings[],
+  contactsData?: IContacts[],
+  contactsTitles?: IContactsTitles
 }
 
 interface PropsActive {
@@ -35,6 +37,10 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
   const [activeEmployeeActivate, setActiveEmployeeActivate] = useState(false);
   const [inactiveEmployeeActivate, setInactiveEmployeeActivate] =
     useState(false);
+
+  const [allContactsActivate, setAllContactsActivate] = useState(true);
+  const [archivedActivate, setArchivedActivate] = useState(false)
+
 
   const [allRoomsActivate, setAllRoomsActivate] = useState(true);
   const [avaliableRoomsActivate, setAvaliableRoomsActivate] = useState(false);
@@ -49,6 +55,7 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
   const bookingsDataVar = props.bookingsData;
   const roomsDataVar = props.roomsData;
   const usersDataVar = props.usersData;
+  const contactsDataVar = props.contactsData;
 
   const [bookingsData, setBookingsData] = useState<IBookings[] | undefined>(
     bookingsDataVar
@@ -59,6 +66,11 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
   const [usersData, setUsersData] = useState<IUsers[] | undefined>(
     usersDataVar
   );
+
+  const [contactsData, setContactsData] = useState<IContacts[] | undefined>(
+    contactsDataVar
+  );
+  
   const [searchString, setSearchString] = useState("");
 
   const location = useLocation();
@@ -68,7 +80,9 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
     setBookingsData(props.bookingsData);
     setRoomsData(props.roomsData);
     setUsersData(props.usersData);
-  }, [props.bookingsData, props.roomsData, props.usersData]);
+    setAllBookingsActivate(false);
+    setActiveEmployeeActivate(false);
+  }, [props.bookingsData, props.roomsData, props.usersData, props.contactsData]);
 
   const allBookingsActivateOnClick = () => {
     setAllBookingsActivate(true);
@@ -76,6 +90,18 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
     setCheckOutActivate(false);
     setInProgressBokingsActivate(false);
     setBookingsData(bookingsDataVar);
+  };
+
+  const allContactsActivateOnClick = () => {
+    setAllContactsActivate(true);
+    setArchivedActivate(false);
+    setContactsData(contactsDataVar);
+  };
+
+  const allArchiveOnClick = () => {
+    setAllContactsActivate(false);
+    setArchivedActivate(true);
+    setContactsData(contactsDataVar!.filter((element) => element.isArchive === true));
   };
 
   const checkInActivateOnClick = () => {
@@ -150,7 +176,6 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
   };
 
   const bookedRoomsActivateOnClick = () => {
-    console.log(props.roomsData);
     setRoomsData(
       props.roomsData!.filter((element) => element.isAvailable === false)
     );
@@ -287,6 +312,63 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
               </TitleRowElement>
               <TitleRowElement>{props.bookingsTitles?.status}</TitleRowElement>
             </TitleRowBookings>
+
+            <Rows>{content}</Rows>
+          </TableStyled>
+        </>
+      );
+    case "/contacts":
+      if(contactsData){
+        contactsData.forEach((data) => {
+          const contactObj = {
+            date: data.date,
+            customerName: data.customerName,
+            customerEmail: data.customerEmail,
+            customerPhoneNumber: data.customerPhoneNumber,
+            subject: data.subject,
+            comment: data.comment,
+            isArchive: data.isArchive,
+            _id: data._id
+          };
+  
+          content.push(
+            <>
+              <RowContent setContactsData={setContactsData} contactsDataVar={contactsDataVar}   contactObj={contactObj} setAllContactsActivate={setAllContactsActivate} setArchivedActivate={setArchivedActivate}/>
+            </>
+          );
+        })
+      }
+
+      return (
+        <>
+          <TableStyled>
+            <TopOptions>
+              <OptionsFilter>
+                <FilterEmployee
+                  filterActive={allContactsActivate}
+                  onClick={allContactsActivateOnClick}
+                >
+                  <span>All Contacts</span>
+                </FilterEmployee>
+                <FilterEmployee
+                  filterActive={archivedActivate}
+                  onClick={allArchiveOnClick}
+                >
+                  <span>Archived</span>
+                </FilterEmployee>
+              </OptionsFilter>
+            </TopOptions>
+            <TitleRowContacts>
+              <TitleRowElement className="titleRowElementName">
+                <span>{props.contactsTitles?.orderId}</span>
+              </TitleRowElement>
+              <TitleRowElement>
+                {props.contactsTitles?.date}
+              </TitleRowElement>
+              <TitleRowElement>{props.contactsTitles?.customer}</TitleRowElement>
+              <TitleRowElement>{props.contactsTitles?.comment}</TitleRowElement>
+              <TitleRowElement>{props.contactsTitles?.action}</TitleRowElement>
+            </TitleRowContacts>
 
             <Rows>{content}</Rows>
           </TableStyled>
@@ -438,8 +520,6 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
   }
 };
 
-
-
 const TableStyled = styled.section`
   display: flex;
   flex-direction: column;
@@ -535,6 +615,11 @@ const TitleRow = styled.div`
   padding-bottom: 10px;
   border-radius: 10px 10px 0px 0px;
 `;
+
+const TitleRowContacts = styled(TitleRow)`
+grid-template-columns: 1fr 1fr 1fr 1.5fr 1fr;
+
+`
 
 const TitleRowRooms = styled(TitleRow)`
   display: grid;
