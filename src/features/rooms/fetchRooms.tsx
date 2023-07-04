@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IRooms } from "../interfaces";
 import { fetchApi, getApi } from "../fetchApi";
 
-const urlRooms = "http://localhost:3001/api/rooms";
+const urlRooms = "https://g0mvg1qy2l.execute-api.eu-west-3.amazonaws.com/dev/api/rooms";
 
 export const fetchRooms = createAsyncThunk<IRooms[]>(
   "rooms/fetchRooms",

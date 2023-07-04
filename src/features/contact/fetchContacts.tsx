@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IContacts } from "../interfaces";
 import { fetchApi, getApi } from "../fetchApi";
 
-const urlContacts = "http://localhost:3001/api/contacts";
+const urlContacts = "https://g0mvg1qy2l.execute-api.eu-west-3.amazonaws.com/dev/api/contacts";
 
 export const fetchContacts = createAsyncThunk<IContacts[]>(
   "contacts/fetchContacts",

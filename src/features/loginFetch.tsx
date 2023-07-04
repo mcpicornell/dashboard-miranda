@@ -1,7 +1,8 @@
 import { loginInfo } from "./interfaces";
 import config from "../config";
 
-const urlLogin = `${config.REACT_APP_API_URL}/login`;
+const urlLogin = `https://g0mvg1qy2l.execute-api.eu-west-3.amazonaws.com/dev/login`;
+
 
 export const loginPost = async (body: loginInfo) => {
   try {

@@ -4,11 +4,10 @@ import "cross-fetch/polyfill";
 import { fetchApi, getApi } from "../fetchApi";
 import config from "../../config";
 
-const urlUsers = "http://localhost:3001/api/users";
-const url = `${config.REACT_APP_API_URL}/api/users`;
+const urlUsers = `https://g0mvg1qy2l.execute-api.eu-west-3.amazonaws.com/dev/api/users`;
 
 export const getUserById = async (userId: string): Promise<IUsers> => {
-  const response = await getApi(`${url}/${userId}`);
+  const response = await getApi(`${urlUsers}/${userId}`);
   return response.data.user;
 };
 

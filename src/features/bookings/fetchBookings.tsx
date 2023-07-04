@@ -3,7 +3,7 @@ import { IBookings } from "../interfaces";
 import "cross-fetch/polyfill";
 import { fetchApi, getApi } from "../fetchApi";
 
-const urlBookings = "http://localhost:3001/api/bookings";
+const urlBookings = "https://g0mvg1qy2l.execute-api.eu-west-3.amazonaws.com/dev/api/bookings";
 
 export const fetchBookings = createAsyncThunk<IBookings[]>(
   "bookings/fetchBookings",
