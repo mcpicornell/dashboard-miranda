@@ -23,7 +23,7 @@ const ContactsPage = () =>{
     if (contactsStatus == "idle") {
       dispatch(fetchContacts());
     }
-  }, [contactsStatus, contactsData, dispatch]);
+  }, [contactsStatus, dispatch, contactsData, ]);
 
   const contactsDataCopy = [...contactsData];
   console.log(contactsDataCopy)

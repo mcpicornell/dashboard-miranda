@@ -5,6 +5,7 @@ const urlLogin = `https://g0mvg1qy2l.execute-api.eu-west-3.amazonaws.com/dev/log
 
 
 export const loginPost = async (body: loginInfo) => {
+  console.log(body)
   try {
     const response = await fetch(urlLogin, {
       method: "POST",
