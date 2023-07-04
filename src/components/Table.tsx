@@ -80,6 +80,7 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
     setBookingsData(props.bookingsData);
     setRoomsData(props.roomsData);
     setUsersData(props.usersData);
+    setContactsData(props.contactsData);
     setAllBookingsActivate(false);
     setActiveEmployeeActivate(false);
   }, [props.bookingsData, props.roomsData, props.usersData, props.contactsData]);
