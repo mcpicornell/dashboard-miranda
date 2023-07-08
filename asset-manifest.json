@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/dashboard-miranda/login/static/css/main.ac55510c.css",
-    "main.js": "/dashboard-miranda/login/static/js/main.17609526.js",
-    "static/js/787.7cca6840.chunk.js": "/dashboard-miranda/login/static/js/787.7cca6840.chunk.js",
-    "static/media/Poppins-Regular.ttf": "/dashboard-miranda/login/static/media/Poppins-Regular.35d26b781dc5fda684cc.ttf",
-    "static/media/logoCompleto.PNG": "/dashboard-miranda/login/static/media/logoCompleto.9cacd62718c1b846f832.PNG",
-    "index.html": "/dashboard-miranda/login/index.html",
-    "main.ac55510c.css.map": "/dashboard-miranda/login/static/css/main.ac55510c.css.map",
-    "main.17609526.js.map": "/dashboard-miranda/login/static/js/main.17609526.js.map",
-    "787.7cca6840.chunk.js.map": "/dashboard-miranda/login/static/js/787.7cca6840.chunk.js.map"
+    "main.css": "/dashboard-miranda/static/css/main.53e167f9.css",
+    "main.js": "/dashboard-miranda/static/js/main.b0c9c5d6.js",
+    "static/js/787.7cca6840.chunk.js": "/dashboard-miranda/static/js/787.7cca6840.chunk.js",
+    "static/media/Poppins-Regular.ttf": "/dashboard-miranda/static/media/Poppins-Regular.35d26b781dc5fda684cc.ttf",
+    "static/media/logoCompleto.PNG": "/dashboard-miranda/static/media/logoCompleto.9cacd62718c1b846f832.PNG",
+    "index.html": "/dashboard-miranda/index.html",
+    "main.53e167f9.css.map": "/dashboard-miranda/static/css/main.53e167f9.css.map",
+    "main.b0c9c5d6.js.map": "/dashboard-miranda/static/js/main.b0c9c5d6.js.map",
+    "787.7cca6840.chunk.js.map": "/dashboard-miranda/static/js/787.7cca6840.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ac55510c.css",
-    "static/js/main.17609526.js"
+    "static/css/main.53e167f9.css",
+    "static/js/main.b0c9c5d6.js"
   ]
 }
