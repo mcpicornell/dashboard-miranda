@@ -11,17 +11,6 @@ import { getUserById } from "../features/users/fetchUsers";
 import { showToast } from "../features/functions";
 
 const LoginPage = () => {
-  interface IUser {
-    userName: string;
-    email: string;
-    password: string;
-  }
-
-  const user: IUser = {
-    userName: "admin",
-    email: "admin",
-    password: "admin",
-  };
 
   const { dispatch } = useContext(UserContext);
 
@@ -37,20 +26,13 @@ const LoginPage = () => {
         email: emailValue,
         password: passwordValue,
       });
-
+  
       if (idAndTokeObj) {
         saveInLocalStorage("auth", idAndTokeObj);
         const user = await getUserById(idAndTokeObj.id);
         dispatch({
           type: "auth",
           value: { userName: user.name, email: user.email },
-        });
-        showToast("Welcome!", "success");
-        nav("/");
-      } else if (emailValue === user.email && passwordValue === user.password) {
-        dispatch({
-          type: "auth",
-          value: { userName: user.userName, email: emailValue },
         });
         showToast("Welcome!", "success");
         nav("/");
