@@ -21,7 +21,7 @@ const UsersEditPage = () => {
   const [password, setPassword] = useState<string>("");
   const [verificationPassword, setVerificationPassword] = useState<string>("");
   const { state } = useLocation();
-  const user = state.user;
+  const user = state;
 
   const isAdmin = (jobPosition: string) => {
     if (jobPosition === "Admin" || user.isAdmin === true) {
@@ -47,24 +47,32 @@ const UsersEditPage = () => {
     }
   };
 
-  const onSubmitHandler = () => {
-    if (verificationPassword === password) {
-      const userEdited: IUsers = {
-        name: fullName,
-        photo: validateImageFormat(photo),
-        email: checkIfEmailAdmin(email),
-        startDate: convertToDateFormat(new Date(startDate)),
-        descriptionJob: description,
-        contact: Number(contactNumber),
-        isActive: isActive,
-        password: checkIfPasswordAdmin(password),
-        isAdmin: isAdmin(jobPosition),
-      };
-      dispatch(editUser(userEdited));
-      nav("/users");
-    } else {
-      showToast("Password fields do not match, please try again", "error");
+  const onSubmitHandler: React.FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault()
+    if(user.isAdmin === true){
+      showToast("Sorry! Admin profile cannot be edited", "error");
     }
+    else{
+      if (verificationPassword === password) {
+        const userEdited: IUsers = {
+          name: fullName,
+          photo: validateImageFormat(photo),
+          email: checkIfEmailAdmin(email),
+          startDate: convertToDateFormat(new Date(startDate)),
+          descriptionJob: description,
+          contact: Number(contactNumber),
+          isActive: isActive,
+          password: checkIfPasswordAdmin(password),
+          isAdmin: isAdmin(jobPosition),
+        };
+        showToast("Sorry! Admin profile cannot be edited", "error");
+        // dispatch(editUser(userEdited));
+        // nav("/users");
+      } else {
+        showToast("Password fields do not match, please try again", "error");
+      }
+    }
+    
   };
 
   return (

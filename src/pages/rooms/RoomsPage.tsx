@@ -3,7 +3,7 @@ import { fetchRooms } from "../../features/rooms/fetchRooms";
 import {
   getRoomsStatus,
   getRoomsData,
-  getRoomsError,
+  
 } from "../../features/rooms/RoomsSlice";
 import { Table } from "../../components/Table";
 import { useAppDispatch, useAppSelector } from "../../app/store";
@@ -13,10 +13,9 @@ const RoomsPage = () => {
   const dispatch = useAppDispatch();
   const roomsStatus = useAppSelector(getRoomsStatus);
   const roomsData = useAppSelector(getRoomsData);
-  const roomsError = useAppSelector(getRoomsError);
 
   useEffect(() => {
-    if (roomsStatus == "idle") {
+    if (roomsStatus === "idle") {
       dispatch(fetchRooms());
     }
   }, [roomsStatus, roomsData, dispatch]);

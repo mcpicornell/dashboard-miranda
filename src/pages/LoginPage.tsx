@@ -25,7 +25,6 @@ const LoginPage = () => {
         email: emailValue,
         password: passwordValue,
       });
-      console.log(idAndTokeObj)
   
       if (idAndTokeObj) {
         const {id , token} = idAndTokeObj;

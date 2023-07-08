@@ -9,7 +9,6 @@ const ContactsPage = () =>{
     const dispatch = useAppDispatch();
   const contactsStatus = useAppSelector(getContactsStatus);
   const contactsData = useAppSelector(getContactsData);
-  const contactsError = useAppSelector(getContactsError);
 
   const contactsTitles = {
     orderId: "Order ID",
@@ -20,13 +19,12 @@ const ContactsPage = () =>{
   };
 
   useEffect(() => {
-    if (contactsStatus == "idle") {
+    if (contactsStatus === "idle") {
       dispatch(fetchContacts());
     }
   }, [contactsStatus, dispatch, contactsData, ]);
 
   const contactsDataCopy = [...contactsData];
-  console.log(contactsDataCopy)
 
   return (
     <>

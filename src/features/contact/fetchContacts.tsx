@@ -9,7 +9,6 @@ export const fetchContacts = createAsyncThunk<IContacts[]>(
   async () => {
     try {
       const response = await getApi(urlContacts);
-      console.log(response)
       return response.data.contacts;
     } catch (error) {
       console.error("Error to get contacts:", error);
