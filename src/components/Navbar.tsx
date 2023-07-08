@@ -2,13 +2,12 @@ import styled from "styled-components";
 import { FiMail } from "react-icons/fi";
 import { HiOutlineBell } from "react-icons/hi";
 import { MdLogout } from "react-icons/md";
-import { useContext } from "react";
-import { UserContext } from "../UserContext";
 import LateralMenu from "./LateralMenu";
 import { useState } from "react";
 import { BsChevronRight } from "react-icons/bs";
 import { BsChevronLeft } from "react-icons/bs";
 import { deleteDataLocalStorage } from "../data/localStorage";
+import { useNavigate } from "react-router-dom";
 
 interface PropsNavbar {
   title: string;
@@ -19,11 +18,11 @@ interface PropsOpen {
 }
 
 const NavBar = (props: PropsNavbar) => {
-  const { dispatch } = useContext(UserContext);
+  const nav = useNavigate()
   const logOutClickHandler = (event: React.MouseEvent<SVGElement>) => {
     event.preventDefault();
     deleteDataLocalStorage("auth");
-    dispatch({ type: "logOut" });
+    nav('/login')
   };
   const [open, setOpen] = useState(false);
 

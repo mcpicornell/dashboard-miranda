@@ -5,14 +5,16 @@ import { fetchApi, getApi } from "../fetchApi";
 
 const urlUsers = `https://g0mvg1qy2l.execute-api.eu-west-3.amazonaws.com/dev/api/users`;
 
+
 export const getUserById = async (userId: string): Promise<IUsers> => {
   const response = await getApi(`${urlUsers}/${userId}`);
+  console.log(response)
   return response.data.user;
 };
 
 export const fetchUsers = createAsyncThunk<IUsers[]>(
   "users/fetchUsers",
-  async () => {
+  async (_, { getState }) => {
     try {
       const response = await getApi(urlUsers);
       return response.data.users;

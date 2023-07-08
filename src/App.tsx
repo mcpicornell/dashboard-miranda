@@ -13,59 +13,20 @@ import UsersAddPage from "./pages/users/UsersAddPage";
 import UsersEditPage from "./pages/users/UsersEditPage";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { Layout } from "./components/Layout";
-import { useReducer } from "react";
-import { UserContext } from "./UserContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { UserContextProvider } from "./UserContext";
 
-export interface State {
-  auth: boolean;
-  email: string;
-  userName: string;
-}
-
-export interface ReducerAction {
-  type: string;
-  payload?: any;
-  value?: {
-    userName: string;
-    email: string;
-  };
-}
-
-export const initialState: State = {
-  auth: false,
-  email: "",
-  userName: "",
-};
 
 export const isLoggedIn = (): boolean => {
   const authData = localStorage.getItem("auth");
   return !!authData;
 };
 
-export const reducer = (state: typeof initialState, action: ReducerAction) => {
-  if (action.type === "auth") {
-    state = {
-      ...state,
-      auth: true,
-      userName: action.value!.userName,
-      email: action.value!.email,
-    };
-    return state;
-  } else if (action.type === "logOut") {
-    state = { ...state, auth: false };
-    return state;
-  } else {
-    state = { ...state, auth: false };
-    return state;
-  }
-};
-
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+
   return (
-    <UserContext.Provider value={{ state, dispatch }}>
+    <UserContextProvider>
       <BrowserRouter basename="/dashboard-miranda">
         <Routes>
           <Route path="/login" element={<LoginPage />} />
@@ -90,7 +51,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       <ToastContainer />
-    </UserContext.Provider>
+    </UserContextProvider>
   );
 }
 

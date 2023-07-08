@@ -19,7 +19,8 @@ export const loginPost = async (body: loginInfo) => {
     } else {
       return await response.json();
     }
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 };

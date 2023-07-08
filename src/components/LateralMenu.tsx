@@ -7,8 +7,6 @@ import { RiCalendarEventLine } from "react-icons/ri";
 import { VscKey } from "react-icons/vsc";
 import { BiUser } from "react-icons/bi";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { UserContext } from "../UserContext";
 import { getUserById } from "../features/users/fetchUsers";
 import { IUsers } from "../features/interfaces";
 import { useEffect } from "react";
@@ -34,25 +32,28 @@ export const validateImageFormat = (imageUrl: string): string => {
 
 const LateralMenu = (props: PropsLateralMenu) => {
   const nav = useNavigate();
-  const { state } = useContext(UserContext);
 
   const [user, setUser] = useState<IUsers | null>();
 
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const objInLocalStorage = getObjInLocalStorage("auth");
-        if (objInLocalStorage && objInLocalStorage.id) {
-          const user = await getUserById(objInLocalStorage.id);
-          setUser(user);
-        }
-      } catch (error) {
-        console.error("Error al obtener los datos del usuario:", error);
+  const getUser = async () => {
+    try {
+      const objInLocalStorage = getObjInLocalStorage("auth");
+      if (objInLocalStorage && objInLocalStorage.id) {
+        const user = await getUserById(objInLocalStorage.id);
+        setUser(user);
       }
-    };
+    } catch (error) {
+      console.error("Error al obtener los datos del usuario:", error);
+    }
+  };
 
-    getUser();
+  useEffect(() => {
+    if(!user){
+      getUser();
+    }
   }, [user]);
+
+
 
   const navToEditUser = () => {
     nav(`/users/${user?._id}`, { state: user });
@@ -61,7 +62,7 @@ const LateralMenu = (props: PropsLateralMenu) => {
   return (
     <Aside open={props.open}>
       <AsideLogo>
-        <img className="logo__img" src={logoImg} />
+        <img className="logo__img" src={logoImg} alt='user img'/>
       </AsideLogo>
 
       <AsideList className="aside__list">
@@ -119,7 +120,7 @@ const LateralMenu = (props: PropsLateralMenu) => {
         <img
           className="card__img-aside-card"
           src={validateImageFormat(user?.photo!)}
-        />
+        alt='user img'/>
         <h4 className="card__user-name">{user?.name}</h4>
         <h5 className="card__user-email">{user?.email}</h5>
         <a className="card__edit-button" onClick={navToEditUser}>

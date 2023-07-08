@@ -1,18 +1,17 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../UserContext";
+import { useUserContext } from "../UserContext";
 import styled from "styled-components";
 import { useState } from "react";
 import { AddUser } from "./users/UsersAddPage";
 import { logoImg } from "../components/LateralMenu";
 import { saveInLocalStorage } from "../data/localStorage";
 import { loginPost } from "../features/loginFetch";
-import { getUserById } from "../features/users/fetchUsers";
 import { showToast } from "../features/functions";
 
 const LoginPage = () => {
 
-  const { dispatch } = useContext(UserContext);
+  const { setAuth } = useUserContext();
+  // const { state, setAuth, logout } = useUserContext();
 
   const nav = useNavigate();
 
@@ -26,14 +25,12 @@ const LoginPage = () => {
         email: emailValue,
         password: passwordValue,
       });
+      console.log(idAndTokeObj)
   
       if (idAndTokeObj) {
+        const {id , token} = idAndTokeObj;
         saveInLocalStorage("auth", idAndTokeObj);
-        const user = await getUserById(idAndTokeObj.id);
-        dispatch({
-          type: "auth",
-          value: { userName: user.name, email: user.email },
-        });
+        setAuth(id , token)
         showToast("Welcome!", "success");
         nav("/");
       } else {
