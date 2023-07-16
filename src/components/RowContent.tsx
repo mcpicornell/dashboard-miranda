@@ -6,7 +6,7 @@ import { deleteUser } from "../features/users/fetchUsers";
 import { deleteRoom } from "../features/rooms/fetchRooms";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IBookings, IContacts, IRooms, IUsers } from "../features/interfaces";
-import { useAppDispatch, useAppSelector } from "../app/store";
+import { useAppDispatch } from "../app/store";
 import { useEffect, useState } from "react";
 import { sliceID } from "../features/functions";
 import { editContact } from "../features/contact/fetchContacts";
@@ -96,9 +96,7 @@ export const RowContent = (
 
   const archiveContact = () => {
     if(props.contactObj){
-      console.log(props.contactObj)
       const contactObj = {...props.contactObj, isArchive: true}
-      console.log(contactObj)
       dispatch(editContact(contactObj))
       if(props.setArchivedActivate && props.setAllContactsActivate && props.setContactsData && props.contactsDataVar){
         props.setArchivedActivate(true)
@@ -137,6 +135,7 @@ export const RowContent = (
 
   switch (location.pathname) {
     case "/bookings":
+      
       return (
         <ContainerBookings
           onMouseEnter={() => handleMouseEnter(props.bookingObj?._id)}

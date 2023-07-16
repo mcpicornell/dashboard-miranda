@@ -53,7 +53,8 @@ const BookingAddPage = () => {
 
   }, [roomsStatus, dispatch, roomsData]);
 
-  const onSubmitHandler = () => {
+  const onSubmitHandler = (event: React.FormEvent) => {
+    event.preventDefault();
     const roomSelected = roomsData.find(
       (element) => element.roomType === roomType
     );
@@ -155,16 +156,6 @@ const BookingAddPage = () => {
           <option value="Suite">Suite</option>
         </SelectUserOption>
       </OptionsContainer>
-
-      {/* <OptionsContainer>
-        <LabelCreateUser>State:</LabelCreateUser>
-
-        <SelectUserOption required onChange={(e) => setState(e.target.value)}>
-          <option value={"Check In"}>Check In</option>
-          <option value={"Check Out"}>Check Out</option>
-          <option value={"In Progress"}>In Progress</option>
-        </SelectUserOption>
-      </OptionsContainer> */}
 
       <SpecialRequestContainer>
         <LabelCreateUser>Special Request:</LabelCreateUser>

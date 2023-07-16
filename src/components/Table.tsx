@@ -227,22 +227,23 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
     case "/bookings":
       if (bookingsData) {
         bookingsData.forEach((data) => {
-          const bookingObj = {
-            guest: data.guest,
-            orderDate: data.orderDate,
-            checkIn: data.checkIn,
-            _id: data._id,
-            checkOut: data.checkOut,
-            specialRequest: data.specialRequest,
-            roomObj: data.roomObj,
-            status: data.status,
-          };
-
-          content.push(
-            <>
-              <RowContent bookingObj={bookingObj} />
-            </>
-          );
+          if(data){
+            const bookingObj = {
+              guest: data.guest,
+              orderDate: data.orderDate,
+              checkIn: data.checkIn,
+              _id: data._id,
+              checkOut: data.checkOut,
+              specialRequest: data.specialRequest,
+              roomObj: data.roomObj,
+              status: data.status,
+            };
+            content.push(
+              <>
+                <RowContent bookingObj={bookingObj} />
+              </>
+            );
+          } 
         });
       }
 

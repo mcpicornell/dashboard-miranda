@@ -12,7 +12,7 @@ export const fetchApi = async (
 
   try {
     const token = getObjInLocalStorage("auth")?.token;
-    console.log(token)
+
     const response = await fetch(url, {
       method: method,
       mode: "cors",
