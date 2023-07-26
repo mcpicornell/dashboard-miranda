@@ -1,10 +1,11 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { RowContent } from "./RowContent";
 import { NavLink } from "react-router-dom";
 import { Icon } from 'react-icons-kit';
 import { search } from 'react-icons-kit/fa/search';
+import ReactPaginate from 'react-paginate';
 import {
   IBookings,
   IContacts,
@@ -81,7 +82,7 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
     setRoomsData(props.roomsData);
     setUsersData(props.usersData);
     setContactsData(props.contactsData);
-    setAllBookingsActivate(false);
+    setAllBookingsActivate(true);
     setActiveEmployeeActivate(false);
   }, [props.bookingsData, props.roomsData, props.usersData, props.contactsData]);
 
@@ -222,6 +223,15 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
       }
     }
   };
+  // const [currentPage, setCurrentPage] = useState(0);
+  // const itemsPerPage = 5;
+  // const pageCount = Math.ceil(content.length / itemsPerPage);
+  // const handlePageChange = (selectedPage: { selected: number }) => {
+  //   setCurrentPage(selectedPage.selected);
+  // };
+  // const indexOfLastItem = (currentPage + 1) * itemsPerPage;
+  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  // const currentItems = content.slice(indexOfFirstItem, indexOfLastItem);
 
   switch (location.pathname) {
     case "/bookings":
@@ -246,7 +256,7 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
           } 
         });
       }
-
+      console.log(content)
       return (
         <>
           <TableStyled>
@@ -317,6 +327,25 @@ export const Table = (props: PropsTable): React.ReactElement | null => {
 
             <Rows>{content}</Rows>
           </TableStyled>
+          {/* <ReactPaginate
+            previousLabel={'Previous'}
+            nextLabel={'Next'}
+            breakLabel={'...'}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={handlePageChange}
+            containerClassName={'pagination'}
+            activeClassName={'active'}
+            pageClassName={'page-item'}
+            pageLinkClassName={'page-link'}
+            previousClassName={'page-item'}
+            previousLinkClassName={'page-link'}
+            nextClassName={'page-item'}
+            nextLinkClassName={'page-link'}
+            breakClassName={'page-item'}
+            breakLinkClassName={'page-link'}
+          /> */}
         </>
       );
     case "/contacts":

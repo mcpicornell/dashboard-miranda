@@ -25,7 +25,6 @@ const BookingsPage = () => {
   }, [bookingsStatus, dispatch, bookingsData, isFetched]);
 
 
-  console.log(bookingsData)
   const bookingsTitles: IBookingsTitles = {
     guestName: "Guest",
     orderDate: "Order Date",
